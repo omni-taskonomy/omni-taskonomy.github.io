@@ -592,6 +592,66 @@
         "raw_tex": "Training",
         "file_sha256": "c155b75672ec8122f959da95f6b85ebf8d4bee787fa044b044e5576166074bbb"
       }
+    },
+    "tldr_paired": {
+      "text": "We construct paired generation and understanding tasks that require the same visual operation but produce answers in different modalities.",
+      "source": {
+        "file": "iclr2026/sections/3_poc.tex",
+        "start_line": 25,
+        "end_line": 25,
+        "raw_tex": "We construct paired generation and understanding tasks that require the same visual operation but produce answers in different modalities.",
+        "file_sha256": "c155b75672ec8122f959da95f6b85ebf8d4bee787fa044b044e5576166074bbb"
+      }
+    },
+    "tldr_i2i": {
+      "text": "image-to-image (I2I)",
+      "source": {
+        "file": "iclr2026/sections/0_abstract.tex",
+        "start_line": 13,
+        "end_line": 13,
+        "raw_tex": "image-to-image (I2I)",
+        "file_sha256": "ce46c68a676829ff0644490435c03e86eac9b7dd7f8dfb645246cf4d6960a32e"
+      }
+    },
+    "tldr_i2t": {
+      "text": "image-to-text (I2T)",
+      "source": {
+        "file": "iclr2026/sections/0_abstract.tex",
+        "start_line": 13,
+        "end_line": 13,
+        "raw_tex": "image-to-text (I2T)",
+        "file_sha256": "ce46c68a676829ff0644490435c03e86eac9b7dd7f8dfb645246cf4d6960a32e"
+      }
+    },
+    "tldr_taxonomy": {
+      "text": "We therefore introduce UniTaskonomy, a unified capability taxonomy that organizes I2I supervision tasks and I2T capabilities within the same visual capability space.",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 44,
+        "end_line": 44,
+        "raw_tex": "We therefore introduce \\methodname, a unified capability taxonomy that organizes I2I supervision tasks and I2T capabilities within the same visual capability space.",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "tldr_systematic": {
+      "text": "This shared structure allows us to systematically measure transfer from each I2I task to each understanding capability.",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 47,
+        "end_line": 47,
+        "raw_tex": "This shared structure allows us to systematically measure transfer from each I2I task to each understanding capability.",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "tldr_findings": {
+      "text": "Taken together, our results challenge the view that generation provides little value for understanding: generation can provide effective supervision for visual understanding, but whether it transfers depends critically on how it is trained and what visual capability it supervises.",
+      "source": {
+        "file": "iclr2026/sections/0_abstract.tex",
+        "start_line": 17,
+        "end_line": 18,
+        "raw_tex": "Taken together, our results challenge the view that generation provides little value for understanding: \ngeneration can provide effective supervision for visual understanding, but whether it transfers depends critically on how it is trained and what visual capability it supervises.",
+        "file_sha256": "ce46c68a676829ff0644490435c03e86eac9b7dd7f8dfb645246cf4d6960a32e"
+      }
     }
   }
 }

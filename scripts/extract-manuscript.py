@@ -91,6 +91,13 @@ take('overview_panel_c',I,'(c) This selectivity is also reflected inside the mod
 take('related_example',X,r'The clearest example is \textit{Object pointing}',r'\textit{Counting} ($+3.57$ pp).')
 take('depth_example',X,r'Similarly, \textit{Z-depth}',r'metric spatial reasoning.')
 take('nav_training',P,'Training')
+# TL;DR sequence requested by the author: paired tasks, taxonomy, findings.
+take('tldr_paired',P,'We construct paired generation and understanding tasks that require the same visual operation but produce answers in different modalities.')
+take('tldr_i2i',A,'image-to-image (I2I)')
+take('tldr_i2t',A,'image-to-text (I2T)')
+take('tldr_taxonomy',I,r'We therefore introduce \methodname, a unified capability taxonomy','within the same visual capability space.')
+take('tldr_systematic',I,'This shared structure allows us to systematically measure transfer from each I2I task to each understanding capability.')
+take('tldr_findings',A,'Taken together, our results challenge the view','what visual capability it supervises.')
 result={'manuscript_project':'https://www.overleaf.com/project/69d99c42c6f3e61ae13f54f1','manuscript_commit':REV,'rendering':'Whitespace and LaTeX typography only; expand methodname using the manuscript macro. No rewritten or synthesized scientific prose.','excerpts':entries}
 output=BASE/'content/manuscript-excerpts.json'
 serialized=json.dumps(result,ensure_ascii=False,indent=2)+'\n'
