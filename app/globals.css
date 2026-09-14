@@ -36,11 +36,12 @@ h1 .term-understanding { color:#7ca6c9; }
 .tldr-heading { text-align:center; font-size:2rem; letter-spacing:-.015em; margin:2px 0 18px; }
 .tldr-box { max-width:970px; margin:0 auto 30px; padding:25px 30px; border:1px solid #e3eaf0; border-radius:10px; background:#f7f9fb; }
 .tldr-intro { font-size:1.04rem; line-height:1.75; margin:0; color:var(--body-copy); }
-.tldr-questions { margin:23px 0 0; padding:20px 0 0 1.45em; border-top:1px solid #dce5ee; list-style:decimal; }
+.tldr-questions { margin:23px 0 0; padding:20px 0 0 1.9em; border-top:1px solid #dce5ee; list-style:upper-roman; font-family:'Times New Roman',Times,'Liberation Serif',serif; font-size:1.18rem; }
 .tldr-questions li { padding-left:9px; }
 .tldr-questions li + li { margin-top:13px; }
-.tldr-questions li::marker { color:#476b8b; font-weight:650; }
-.tldr-questions p { margin:0; font-size:1.075rem; line-height:1.65; color:var(--body-copy); }
+.tldr-questions li::marker { color:#476b8b; font-weight:400; }
+.tldr-questions p { margin:0; font-family:inherit; font-size:inherit; font-weight:400; line-height:1.65; color:var(--body-copy); }
+.tldr-questions strong { font-weight:700; }
 .task-pair { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-top:11px; }
 .task-pair>span[data-manuscript-excerpt] { display:inline-block; border-radius:5px; padding:3px 10px; font-size:.875rem; font-weight:500; line-height:1.65; background:#f8e8ea; }
 .task-pair>span[data-manuscript-excerpt]:last-child { background:#e5eff8; }
@@ -59,7 +60,7 @@ figcaption { color:var(--body-secondary); font-size:.95rem; line-height:1.75; te
 .overview-notes>div { padding-top:15px; border-top:2px solid #d7e3ef; }
 .overview-notes>div:nth-child(2) { border-color:#dfd7c7; }
 .overview-notes>div:nth-child(3) { border-color:#cedfd7; }
-.overview-notes .finding-label { margin:0 0 11px; font-family:Inter,Arial,sans-serif; font-size:1.02rem; font-weight:600; color:#3d617e; line-height:1.3; }
+.overview-notes .finding-label { margin:0 0 11px; font-family:'Cormorant Garamond',Georgia,serif; font-size:1.65rem; font-weight:600; color:#1e2a36; line-height:1.2; }
 .overview-notes p { font-size:1rem; color:var(--body-copy); line-height:1.75; margin:0; }
 .plot-legend { display:flex; justify-content:flex-start; max-width:1000px; flex-wrap:wrap; gap:12px 28px; margin:18px auto 24px; }
 .legend-item { display:inline-flex; align-items:center; gap:8px; font-size:.875rem; line-height:1.5; color:#5a6978; }
