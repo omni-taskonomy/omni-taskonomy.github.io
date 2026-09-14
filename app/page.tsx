@@ -70,13 +70,25 @@ function PlotLegend() {
     <span className="legend-item"><span className="bubble-key" aria-hidden="true"><i /><i /><i /></span><span data-author-copy="legend_size">{authorExcerpts.legend_size.text}</span></span>
   </div>;
 }
+// Lay out the author's exact recipe strings as routes plus descriptions.
+function RecipeRoute({ value }: { value: string }) {
+  return <span className="recipe-route">{value.split(/(Frozen I2I|I2I|I2T|Mixed|→)/g).map((part, i) => {
+    const kind = part === 'I2I' || part === 'Frozen I2I' ? 'generation' : part === 'I2T' ? 'understanding' : part === 'Mixed' ? 'mixed' : part === '→' ? 'arrow' : 'suffix';
+    return <span key={i} className={`route-${kind}`}>{part}</span>;
+  })}</span>;
+}
 function RecipeNote() {
   const ids: AuthorId[] = ['recipe_r1', 'recipe_r2', 'recipe_r3', 'recipe_r4', 'recipe_r5', 'recipe_r6'];
   return <aside className="recipe-note" id="training-recipes" role="note" aria-label="Training recipes">
-    <div className="recipe-note-intro"><sup>1</sup><AuthorPassage id="recipe_intro" /></div>
-    <ol className="recipe-list">{ids.map(id => {
-      const label = authorExcerpts[id].text.split('. ')[0] + '.';
-      return <li key={id}><AuthorPassage id={id} highlights={[label, 'updating', 'frozen']} /></li>;
+    <div className="recipe-note-intro"><AuthorPassage id="recipe_intro" /><sup>1</sup></div>
+    <ol className="recipe-list">{ids.map((id, index) => {
+      const value = authorExcerpts[id].text;
+      const colon = value.indexOf(':');
+      const stop = value.indexOf('. ');
+      return <li key={id} className={`recipe-item recipe-${index + 1}`} data-author-copy={id}>
+        <div className="recipe-item-header"><span className="recipe-id">{value.slice(0, colon + 1)}</span>{' '}<RecipeRoute value={value.slice(colon + 2, stop + 1)} /></div>{' '}
+        <p className="recipe-description">{formatted(value.slice(stop + 2), ['updating', 'frozen'])}</p>
+      </li>;
     })}</ol>
   </aside>;
 }
