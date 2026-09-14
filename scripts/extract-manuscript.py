@@ -65,7 +65,7 @@ take('cross_heading',X,r'\paragraph{Gains also extend across capability families
 take('cross_results',X,'Useful transfer is not limited','outside the target capability\'s family.')
 take('alignment_heading',G,r'\section{Understanding generation-to-understanding transfer}')
 take('alignment_intro',G,'The previous experiments show','objectives update the model.')
-take('alignment_setup',G,'We select six tasks and sample 500 source pairs per task','before any task-specific fine-tuning.')
+take('alignment_setup',G,'We select six tasks and sample 500 source pairs per task','500 I2T gradients per task.')
 take('alignment_caption',G,'The gradient cosine similarity of generation and understanding training data.')
 take('alignment_results',G,'A layer-wise analysis of these modules further reveals','profiles across layers.')
 take('alignment_finding',G,'Tasks that transfer to visual understanding produce more aligned gradients, with the strongest alignment occurring in early normalization layers.')

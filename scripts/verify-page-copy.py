@@ -7,7 +7,7 @@ book=json.loads((BASE/'content/manuscript-excerpts.json').read_text())
 excerpts=book['excerpts']
 author_excerpts=json.loads((BASE/'content/author-provided-copy.json').read_text())['excerpts']
 def clean(s): return re.sub(r'\s+',' ',s).strip()
-ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Experimental setup','Annotation protocol','01','02','03','04','05','TL;DR','Paper','GitHub','Hugging Face','🤗','1','2','3','A','B','C'}
+ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Annotation protocol','01','02','03','04','05','TL;DR','Paper','GitHub','Hugging Face','🤗','1','2','3','Finding 1','Finding 2','Finding 3'}
 credit='This project page’s design and presentation are inspired by Beyond Language Modeling: An Exploration of Multimodal Pretraining. We thank its authors for the inspiration.'
 class Audit(HTMLParser):
  def __init__(self):

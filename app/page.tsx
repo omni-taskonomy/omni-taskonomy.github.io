@@ -38,7 +38,7 @@ const emphasis: Partial<Record<ExcerptId, string[]>> = {
   depth_example: ['Z-depth', 'Metric 3D relation', '+2.90 pp'],
   cross_results: ['Colorization', 'Visual correspondence', '+5.71 pp', '2D keypoints', 'Multi-view reasoning', '+7.38 pp'],
   alignment_lead: ['optimization compatibility', 'one factor associated with successful transfer'],
-  alignment_setup: ['six tasks', '500 source pairs per task', 'same pretrained BAGEL base EMA checkpoint'],
+  alignment_setup: ['six tasks', '500 source pairs per task'],
   alignment_finding: ['more aligned gradients', 'early normalization layers'],
 };
 // Split and wrap existing characters only: emphasis never creates or edits copy.
@@ -95,13 +95,13 @@ function RecipeNote() {
 function Heading({ id, number }: { id: ExcerptId; number: string }) {
   return <div className="section-heading"><span className="section-index" aria-hidden="true">{number}</span><h2 data-manuscript-excerpt={id} data-source={source(id)}>{text(id)}</h2></div>;
 }
-function Figure({ name, caption, width, height, eager = false, className = '', note }: { name: string; caption: ExcerptId; width: number; height: number; eager?: boolean; className?: string; note?: string }) {
+function Figure({ name, caption, width, height, eager = false, className = '', note, showCaption = true }: { name: string; caption: ExcerptId; width: number; height: number; eager?: boolean; className?: string; note?: string; showCaption?: boolean }) {
   return <figure className={className}>
     <a className="figure-link" href={`/figures/${name}.png`} target="_blank" rel="noreferrer" aria-label="Open full-resolution figure">
       <img src={`/figures/${name}.png`} alt={text(caption)} width={width} height={height} loading={eager ? 'eager' : 'lazy'} />
       <span className="figure-expand">View full size ↗</span>
     </a>
-    <figcaption><span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(text(caption), emphasis[caption])}</span>{note && <a href={`#${note}`} className="footnote-ref" aria-label="Training recipe definitions"><sup>1</sup></a>}</figcaption>
+    {showCaption && <figcaption><span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(text(caption), emphasis[caption])}</span>{note && <a href={`#${note}`} className="footnote-ref" aria-label="Training recipe definitions"><sup>1</sup></a>}</figcaption>}
   </figure>;
 }
 
@@ -129,9 +129,9 @@ export default function Home() {
         <div className="tldr-step"><span className="tldr-number" aria-hidden="true">2</span><div><Passage id="tldr_taxonomy_compact" /></div></div>
       </div>
       <div className="overview-notes">
-        <div><span className="finding-letter">A</span><Passage id="finding_a" /></div>
-        <div><span className="finding-letter">B</span><Passage id="finding_b" /></div>
-        <div><span className="finding-letter">C</span><Passage id="alignment_finding" /></div>
+        <div><h3 className="finding-label">Finding 1</h3><Passage id="finding_a" /></div>
+        <div><h3 className="finding-label">Finding 2</h3><Passage id="finding_b" /></div>
+        <div><h3 className="finding-label">Finding 3</h3><Passage id="alignment_finding" /></div>
       </div>
       <Figure name="overview" caption="overview_caption_short" width={1608} height={478} eager className="teaser" />
       <PlotLegend />
@@ -164,7 +164,7 @@ export default function Home() {
 
       <section id="transfer" className="chapter chapter-tinted"><div className="shell">
         <Heading id="transfer_heading" number="04" />
-        <aside className="method-note experiment-setup"><h3>Experimental setup</h3><Passage id="transfer_setup" /><Passage id="transfer_scope" /></aside>
+        <aside className="method-note experiment-setup"><Passage id="transfer_setup" /><Passage id="transfer_scope" /></aside>
         <Figure name="transfer-matrix" caption="transfer_caption" width={1616} height={1190} className="matrix-figure" />
         <Passage id="transfer_lead" className="section-lead" />
         <div className="two-columns results-notes">
@@ -175,10 +175,9 @@ export default function Home() {
 
       <section id="alignment" className="chapter"><div className="shell">
         <Heading id="alignment_heading" number="05" />
-        <aside className="method-note experiment-setup"><h3>Experimental setup</h3><Passage id="alignment_setup" /></aside>
-        <Figure name="gradient-alignment" caption="alignment_caption" width={1476} height={674} />
-        <Passage id="alignment_results" className="prose supporting-copy" />
-        <Passage id="alignment_lead" className="section-lead" />
+        <aside className="method-note experiment-setup"><Passage id="alignment_setup" /></aside>
+        <Figure name="gradient-alignment" caption="alignment_caption" width={1476} height={674} showCaption={false} />
+        <div className="analysis-copy prose"><Passage id="alignment_results" /><Passage id="alignment_lead" /></div>
         <blockquote className="finding"><Passage id="alignment_finding" /></blockquote>
       </div></section>
 

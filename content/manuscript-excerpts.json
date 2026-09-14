@@ -354,12 +354,12 @@
       }
     },
     "alignment_setup": {
-      "text": "We select six tasks and sample 500 source pairs per task, where each pair contains one I2I example and its corresponding I2T example. This gives 500 I2I gradients and 500 I2T gradients per task. All gradients are computed at the same pretrained BAGEL base EMA checkpoint, before any task-specific fine-tuning.",
+      "text": "We select six tasks and sample 500 source pairs per task, where each pair contains one I2I example and its corresponding I2T example. This gives 500 I2I gradients and 500 I2T gradients per task.",
       "source": {
         "file": "iclr2026/sections/6_overall.tex",
         "start_line": 10,
         "end_line": 10,
-        "raw_tex": "We select six tasks and sample 500 source pairs per task, where each pair contains one I2I example and its corresponding I2T example. This gives 500 I2I gradients and 500 I2T gradients per task. All gradients are computed at the same pretrained BAGEL base EMA checkpoint, before any task-specific fine-tuning.",
+        "raw_tex": "We select six tasks and sample 500 source pairs per task, where each pair contains one I2I example and its corresponding I2T example. This gives 500 I2I gradients and 500 I2T gradients per task.",
         "file_sha256": "e315689b0467fb1693b0a4c0c90e3edb6b91b671732c11bade0928a6bda0ca11"
       }
     },
