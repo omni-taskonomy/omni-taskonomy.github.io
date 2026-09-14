@@ -1,3 +1,8 @@
 Cormorant Garamond and Inter from Google Fonts, the same typefaces used by the supplied Beyond Language Modeling reference.
 Retrieved from fonts.gstatic.com via Google Fonts CSS on 2026-09-14.
 Licenses: cormorantgaramond-OFL.txt and inter-OFL.txt.
+
+Source Sans 3 variable upright from Adobe Fonts official release branch.
+Source: https://raw.githubusercontent.com/adobe-fonts/source-sans/release/WOFF2/VF/SourceSans3VF-Upright.ttf.woff2
+Retrieved 2026-09-14. SHA-256: 5f16566f7a40d39b339ad26be151fa5a1ab1f0c2574c7a2e619765584a1acbd8
+License: source-sans-3-OFL.txt.

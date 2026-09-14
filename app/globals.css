@@ -1,20 +1,21 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
+@font-face { font-family:'Source Sans 3'; font-style:normal; font-weight:200 900; font-display:swap; src:url('/fonts/source-sans-3-variable.woff2') format('woff2'); }
 @font-face { font-family:Inter; font-style:normal; font-weight:400; font-display:swap; src:url('/fonts/inter-400.ttf') format('truetype'); }
 @font-face { font-family:Inter; font-style:normal; font-weight:500; font-display:swap; src:url('/fonts/inter-500.ttf') format('truetype'); }
 @font-face { font-family:Inter; font-style:normal; font-weight:600; font-display:swap; src:url('/fonts/inter-600.ttf') format('truetype'); }
 @font-face { font-family:'Cormorant Garamond'; font-style:normal; font-weight:500; font-display:swap; src:url('/fonts/cormorant-garamond-500.ttf') format('truetype'); }
 @font-face { font-family:'Cormorant Garamond'; font-style:normal; font-weight:600; font-display:swap; src:url('/fonts/cormorant-garamond-600.ttf') format('truetype'); }
-@theme inline { --color-background:var(--background); --color-foreground:var(--foreground); --font-sans:Inter,Arial,sans-serif; --color-border:var(--border); --color-ring:var(--ring); --color-primary:var(--primary); --color-primary-foreground:#fff; --radius-lg:.5rem; }
-:root { --background:#fff; --foreground:#343b43; --primary:#326eb1; --border:#e4e8ed; --ring:#326eb1; --muted:#f7f9fb; --muted-foreground:#657180; --card:#fff; --card-foreground:#343b43; --accent:#eef4fb; --accent-foreground:#285e98; color-scheme:light; }
+@theme inline { --color-background:var(--background); --color-foreground:var(--foreground); --font-sans:'Source Sans 3',Arial,sans-serif; --color-border:var(--border); --color-ring:var(--ring); --color-primary:var(--primary); --color-primary-foreground:#fff; --radius-lg:.5rem; }
+:root { --background:#fff; --foreground:#344452; --body-copy:#344452; --body-secondary:#495967; --primary:#326eb1; --border:#e4e8ed; --ring:#326eb1; --muted:#f7f9fb; --muted-foreground:#657180; --card:#fff; --card-foreground:#343b43; --accent:#eef4fb; --accent-foreground:#285e98; color-scheme:light; }
 *,*::before,*::after { box-sizing:border-box; }
 html { scroll-behavior:smooth; scroll-padding-top:90px; }
-body { margin:0; color:var(--foreground); background:#fff; font-family:Inter,Arial,sans-serif; font-size:1rem; font-weight:400; line-height:1.8; -webkit-font-smoothing:antialiased; }
+body { margin:0; color:var(--foreground); background:#fff; font-family:'Source Sans 3',Arial,sans-serif; font-size:1.075rem; font-weight:450; line-height:1.75; -webkit-font-smoothing:antialiased; }
 a { color:var(--primary); text-decoration:none; text-underline-offset:4px; }
 a:hover { text-decoration:underline; }
 a:focus-visible,summary:focus-visible { outline:3px solid #5a91c8; outline-offset:5px; }
-p { margin:0 0 1.1rem; }
+p { margin:0 0 1.1rem; text-align:left; text-wrap:pretty; }
 h1,h2,h3 { font-family:'Cormorant Garamond',Georgia,serif; color:#1e2a36; font-weight:600; }
 .shell { width:min(1080px,calc(100% - 64px)); margin-inline:auto; }
 .prose { max-width:780px; margin-inline:auto; }
@@ -22,7 +23,7 @@ h1,h2,h3 { font-family:'Cormorant Garamond',Georgia,serif; color:#1e2a36; font-w
 h1 { margin:0; font-size:clamp(2.75rem,5.3vw,4.4rem); letter-spacing:-.035em; line-height:1.02; }
 h1>span { display:block; }
 .title-second { font-weight:500; }
-strong { font-weight:600; color:#283b4b; }
+strong { font-weight:650; color:#233746; }
 .term-generation { color:#a45862; }
 .term-understanding { color:#47799f; }
 h1 .term-generation { color:#d1848c; }
@@ -37,7 +38,7 @@ h1 .term-understanding { color:#7ca6c9; }
 .tldr-step { display:grid; grid-template-columns:24px minmax(0,1fr); gap:14px; }
 .tldr-step + .tldr-step { margin-top:20px; }
 .tldr-number { display:grid; place-items:center; width:24px; height:24px; margin-top:3px; border-radius:50%; background:#e7edf3; color:#52718c; font-size:.75rem; font-weight:600; line-height:1; }
-.tldr-step p { font-size:.98rem; line-height:1.75; margin:0; color:#566471; }
+.tldr-step p { font-size:1.04rem; line-height:1.75; margin:0; color:var(--body-copy); }
 .task-pair { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-top:11px; }
 .task-pair>span[data-manuscript-excerpt] { display:inline-block; border-radius:5px; padding:3px 10px; font-size:.875rem; font-weight:500; line-height:1.65; background:#f8e8ea; }
 .task-pair>span[data-manuscript-excerpt]:last-child { background:#e5eff8; }
@@ -48,17 +49,17 @@ figure { max-width:1000px; margin:30px auto; }
 .figure-link img { display:block; width:100%; height:auto; }
 .figure-link:hover { border-color:#bdcee1; text-decoration:none; }
 .figure-expand { position:absolute; right:16px; bottom:5px; font-size:.75rem; line-height:1.5; color:#718096; }
-figcaption { color:#6c7683; font-size:.875rem; line-height:1.75; margin:13px auto 0; max-width:900px; }
+figcaption { color:var(--body-secondary); font-size:.95rem; line-height:1.75; text-align:left; text-wrap:pretty; margin:13px auto 0; max-width:900px; }
 .teaser { margin:12px auto 0; max-width:none; }
 .teaser .figure-link { padding:17px 20px 30px; border:0; border-radius:0; }
-.teaser figcaption { text-align:center; font-family:'Cormorant Garamond',Georgia,serif; font-size:1.5rem; font-weight:600; color:#2c4055; margin-top:8px; }
+.teaser figcaption { text-align:left; font-family:'Cormorant Garamond',Georgia,serif; font-size:1.5rem; font-weight:600; color:#2c4055; margin-top:8px; }
 .overview-notes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px; margin:26px 20px 22px; }
 .overview-notes>div { padding-top:15px; border-top:2px solid #d7e3ef; }
 .overview-notes>div:nth-child(2) { border-color:#dfd7c7; }
 .overview-notes>div:nth-child(3) { border-color:#cedfd7; }
 .overview-notes .finding-label { margin:0 0 11px; font-family:Inter,Arial,sans-serif; font-size:1.02rem; font-weight:600; color:#3d617e; line-height:1.3; }
-.overview-notes p { font-size:.92rem; color:#657180; line-height:1.75; margin:0; }
-.plot-legend { display:flex; justify-content:center; flex-wrap:wrap; gap:12px 28px; margin:18px auto 24px; }
+.overview-notes p { font-size:1rem; color:var(--body-copy); line-height:1.75; margin:0; }
+.plot-legend { display:flex; justify-content:flex-start; max-width:1000px; flex-wrap:wrap; gap:12px 28px; margin:18px auto 24px; }
 .legend-item { display:inline-flex; align-items:center; gap:8px; font-size:.875rem; line-height:1.5; color:#5a6978; }
 .legend-dot { display:block; width:11px; height:11px; border-radius:50%; }
 .legend-dot.positive { background:#82adce; }
@@ -77,13 +78,13 @@ figcaption { color:#6c7683; font-size:.875rem; line-height:1.75; margin:13px aut
 .section-index { display:block; color:#477daa; font-size:.75rem; line-height:1; letter-spacing:.18em; margin-bottom:14px; font-weight:600; }
 h2 { font-size:clamp(1.95rem,3.4vw,2.7rem); line-height:1.13; letter-spacing:-.02em; margin:0; }
 .section-heading::after { content:''; display:block; width:42px; height:2px; background:#b8cee1; margin:21px auto 0; }
-.section-lead { max-width:780px; margin:0 auto 28px; text-align:center; color:#5d6977; font-size:1rem; line-height:1.8; }
+.section-lead { max-width:850px; margin:0 auto 28px; text-align:left; color:var(--body-copy); font-size:1.075rem; line-height:1.8; }
 .two-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:40px; max-width:920px; margin-inline:auto; }
-.supporting-copy { color:#586777; font-size:.96rem; }
+.supporting-copy { color:var(--body-copy); font-size:1.04rem; }
 .recipe-note { max-width:1000px; margin:26px auto 22px; scroll-margin-top:90px; }
-.recipe-note-intro { display:flex; justify-content:center; align-items:baseline; gap:5px; margin-bottom:24px; }
+.recipe-note-intro { display:flex; justify-content:flex-start; align-items:baseline; gap:5px; margin-bottom:24px; }
 .recipe-note-intro>sup { color:#718a9e; font-size:.7rem; }
-.recipe-note-intro p { margin:0; font-size:.94rem; color:#566a7b; }
+.recipe-note-intro p { margin:0; font-size:1rem; color:var(--body-copy); }
 .recipe-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:23px 28px; list-style:none; padding:0; margin:0; }
 .recipe-item { min-width:0; padding:0 0 0 13px; border-left:2px solid var(--recipe-color); }
 .recipe-1 { --recipe-color:#53606b; }
@@ -101,34 +102,34 @@ h2 { font-size:clamp(1.95rem,3.4vw,2.7rem); line-height:1.13; letter-spacing:-.0
 .route-mixed { color:#776b87; background:#ece9f3; }
 .route-arrow { color:#94a0ac; margin-inline:3px; }
 .route-suffix { color:#6e7b88; font-weight:400; }
-.recipe-description { margin:0; color:#697887; font-size:.855rem; line-height:1.65; }
-.recipe-description strong { color:#445b70; }
+.recipe-description { margin:0; color:var(--body-secondary); font-size:.94rem; line-height:1.65; }
+.recipe-description strong { color:#233746; }
 #recipe figure { margin-top:26px; }
 @media (min-width:601px) and (max-width:959px) { .recipe-list { grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 28px; } }
 .footnote-ref { padding:0 4px; font-size:.8rem; }
 .finding { max-width:780px; margin:30px auto; padding:3px 0 3px 22px; border-left:2px solid #80a9cc; }
-.finding p { margin:0; font-family:'Cormorant Garamond',Georgia,serif; font-size:1.65rem; color:#305d83; line-height:1.35; font-weight:500; }
+.finding p { margin:0; font-family:inherit; font-size:1.2rem; color:#294d6a; line-height:1.65; font-weight:500; }
 .taxonomy-figure { max-width:900px; }
 .matrix-figure { max-width:930px; }
 .results-notes { margin-top:34px; }
 h3 { font-size:1.65rem; line-height:1.2; margin:0 0 17px; color:#365872; }
-.results-notes p { font-size:.96rem; color:#5e6d7b; }
+.results-notes p { font-size:1.04rem; color:var(--body-copy); }
 .method-note { max-width:850px; margin:36px auto 0; padding-top:25px; border-top:1px solid #d9e3ec; }
 .method-note h3 { font-size:1.75rem; color:#34536d; margin-bottom:16px; }
-.method-note p { font-size:1rem; line-height:1.85; color:#5e6e7c; }
+.method-note p { font-size:1.075rem; line-height:1.8; color:var(--body-copy); }
 .method-note p:last-child { margin-bottom:0; }
 .experiment-setup { margin:28px auto; padding-top:0; border-top:0; }
-.analysis-copy { margin-top:24px; color:#5e6e7c; font-size:1rem; line-height:1.85; text-align:left; }
+.analysis-copy { margin-top:24px; color:var(--body-copy); font-size:1.075rem; line-height:1.85; text-align:left; }
 .analysis-copy p:last-child { margin-bottom:0; }
-.acknowledgments { max-width:780px; padding:60px 0 48px; text-align:center; }
-.acknowledgments h2 { font-size:2rem; margin-bottom:19px; }
-.ack-names { font-size:1rem; color:#4b5f70; }
-.site-credit { font-size:.875rem; line-height:1.9; color:#7b858f; margin:20px auto 0; }
+.acknowledgments { max-width:780px; padding:60px 0 48px; text-align:left; }
+.acknowledgments h2 { font-size:2rem; margin-bottom:19px; text-align:center; }
+.ack-names { font-size:1.075rem; color:var(--body-copy); }
+.site-credit { font-size:.95rem; line-height:1.8; color:var(--body-secondary); margin:20px auto 0; }
 footer { display:flex; justify-content:center; gap:12px 26px; flex-wrap:wrap; padding:24px 0 30px; border-top:1px solid var(--border); font-size:.75rem; color:#8a949e; }
 footer a { color:#718295; }
 .skip-link { position:fixed; top:-100px; left:16px; z-index:100; padding:10px 16px; background:#fff; }
 .skip-link:focus { top:12px; }
 @media(max-width:800px) { .shell { width:calc(100% - 44px); } .nav-inner { gap:16px; } .nav-inner a { font-size:.875rem; } .paper-header { padding-top:50px; } .overview-notes { gap:18px; margin-inline:4px; } .chapter { padding:48px 0; } .two-columns { gap:26px; } }
-@media(max-width:600px) { .shell { width:calc(100% - 36px); } .paper-header { padding:38px 0 24px; } h1 { font-size:2.8rem; } .resource-buttons { gap:8px; margin-top:23px; } .resource-button { padding-inline:13px; font-size:.81rem; } .tldr-box { padding:20px 16px; margin-bottom:24px; } .tldr-step { grid-template-columns:22px minmax(0,1fr); gap:10px; } .tldr-step p { font-size:.92rem; } .tldr-number { width:22px; height:22px; } .tldr-step + .tldr-step { margin-top:18px; } .task-pair { gap:6px; } .task-pair>span[data-manuscript-excerpt] { font-size:.78rem; padding-inline:7px; } .teaser .figure-link { padding:6px 0 25px; } .teaser figcaption { font-size:1.3rem; } .overview-notes { grid-template-columns:1fr; gap:12px; margin-block:16px; } .overview-notes>div { padding-top:13px; } .overview-notes p { font-size:.92rem; } .plot-legend { justify-content:flex-start; gap:12px 20px; } .legend-item { font-size:.83rem; } .recipe-list { grid-template-columns:1fr; gap:19px; } .recipe-note-intro { justify-content:flex-start; margin-bottom:22px; } .recipe-note-intro p { font-size:.9rem; } .recipe-item { padding-left:13px; } .recipe-item-header { margin-bottom:7px; } .recipe-route,.recipe-id { font-size:.85rem; } .recipe-description { font-size:.9rem; } .method-note { margin-top:28px; } .method-note h3 { font-size:1.65rem; } .method-note p { font-size:.95rem; } .section-nav { overflow-x:auto; scrollbar-width:none; } .section-nav::-webkit-scrollbar { display:none; } .nav-inner { width:max-content; max-width:none; min-height:49px; gap:24px; justify-content:flex-start; padding-inline:18px; } .nav-inner a { font-size:.875rem; } .section-heading { max-width:430px; } .section-lead { text-align:left; } .two-columns { grid-template-columns:1fr; gap:8px; } figure { margin-block:25px; } .figure-link { padding:12px 8px 28px; border-radius:7px; } figcaption { font-size:.875rem; } .finding { padding-left:17px; } .finding p { font-size:1.5rem; } .results-notes { gap:22px; } .acknowledgments { padding-block:44px 35px; } footer>span { flex-basis:100%; text-align:center; } }
+@media(max-width:600px) { .shell { width:calc(100% - 36px); } .paper-header { padding:38px 0 24px; } h1 { font-size:2.8rem; } .resource-buttons { gap:8px; margin-top:23px; } .resource-button { padding-inline:13px; font-size:.81rem; } .tldr-box { padding:20px 16px; margin-bottom:24px; } .tldr-step { grid-template-columns:22px minmax(0,1fr); gap:10px; } .tldr-step p { font-size:1rem; } .tldr-number { width:22px; height:22px; } .tldr-step + .tldr-step { margin-top:18px; } .task-pair { gap:6px; } .task-pair>span[data-manuscript-excerpt] { font-size:.78rem; padding-inline:7px; } .teaser .figure-link { padding:6px 0 25px; } .teaser figcaption { font-size:1.3rem; } .overview-notes { grid-template-columns:1fr; gap:12px; margin-block:16px; } .overview-notes>div { padding-top:13px; } .overview-notes p { font-size:1rem; } .plot-legend { justify-content:flex-start; gap:12px 20px; } .legend-item { font-size:.83rem; } .recipe-list { grid-template-columns:1fr; gap:19px; } .recipe-note-intro { justify-content:flex-start; margin-bottom:22px; } .recipe-note-intro p { font-size:.98rem; } .recipe-item { padding-left:13px; } .recipe-item-header { margin-bottom:7px; } .recipe-route,.recipe-id { font-size:.85rem; } .recipe-description { font-size:.96rem; } .method-note { margin-top:28px; } .method-note h3 { font-size:1.65rem; } .method-note p { font-size:1.04rem; } .section-nav { overflow-x:auto; scrollbar-width:none; } .section-nav::-webkit-scrollbar { display:none; } .nav-inner { width:max-content; max-width:none; min-height:49px; gap:24px; justify-content:flex-start; padding-inline:18px; } .nav-inner a { font-size:.875rem; } .section-heading { max-width:430px; } .section-lead { text-align:left; } .two-columns { grid-template-columns:1fr; gap:8px; } figure { margin-block:25px; } .figure-link { padding:12px 8px 28px; border-radius:7px; } figcaption { font-size:.95rem; } .finding { padding-left:17px; } .finding p { font-size:1.15rem; } .results-notes { gap:22px; } .acknowledgments { padding-block:44px 35px; } footer>span { flex-basis:100%; text-align:center; } }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
 @media print { .section-nav,.resource-buttons,.figure-expand,.skip-link,footer { display:none; } .paper-header { padding-top:0; } .chapter { padding-block:25px; } figure { break-inside:avoid; } }
