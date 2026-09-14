@@ -1,0 +1,38 @@
+% \begin{abstract}
+% We show that training on image editing tasks can systematically improve image understanding \amil{maybe you can see on tasks such as X,Y,Z. I'm not sure exactly what does and doesn't count as ``image understanding``}.
+% % While it is widely known that understanding helps generation, the reverse of whether and how generation helps understanding remains poorly understood.
+% We first construct tasks that share the same underlying visual relation but can be trained either as image-to-image editing (I2I) or image-to-text prediction (I2T). This allows us to directly test whether I2I supervision transfers to I2T understanding. Across these controlled settings, we find that I2I training consistently improves I2T performance.
+% We then ask which generation skills transfer to which understanding capabilities. We organize image-editing data using established visual task taxonomies, and regroup existing vision-language benchmarks into a capability-based evaluation taxonomy.
+% Through training sweeps, we identify a recipe that improves transfer from I2I supervision to I2T evaluation.
+% Applying this recipe reveals a structured transfer map between generation and understanding: for example, depth prediction most strongly improves depth and spatial reasoning, while keypoint-based editing emerges as a broadly transferable task that benefits multiple capabilities.
+% Finally, we use these insights to train a unified model \amil{to potentially boost impact you can name your trained model and the size} that achieves stronger understanding ability by only adding more I2I data as supervision. These results suggest that image editing is not merely a generative objective, but also a useful source of supervision for visual understanding.
+% \end{abstract}
+\begin{abstract}
+Image generation provides dense supervision over visual structure, yet prior work has found surprisingly limited transfer from generation data to visual understanding.
+We revisit this asymmetry by studying training-time transfer from image generation to visual understanding.
+Using controlled pairs of image-to-image (I2I) and image-to-text (I2T) tasks that share the same input and underlying visual operation, we find that I2I supervision can substantially improve I2T understanding under an appropriate training recipe, with gains increasing as more I2I data is added.
+To characterize transfer beyond matched task pairs, we introduce \methodname, a unified capability taxonomy for generation and understanding, and use it to construct a capability-level transfer map that reveals which kinds of generation data benefit which understanding capabilities.
+The map reveals highly task-dependent transfer: some gains follow intuitive capability correspondences, while others emerge across different capabilities, and the same generation task can help some targets while interfering with others.
+Finally, in our controlled setting, we found stronger transfer is associated with greater gradient alignment between generation and understanding objectives, particularly in normalization parameters.
+Taken together, our results challenge the view that generation provides little value for understanding: 
+generation can provide effective supervision for visual understanding, but whether it transfers depends critically on how it is trained and what visual capability it supervises.
+\end{abstract}
+% start with "taxonomy" and "bridging" make the abs more exciting; start with stating the position
+
+% we need to construct briding tasks and taxonomy
+
+% then mention controlled settings
+% we did I2I helps I2T
+
+
+% gradients analyisis; manifold 训两个obj, 是不是两个obj让gradient往一个方向; 否则迭代能力orthogonal; I2I task可以模拟I2T sft时候的traj, 所以I2I的optimization方向更加合理; 注意interp的时候不要update weights; 
+
+% when does image generation helps image understanding,?when it doesn't?
+
+% when does image generation helps image understanding,?
+
+% xxx image editing helps image understanding
+
+% when does image editing helps image understanding?
+
+% when does image generation helps image understanding and why? 

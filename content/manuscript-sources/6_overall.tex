@@ -1,0 +1,240 @@
+\section{Understanding generation-to-understanding transfer}
+
+The previous experiments show that some generation tasks improve visual understanding, whereas others provide little or no benefit.
+We next study whether this difference can be explained by how the generation and understanding objectives update the model.
+
+\subsection{Gradient alignment across layers and modules}
+
+Gradient alignment provides a local measure of whether two objectives favor compatible parameter updates. In the original parameter space, a positive gradient inner product indicates that an infinitesimal descent step on the generation loss also decreases the paired understanding loss to first order.
+
+We select six tasks and sample 500 source pairs per task, where each pair contains one I2I example and its corresponding I2T example. This gives 500 I2I gradients and 500 I2T gradients per task. All gradients are computed at the same pretrained BAGEL base EMA checkpoint, before any task-specific fine-tuning.
+
+We analyze gradient alignment in two complementary parameter spaces. In the \emph{concatenated} space, tensors corresponding to the same exact parameter type, such as input-normalization weights
+(\texttt{llm.input\_ln.weight}) or attention query-projection weights (\texttt{llm.self\_attn.q\_proj.weight}), are concatenated across layers and treated as a single parameter block, such as concatenated
+\texttt{llm.input\_ln.weight} across all layers. 
+% \hj{Give examples of types here}
+Different parameter types are never concatenated.
+The per-layer view reveals how alignment varies with depth, while the concatenated view measures the aggregate alignment of one parameter type across the model.
+
+For task $t$, let $L_{t,o}(x;\boldsymbol{\theta})$ denote the loss
+for objective $o\in\{\mathrm{I2I},\mathrm{I2T}\}$, where $x$ is a
+training example and $\boldsymbol{\theta}$ denotes the model parameters.
+For source pair $i$, we define the gradient representation with respect
+to parameter block $b$ as
+\[
+\mathbf{g}^{o}_{b,t,i}
+=
+\mathbf{R}_b
+\left.
+\nabla_{\boldsymbol{\theta}_b}
+L_{t,o}(x^{o}_{t,i};\boldsymbol{\theta})
+\right|_{\boldsymbol{\theta}=\boldsymbol{\theta}_0}
+\in\mathbb{R}^{D_b}.
+\]
+Here, $x^{o}_{t,i}$ is the example for objective $o$ in source pair $i$ of task $t$, $\boldsymbol{\theta}_0$ is the pretrained checkpoint, and $\boldsymbol{\theta}_b$ is the vector of parameters in block $b$. To reduce the storage and computational cost of large gradients,
+we apply a fixed CountSketch projection to larger tensors before normalization and PCA, while retaining smaller tensors in their original coordinates. The map $\mathbf{R}_b$ denotes the resulting linear mapping for block $b$, and $D_b$ is the dimension of its stored gradient representation. Here, $b$ denotes either one layer-specific tensor or one parameter type concatenated across layers. 
+% \hj{Consider a better flow and clearer definition here. Now it is hard to read. My try: Let vector $\mathbf{g}^{o}_{b,t,i}=\partial L_{t,o}(x)/\partial b|_{x=x_i}\in\mathbb{R}^{D_b}$ be the gradient of task $t$'s objective $L_{t,o}$ with respect to parameter $b$, evaluated under the $i$-th input $x_i$. Here $o$ denotes whether the task is I2I or I2T.} 
+To compare the compatibility of gradient directions independently
+of their magnitudes, we normalize each gradient representation to unit
+length,
+$\mathbf{u}^{o}_{b,t,i}
+=\mathbf{g}^{o}_{b,t,i}/\lVert\mathbf{g}^{o}_{b,t,i}\rVert_2$.
+
+% \hj{Consider making this an inline formula and the definition of gradient a full-line formula. As normalizing the magnitude is less important.}
+
+% \hj{General writing suggestion 1: Always lead with the intention before writing technical details. I feel swamped reading this section now because I don't know where the passage is going. I give some examples in the following.
+% \begin{itemize}
+%     \item I am not sure why we are normalizing the vectors.
+%     \item Before talking about PCA and cosine similarity, say that in the following, we describe how to measure the correlation between I2I and I2T gradients
+%     \item Before talking about PCA, say that we want to disentangle the fact that the parameter space might be redundant.
+%     \item Before talking about the alignment score, say that we need to disentangle the effect of dimensionality to the cosine score.
+% \end{itemize}
+% }
+
+% \hj{General writing suggestion 2: We want to clearly define all the variables we use. Especially when reviewers are using AI these days, they are going to nitpick on these things if they are not patient enough to read the details. And hence we want fewer variables in the main body to be clean. For instance, I feel like a large part of how we do PCA could be deferred to the Appendix. I think people would understand what we are doing by just saying: We calculate cosine similarity in the PCA space of the gradients.}
+
+We next describe how we measure the alignment between I2I and I2T gradients. Gradient directions may occupy only a small part of the parameter space. To account for this redundancy, we use PCA to identify a shared subspace that captures their dominant directional structure. 
+
+We divide the source pairs into five subsets.
+The I2I and I2T examples from the same source remain together. For each parameter block $b$ and held-out subset indexed by $f$, we fit one shared, uncentered PCA basis jointly using the I2I
+and I2T gradient directions from all six tasks in the remaining four subsets.
+The fit assigns equal total weight to each task--objective group and retains 99\% of the training directional energy. For a source pair in the held-out subset, we project both gradient directions through the same basis and normalize them again. Let $c_{b,t,i}$ denote the resulting post-PCA cosine alignment for parameter block $b$, task $t$, and source pair $i$.
+
+Cosine similarities can have different reference scales in spaces with different effective dimensions. To account for this effect when comparing gradient alignment, we scale the cosine using an estimate of effective dimensionality.
+Because the retained PCA directions may be highly anisotropic, the number of retained components can overestimate the number of directions that are effectively occupied. Let $d_{\mathrm{eff},b,f}$ denote the effective  dimension estimated for block $b$ from the projected, renormalized training directions
+in the other four folds. We estimate it using the participation ratio of their angular second moment. The PCA construction and effective-dimension estimator are detailed in Appendix\todo{Need href here}.
+
+% Move to the Appendix
+% We divide the matched source pairs into five folds, keeping the I2I and I2T examples from the same source in the same fold \hj{Rewrite sentence: We divide the source pairs into five subsets.}. For each held-out fold $f$, we fit one shared, uncentered PCA basis jointly using the I2I and I2T gradient directions from all six tasks in the remaining four folds. Specifically,
+% \[
+% \mathbf{M}^{(-f)}_b
+% =
+% \sum_{(t,o,i)\in\mathcal{I}_{-f}}
+% w_{t,o,i}\,
+% \mathbf{u}^{o}_{b,t,i}
+% \mathbf{u}^{o\top}_{b,t,i}
+% =
+% \mathbf{Q}^{(-f)}_b
+% \mathbf{\Lambda}^{(-f)}_b
+% \mathbf{Q}^{(-f)\top}_b,
+% \]
+% where the weights assign equal total mass to each task--objective group, and the eigenvalues
+% $\lambda^{(-f)}_{b,1}\geq\lambda^{(-f)}_{b,2}\geq\cdots$
+% are ordered in decreasing order.
+
+% We select the smallest number of components whose cumulative eigenvalue mass reaches 99\%:
+% \[
+% k_{b,f}
+% =
+% \min\left\{
+% k:
+% \frac{\sum_{r=1}^{k}\lambda^{(-f)}_{b,r}}
+%      {\sum_{r}\lambda^{(-f)}_{b,r}}
+% \geq 0.99
+% \right\},
+% \qquad
+% \mathbf{P}_{b,f}
+% =
+% \mathbf{Q}^{(-f)}_{b,[:,1:k_{b,f}]}.
+% \]
+% Because the PCA is uncentered and is fitted to unit gradient directions, this criterion retains 99\% of the training directional energy rather than 99\% of centered variance.
+
+% For a source pair $i$ in held-out fold $f$, we project both gradients through the same PCA basis and normalize the projected directions again:
+% \[
+% \mathbf{z}^{o}_{b,t,i}
+% =
+% \mathbf{P}_{b,f}^{\top}\mathbf{u}^{o}_{b,t,i},
+% \qquad
+% \widetilde{\mathbf{z}}^{o}_{b,t,i}
+% =
+% \frac{\mathbf{z}^{o}_{b,t,i}}
+%      {\lVert\mathbf{z}^{o}_{b,t,i}\rVert_2}.
+% \]
+
+% The post-PCA cosine alignment of the matched pair is
+% \[
+% c_{b,t,i}
+% =
+% \widetilde{\mathbf{z}}^{\mathrm{I2I}\top}_{b,t,i}
+% \widetilde{\mathbf{z}}^{\mathrm{I2T}}_{b,t,i}.
+% \]
+
+% Cosine similarities can have different reference scales in spaces with different effective dimensions. Considering this effect when comparing gradient alignment, we scale the cosine using an estimate of effective dimensionality. Because the retained PCA directions may be highly anisotropic, the number of retained components $k_{b,f}$ can overestimate the number of directions that are effectively occupied. We therefore estimate the effective dimension from the projected training directions:
+% \[
+% \mathbf{A}_{b,f}
+% =
+% \sum_{(t,o,i)\in\mathcal{I}_{-f}}
+% w_{t,o,i}\,
+% \widetilde{\mathbf{z}}^{o}_{b,t,i}
+% \widetilde{\mathbf{z}}^{o\top}_{b,t,i},
+% \qquad
+% d_{\mathrm{eff},b,f}
+% =
+% \frac{\operatorname{tr}(\mathbf{A}_{b,f})^2}
+%      {\operatorname{tr}(\mathbf{A}_{b,f}^2)}.
+% \]
+
+Our final dimension-scaled alignment score is
+\[
+s_{b,t,i}
+=
+\sqrt{d_{\mathrm{eff},b,f}}\;c_{b,t,i}.
+\]
+Both the PCA basis and $d_{\mathrm{eff}}$ are estimated exclusively from the training folds. Each matched pair is evaluated once in its held-out fold, yielding 500 out-of-fold alignment scores per task. We use $s_{b,t,i}$ as a descriptive scale-calibrated alignment measure, rather than as a $z$-score or a statistical significance value.
+
+% motivation:
+% We compare the gradients produced by the generation objective and its paired I2T objective.
+% For each task, we sample 1,000 \qin{500 pairs} paired examples derived from the same source instance.
+% At a fixed model checkpoint \qin{At a fixed pretrained model checkpoint from BAGEL} \todo{citation here}, we compute the per-example gradients of the generation loss and the corresponding I2T loss for each parameter tensor.
+% (For this part we need to actually lay out the math, we first did PCA on the gradient to determine the meaningful dim num, then we use the Chernove bound to evaluate the significance of the cosine norm under a threshhold theta)
+% Since the raw gradients are high-dimensional, we construct a shared principal component analysis (PCA) space for the two objectives within each parameter tensor and retain the first \(k\) principal components. 
+% \qin{}
+% \todo{EXP: say how this is derived}
+% \qin{There are different types of parameters across all layers, and for I2I data, there are generation gradients across all parameters, and for I2T data, there are understanding gradients across them. In order to provide a more fine-grained experimental analysis, we analyze the gradients similarity in two parameter spaces: 1) per-layer parameter space and 2) concatenated parameter space. The per-layer parameter space analysis captures the correlation between the generation and understanding gradients at the level of individual parameters, whereas the concatenated parameters means the concatenation across all layers, whose analysis measures this correlation for each type of parameters in aggregate/} 
+% \qin{Specifically, for the analysis of any given parameter space, we obtain gradients associated with $N$ number of parameters. For each parameter $j$, we first perform PCA on its gradient $g_j$ to derive a shared PCA basis $P_j$.} 
+% \qin{For a generation gradient \(g^{\mathrm{gen}}_{j, i}\) and an understanding
+% gradient \(g^{\mathrm{und}}_{j, i}\) from parameter \(j\) and example \(i\) , we
+% measure their alignment as}
+% \[
+% a_{j, i}
+% =
+% \cos\left(
+% P_j^\top g^{\mathrm{gen}}_{j, i},
+% P_j^\top g^{\mathrm{und}}_{j, i}
+% \right),
+% \]
+% where \(P_m\) is the shared PCA basis.
+% We report the mean alignment $\bar{a}_j^l$ across our sampled examples in per-layer parameter space and $\bar{a}_j^c$ in concatenated parameter space.
+% \todo{Specify how \ (k\), \(\theta\), and the random-pairing null are selected.}
+% \qin{We choose the projection rank adaptively for each parameter tensor. 
+% Specifically, \(k_m\) is the smallest number of singular directions that 
+% explain \(99\%\) of the joint squared singular-value mass of \(G_m\).}
+
+% \qin{We define the normalized concentration statistic as
+% \[
+% R_{0.99,m}
+% =
+% \frac{\bar{c}_m}
+% {\sqrt{
+% \frac{2\log(2/0.01)}
+% {N\left(d_{\mathrm{eff},m}-1\right)}
+% }}.
+% \]
+% Values satisfying \(\lvert R_{0.99,m}\rvert > 1\) exceed the corresponding 
+% \(99\%\) concentration threshold.}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{iclr2026/figures/grad_analysis/grad_analysis.pdf}
+    \caption{The gradient cosine similarity of generation and understanding training data.}
+    \label{fig:grad_analysis}
+\end{figure}
+
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=1.\linewidth]{iclr2026/figures/grad_analysis/concat_dimension_scaled_alignment_mean_heatmap.pdf}
+%     \caption{}
+%     \label{fig:grad_analysis_1}
+% \end{figure}
+
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=1.\linewidth]{iclr2026/figures/grad_analysis/per_layer_mean_equal_layer_dimension_scaled_alignment_mean_heatmap_with_lines.pdf}
+%     \caption{}
+%     \label{fig:grad_analysis_2}
+% \end{figure}
+
+% Figure~\ref{fig:gradient-alignment} shows the alignment across layers and modules. \todo{plot the figure here}
+% We observe three main patterns:
+% First, tasks that improve downstream I2T performance exhibit stronger gradient alignment than non-transferring tasks. \todo{think about how we should put the failed i2i tasks, should we briefly talk about them in the controlled settings and remention them here?}
+% Second, alignment is strongest in the normalization parameters and weaker in \todo{specify the other modules}.
+% Third, the alignment is concentrated in earlier layers and decreases in later layers. This suggests that generation supervision transfers mainly by shaping shared visual representations rather than the task-specific output layers.
+
+As shown in Fig.~\ref{fig:grad_analysis}, generation tasks that transfer to visual understanding, such as Jigsaw and Zoom-In, exhibit strong gradient alignment in pre-attention RMSNorm modules. A layer-wise analysis of these modules further reveals pronounced alignment in the early layers, with the two tasks exhibiting similar gradient cosine similarity profiles across layers.
+
+\begin{findingbox}
+Tasks that transfer to visual understanding produce more aligned gradients, with the strongest alignment occurring in early normalization layers.
+\end{findingbox}
+
+\subsection{Relating gradient alignment to downstream transfer}
+% how the gradient analysis guides us?
+\todo{EXP: run the architecture abaltion experiments as specified below}
+We next test whether the layers and modules identified by gradient alignment are also useful for downstream transfer.
+During I2I training, we selectively freeze different parts of the model, and then apply the same I2T finetuning procedure used in the previous experiments.
+
+% (1) from insight 1: freeze norm layers -> performance much worse -> updating norm gradients are crucial; (freeze some other layers (e.g. freeze the FFN) -> performance on par?)
+Freezing the normalization parameters substantially reduces the benefit of I2I pretraining, while freezing \todo{e.g., the FFN parameters} has a much smaller effect.
+\todo{Confirm the FFN result.}
+% (3) from insight 3: freeze first half layers and train only on last -> performance much worse; unfreeze first and freeze last -> on par
+Similarly, updating only the later half of the transformer produces much weaker transfer. In contrast, updating the earlier half while freezing the later layers preserves most of the improvement.
+
+These interventions agree with the gradient analysis: transfer depends most strongly on the parameters that receive aligned generation and understanding gradients.
+The results also suggest that I2I pretraining primarily improves the shared visual representation learned in the earlier layers.
+\begin{findingbox}
+Updating early layers and normalization parameters preserves the benefit of I2I pretraining, while freezing them largely removes it.
+\end{findingbox}
+
+% tagging process; have questions live in different tags
+% what are the stuff that are surprising; 3.g. 2D doesn't help, like why the current generation data doesn't help, what data could help; find generation data that clearly requires 2d spatial stuff and see if it improves
+% knn for this, for this improvement can we identify the i2i data that helps the i2t samples we are evaluating; how many times 2d relation are mentioned in the text queries; semantic representation (e.g. SigLip Features)/ geometric representation (Dino)
+% gradient in Figure 1: normalization layer and the early layer stuff
