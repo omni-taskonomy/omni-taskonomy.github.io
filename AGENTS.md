@@ -30,3 +30,9 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 - Remove both "Original paper figure" disclosures from the rendered page, as explicitly requested. This supersedes the earlier requirement to display the original taxonomy and transfer figures; leave their source assets intact.
 - Remove the two modality badges above the taxonomy tree. This does not remove modality definitions elsewhere.
 - TL;DR should introduce the paired setup and I2I/I2T abbreviations, then list the introduction's three exact research questions before Finding 1/2/3. Remove the UniTaskonomy introduction from TL;DR.
+
+## Typography and heatmap simplification
+
+- All prose uses Times New Roman at the same body size, including the TL;DR questions; the author withdrew the larger question size. Preserve Roman question numbering and Cormorant Garamond headings, including Finding labels.
+- The transfer heatmap has only one selector: Benchmark. Show delta from the I2T-only baseline for the original 19-capability main analysis. Remove accuracy mode and the capability-subset selector.
+- Keep family headers in their own column groups; the single-column Recognition label must not extend into Reconstruction.

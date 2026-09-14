@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button';
 import { NativeSelect } from '@/components/ui/native-select';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { data, leaves, models, familyColors, metric, number, fill, rowsFor, modelsFor, sourceCopy, viewLabel, type Leaf, type Mode, type Subset } from '@/lib/unitaskonomy';
+import { data, leaves, familyColors, metric, number, fill, rowsFor, modelsFor, sourceCopy, viewLabel, type Leaf } from '@/lib/unitaskonomy';
 
 function V({ id }: { id: string }) { return <span data-v12-copy={id}>{sourceCopy(id)}</span>; }
-function Value({ scope, row, model, mode, precision = 1 }: { scope: string; row: string; model: string; mode: Mode; precision?: number }) {
-  return <span data-v12-metric={[scope, row, model, mode, precision].join('|')}>{number(metric(scope, row, model)[mode], precision, mode === 'delta')}</span>;
+function Value({ scope, row, model, precision = 1 }: { scope: string; row: string; model: string; precision?: number }) {
+  return <span data-v12-metric={[scope, row, model, 'delta', precision].join('|')}>{number(metric(scope, row, model).delta, precision, true)}</span>;
 }
 function Modality({ role }: { role: string }) {
   return <span className={'ut-modality ut-' + role}>{role === 'i2i' ? 'Image Generation · I2I' : 'Image Understanding · I2T'}</span>;
@@ -68,11 +68,11 @@ export function InteractiveTaxonomy() {
 }
 
 type Cell = { row: string; model: string };
-function CellDetail({ scope, cell, mode }: { scope: string; cell: Cell; mode: Mode }) {
+function CellDetail({ scope, cell }: { scope: string; cell: Cell }) {
   const m = metric(scope, cell.row, cell.model);
   return <>
     <div className="ut-tip-path"><strong><V id={'model|' + cell.model} /></strong><span aria-hidden="true">→</span><V id={'leaf|' + cell.row + '|name'} /></div>
-    <div className={'ut-tip-score ' + (mode === 'delta' && m.delta !== null && m.delta < 0 ? 'ut-negative' : '')}><Value scope={scope} row={cell.row} model={cell.model} mode={mode} precision={2} /><small>{mode === 'delta' ? 'pp' : '%'}</small></div>
+    <div className={'ut-tip-score ' + (m.delta !== null && m.delta < 0 ? 'ut-negative' : '')}><Value scope={scope} row={cell.row} model={cell.model} precision={2} /><small>pp</small></div>
     <div className="ut-tip-comparison"><span><b>{number(m.accuracy)}{m.accuracy !== null && '%'}</b>Checkpoint</span><span><b>{number(m.baseline)}{m.baseline !== null && '%'}</b>I2T-only baseline</span><span><b>{m.pair?.[1]?.toLocaleString('en-US') ?? 0}</b>Samples</span></div>
     <span className="ut-tip-scope"><V id={'scope|' + scope} /></span>
   </>;
@@ -80,18 +80,16 @@ function CellDetail({ scope, cell, mode }: { scope: string; cell: Cell; mode: Mo
 
 export function InteractiveTransferMap() {
   const [scope, setScope] = useState('ALL');
-  const [subset, setSubset] = useState<Subset>('main');
-  const [mode, setMode] = useState<Mode>('delta');
   const [pinned, setPinned] = useState<Cell | null>(null);
   const [active, setActive] = useState<Cell | null>(null);
   const [focus, setFocus] = useState([0, 0]);
   const grid = useRef<HTMLDivElement>(null);
-  const rows = rowsFor(subset), columns = modelsFor(mode);
-  const groups: { name: string; id: string; count: number }[] = [];
+  const rows = rowsFor('main'), columns = modelsFor('delta');
+  const groups: { id: string; count: number }[] = [];
   columns.forEach(m => {
-    const id = m.leaf ? leaves.get(m.leaf)!.family : 'baseline';
+    const id = leaves.get(m.leaf!)!.family;
     if (groups.at(-1)?.id === id) groups[groups.length - 1].count++;
-    else groups.push({ name: id === 'baseline' ? 'Baseline' : data.tree.families.find(f => f.id === id)!.name, id, count: 1 });
+    else groups.push({ id, count: 1 });
   });
   const resetSelection = () => { setPinned(null); setActive(null); setFocus([0, 0]); };
   function navigate(e: KeyboardEvent<HTMLButtonElement>, ri: number, ci: number) {
@@ -114,22 +112,20 @@ export function InteractiveTransferMap() {
   return <div className="ut-figure ut-transfer" aria-label="Interactive transfer heatmap">
     <div className="ut-map-toolbar">
       <div className="ut-filters">
-        <label><span>Benchmark</span><NativeSelect className="ut-select" value={scope} onChange={e => { setScope(e.target.value); resetSelection(); }}>{data.heatmap.scopes.map(s => <option key={s.id} value={s.id} data-v12-copy={'scope|' + s.id}>{s.label}</option>)}</NativeSelect></label>
-        <label><span>Capabilities</span><NativeSelect className="ut-select" value={subset} onChange={e => { setSubset(e.target.value as Subset); resetSelection(); }}><option value="main">19 · n &gt; 100</option><option value="all">All 25</option></NativeSelect></label>
+        <label><span>Benchmark</span><NativeSelect className="ut-select" aria-label="Benchmark" value={scope} onChange={e => { setScope(e.target.value); resetSelection(); }}>{data.heatmap.scopes.map(s => <option key={s.id} value={s.id} data-v12-copy={'scope|' + s.id}>{s.label}</option>)}</NativeSelect></label>
       </div>
-      <div className="ut-mode" aria-label="Displayed metric">{(['delta', 'accuracy'] as Mode[]).map(m => <Button key={m} variant="ghost" aria-pressed={mode === m} onClick={() => { setMode(m); resetSelection(); }}>{m === 'delta' ? 'Transfer (Δ pp)' : 'Accuracy (%)'}</Button>)}</div>
     </div>
-    <div className="ut-map-guide"><span>Hover to magnify · click to pin</span><span className="ut-color-key">{mode === 'delta' ? <><span><i className="ut-swatch negative" />Negative</span><span><i className="ut-swatch positive" />Positive</span></> : <span>Accuracy</span>}<span><i className="ut-swatch best" />Row maximum</span></span></div>
+    <div className="ut-map-guide"><span>Hover to magnify · click to pin</span><span className="ut-color-key"><span><i className="ut-swatch negative" />Negative</span><span><i className="ut-swatch positive" />Positive</span><span><i className="ut-swatch best" />Row maximum</span></span></div>
     <TooltipProvider delay={70}>
       <div className="ut-map-scroll" ref={grid} tabIndex={0} role="region" aria-label="Transfer matrix; use arrow keys to move between cells">
         <table className="ut-map">
           <colgroup><col className="ut-row-width" />{columns.map(m => <col key={m.id} />)}</colgroup>
           <thead><tr className="ut-group-row"><th /><th colSpan={columns.length} className="ut-axis-top"><span className="ut-modality ut-i2i">I2I supervision task</span></th></tr>
-            <tr className="ut-group-row"><th /><>{groups.map(g => <th key={g.id} colSpan={g.count} scope="colgroup" style={{ '--ut-family': familyColors[g.id] ?? '#657487' } as CSSProperties}><span className={'ut-group-name' + (g.count === 1 ? ' ut-narrow-group' : '')}>{g.id === 'baseline' ? 'Baseline' : <V id={'family|' + g.id + '|name'} />}</span></th>)}</></tr>
+            <tr className="ut-group-row"><th /><>{groups.map(g => <th key={g.id} colSpan={g.count} scope="colgroup" className="ut-family-group" style={{ '--ut-family': familyColors[g.id] } as CSSProperties}><span className={'ut-group-name' + (g.count === 1 ? ' ut-narrow-group' : '')}><V id={'family|' + g.id + '|name'} /></span></th>)}</></tr>
             <tr><th className="ut-axis-side"><span className="ut-modality ut-i2t">I2T capability</span></th>{columns.map(m => <th key={m.id} scope="col" className={'ut-column-label' + (active?.model === m.id ? ' ut-col-active' : '')}><span><V id={'model|' + m.id} /></span></th>)}</tr>
           </thead>
           <tbody>{rows.map((row, ri) => {
-            const values = columns.map(m => metric(scope, row.id, m.id)[mode]);
+            const values = columns.map(m => metric(scope, row.id, m.id).delta);
             const valid = values.filter((v): v is number => v !== null);
             const maximum = valid.length ? Math.max(...valid) : null;
             const family = leaves.get(row.id)!.family;
@@ -142,14 +138,14 @@ export function InteractiveTransferMap() {
                 return <td key={model.id}><Tooltip disabled={!!pinned}>
                   <TooltipTrigger render={<button type="button" className={'ut-cell' + (best ? ' ut-best' : '') + (isPinned ? ' ut-pinned' : '') + (value === null ? ' ut-missing' : '')}
                     data-cell={ri + '-' + ci} tabIndex={focus[0] === ri && focus[1] === ci ? 0 : -1}
-                    aria-label={row.name + ', ' + model.name + ', ' + (value === null ? 'No evaluation samples' : number(value, 2, mode === 'delta') + (mode === 'delta' ? ' percentage points' : ' percent')) + (best ? ', row maximum' : '')}
+                    aria-label={row.name + ', ' + model.name + ', ' + (value === null ? 'No evaluation samples' : number(value, 2, true) + ' percentage points') + (best ? ', row maximum' : '')}
                     aria-pressed={isPinned}
                     onPointerEnter={() => setActive({ row: row.id, model: model.id })} onPointerLeave={() => setActive(null)}
                     onFocus={() => { setFocus([ri, ci]); setActive({ row: row.id, model: model.id }); }} onBlur={() => setActive(null)}
                     onKeyDown={e => navigate(e, ri, ci)} onClick={() => setPinned(isPinned ? null : { row: row.id, model: model.id })}>
-                    <span className="ut-tile" style={{ background: fill(value, mode), color: value !== null && (mode === 'delta' ? Math.abs(value) >= 11 : value >= 74) ? '#fff' : '#22384c' }}><span className="ut-cell-value"><Value scope={scope} row={row.id} model={model.id} mode={mode} /></span></span>
+                    <span className="ut-tile" style={{ background: fill(value, 'delta'), color: value !== null && Math.abs(value) >= 11 ? '#fff' : '#22384c' }}><span className="ut-cell-value"><Value scope={scope} row={row.id} model={model.id} /></span></span>
                   </button>} />
-                  <TooltipContent className="ut-cell-tooltip" side="top" sideOffset={12}><CellDetail scope={scope} cell={{ row: row.id, model: model.id }} mode={mode} /></TooltipContent>
+                  <TooltipContent className="ut-cell-tooltip" side="top" sideOffset={12}><CellDetail scope={scope} cell={{ row: row.id, model: model.id }} /></TooltipContent>
                 </Tooltip></td>;
               })}
             </tr>;
@@ -157,7 +153,7 @@ export function InteractiveTransferMap() {
         </table>
       </div>
     </TooltipProvider>
-    <div className="ut-map-footer"><span data-v12-view={scope + '|' + subset}>{viewLabel(scope, subset)}</span><span className="ut-scale"><span>{mode === 'delta' ? '−15 pp' : '0%'}</span><i className={mode} /><span>{mode === 'delta' ? '+15 pp' : '100%'}</span></span></div>
-    {pinned && <div className="ut-pinned-detail" role="status"><div><CellDetail scope={scope} cell={pinned} mode={mode} /></div><Button variant="ghost" size="icon" aria-label="Unpin cell" onClick={() => setPinned(null)}><X size={18} /></Button></div>}
+    <div className="ut-map-footer"><span data-v12-view={scope + '|main'}>{viewLabel(scope, 'main')}</span><span className="ut-scale"><span>−15 pp</span><i /><span>+15 pp</span></span></div>
+    {pinned && <div className="ut-pinned-detail" role="status"><div><CellDetail scope={scope} cell={pinned} /></div><Button variant="ghost" size="icon" aria-label="Unpin cell" onClick={() => setPinned(null)}><X size={18} /></Button></div>}
   </div>;
 }

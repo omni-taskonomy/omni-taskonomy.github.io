@@ -11,16 +11,17 @@ def clean(s): return re.sub(r'\s+',' ',s).strip()
 ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Annotation protocol','01','02','03','04','05','TL;DR','Paper','GitHub','Hugging Face','🤗','1','2','3','Finding 1','Finding 2','Finding 3'}
 ui.update({'Image Generation · I2I','Image Understanding · I2T',
  'Click a node to explore','UniTaskonomy','I2I','I2T','Counts: I2T evaluation samples','v12',
- 'Benchmark','Capabilities','19 · n > 100','All 25','Transfer (Δ pp)','Accuracy (%)',
+ 'Benchmark',
  'Hover to magnify · click to pin','Negative','Positive','Row maximum','I2I supervision task',
- 'I2T capability','Baseline','−15 pp','+15 pp','0%','100%','Accuracy','Close'})
+ 'I2T capability','−15 pp','+15 pp','Close'})
 credit='This project page’s design and presentation are inspired by Beyond Language Modeling: An Exploration of Multimodal Pretraining. We thank its authors for the inspiration.'
 class Audit(HTMLParser):
  def __init__(self):
-  super().__init__();self.depth=0;self.skip=[];self.active=None;self.matched=[];self.author_matched=[];self.v12_matched=[];self.images=0;self.description=False;self.errors=[]
+  super().__init__();self.depth=0;self.skip=[];self.active=None;self.matched=[];self.author_matched=[];self.v12_matched=[];self.images=0;self.description=False;self.errors=[];self.selects=[]
  def handle_starttag(self,tag,attrs):
   attrs=dict(attrs);self.depth+=1
   if tag in {'head','script','style'}: self.skip.append((tag,self.depth))
+  if tag=='select': self.selects.append(attrs.get('aria-label'))
   if tag=='meta' and attrs.get('name')=='description':
    assert attrs['content']==excerpts['description']['text'];self.description=True
   if tag=='img':
@@ -68,5 +69,7 @@ assert 'tldr_taxonomy_compact' not in audit.matched
 assert 'Original paper figure' not in html and 'class="ut-modalities"' not in html
 assert set(audit.author_matched)==set(author_excerpts),audit.author_matched
 assert sum(k=='data-v12-metric' for k,v in audit.v12_matched)==19*15
+assert audit.selects==['Benchmark'],audit.selects
+assert all(v.split('|')[3]=='delta' for k,v in audit.v12_matched if k=='data-v12-metric')
 assert len({v for k,v in audit.v12_matched if k=='data-v12-copy' and v.startswith('leaf|') and v.endswith('|name')})==40
 print(json.dumps({'source_commit':book['manuscript_commit'],'rendered_excerpt_instances':len(audit.matched),'unique_rendered_excerpts':len(set(audit.matched)),'author_provided_excerpts':len(audit.author_matched),'manuscript_derived_image_alts':audit.images,'v12_source_and_numeric_records':len(audit.v12_matched),'metadata_verbatim':audit.description,'unmapped_research_text':0},indent=2))
