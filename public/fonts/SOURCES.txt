@@ -1,0 +1,3 @@
+Cormorant Garamond and Inter from Google Fonts, the same typefaces used by the supplied Beyond Language Modeling reference.
+Retrieved from fonts.gstatic.com via Google Fonts CSS on 2026-09-14.
+Licenses: cormorantgaramond-OFL.txt and inter-OFL.txt.

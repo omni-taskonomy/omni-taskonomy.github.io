@@ -77,6 +77,20 @@ take('nav_recipe',P,'Generation and Understanding')
 take('nav_taxonomy',T,r'\methodname')
 take('nav_transfer',X,'Transfer patterns')
 take('nav_alignment',G,'Gradient alignment')
+# Short, contiguous source selections for the redesigned reading layout.
+take('hero_lead',I,'In this work, we study generation as a source of training supervision for visual understanding.')
+take('controlled_lead',I,'To isolate generation-to-understanding transfer, we construct paired generation and understanding tasks that require the same underlying visual operation while differing only in output modality.')
+take('taxonomy_lead',T,r'We introduce \methodname, a shared hierarchy','rather than their output modality.')
+take('taxonomy_quantity',T,'The resulting taxonomy contains 15','training objective or an evaluation capability.')
+take('transfer_lead',I,'Some gains follow intuitive capability correspondences','interfering with others.')
+take('alignment_lead',I,'These results suggest that optimization compatibility between generation and understanding objectives may be one factor associated with successful transfer.')
+take('overview_caption_short',I,r'\textbf{When does generation help understanding?}')
+take('overview_panel_a',I,'(a) Increasing I2I supervision','training recipe.')
+take('overview_panel_b',I,'(b) Across visual capabilities','bubble size denotes magnitude).')
+take('overview_panel_c',I,'(c) This selectivity is also reflected inside the model','pre-attention normalization.')
+take('related_example',X,r'The clearest example is \textit{Object pointing}',r'\textit{Counting} ($+3.57$ pp).')
+take('depth_example',X,r'Similarly, \textit{Z-depth}',r'metric spatial reasoning.')
+take('nav_training',P,'Training')
 result={'manuscript_project':'https://www.overleaf.com/project/69d99c42c6f3e61ae13f54f1','manuscript_commit':REV,'rendering':'Whitespace and LaTeX typography only; expand methodname using the manuscript macro. No rewritten or synthesized scientific prose.','excerpts':entries}
 output=BASE/'content/manuscript-excerpts.json'
 serialized=json.dumps(result,ensure_ascii=False,indent=2)+'\n'

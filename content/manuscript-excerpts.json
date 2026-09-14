@@ -462,6 +462,136 @@
         "raw_tex": "Gradient alignment",
         "file_sha256": "e315689b0467fb1693b0a4c0c90e3edb6b91b671732c11bade0928a6bda0ca11"
       }
+    },
+    "hero_lead": {
+      "text": "In this work, we study generation as a source of training supervision for visual understanding.",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 25,
+        "end_line": 25,
+        "raw_tex": "In this work, we study generation as a source of training supervision for visual understanding.",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "controlled_lead": {
+      "text": "To isolate generation-to-understanding transfer, we construct paired generation and understanding tasks that require the same underlying visual operation while differing only in output modality.",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 32,
+        "end_line": 32,
+        "raw_tex": "To isolate generation-to-understanding transfer, we construct paired generation and understanding tasks that require the same underlying visual operation while differing only in output modality.",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "taxonomy_lead": {
+      "text": "We introduce UniTaskonomy, a shared hierarchy that organizes I2I supervision objectives and I2T evaluation capabilities according to the visual information they target, rather than their output modality.",
+      "source": {
+        "file": "iclr2026/sections/4_taxonomy.tex",
+        "start_line": 8,
+        "end_line": 8,
+        "raw_tex": "We introduce \\methodname, a shared hierarchy that organizes I2I supervision objectives and I2T evaluation capabilities according to the visual information they target, rather than their output modality.",
+        "file_sha256": "fe6ac3327c2a87dcf1bd5a53e79df5b5f4fb336464cafc5645d3c57963ebf814"
+      }
+    },
+    "taxonomy_quantity": {
+      "text": "The resulting taxonomy contains 15 I2I supervision leaves and 25 I2T capability leaves, with leaf type explicitly indicating whether a node represents a training objective or an evaluation capability.",
+      "source": {
+        "file": "iclr2026/sections/4_taxonomy.tex",
+        "start_line": 61,
+        "end_line": 61,
+        "raw_tex": "The resulting taxonomy contains 15 I2I supervision leaves and 25 I2T capability leaves, with leaf type explicitly indicating whether a node represents a training objective or an evaluation capability.",
+        "file_sha256": "fe6ac3327c2a87dcf1bd5a53e79df5b5f4fb336464cafc5645d3c57963ebf814"
+      }
+    },
+    "transfer_lead": {
+      "text": "Some gains follow intuitive capability correspondences, such as Z-depth improving metric 3D reasoning and object pointing improving counting. Others are less obvious: 2D keypoint supervision substantially improves both lighting understanding and multi-view reasoning. Moreover, the same generation task can help some capabilities while interfering with others.",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 49,
+        "end_line": 51,
+        "raw_tex": "Some gains follow intuitive capability correspondences, such as Z-depth improving metric 3D reasoning and object pointing improving counting. \nOthers are less obvious: 2D keypoint supervision substantially improves both lighting understanding and multi-view reasoning. \nMoreover, the same generation task can help some capabilities while interfering with others.",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "alignment_lead": {
+      "text": "These results suggest that optimization compatibility between generation and understanding objectives may be one factor associated with successful transfer.",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 63,
+        "end_line": 63,
+        "raw_tex": "These results suggest that optimization compatibility between generation and understanding objectives may be one factor associated with successful transfer.",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "overview_caption_short": {
+      "text": "When does generation help understanding?",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 7,
+        "end_line": 7,
+        "raw_tex": "\\textbf{When does generation help understanding?}",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "overview_panel_a": {
+      "text": "(a) Increasing I2I supervision can steadily improve downstream I2T performance, while the effect depends strongly on the training recipe.",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 8,
+        "end_line": 8,
+        "raw_tex": "(a) Increasing I2I supervision can steadily improve downstream I2T performance, while the effect depends strongly on the training recipe.",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "overview_panel_b": {
+      "text": "(b) Across visual capabilities, transfer is highly task-dependent: some I2I–I2T pairs yield large gains, whereas others interfere with understanding (blue/red denote positive/negative transfer; bubble size denotes magnitude).",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 9,
+        "end_line": 9,
+        "raw_tex": "(b) Across visual capabilities, transfer is highly task-dependent: some I2I--I2T pairs yield large gains, whereas others interfere with understanding (blue/red denote positive/negative transfer; bubble size denotes magnitude).",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "overview_panel_c": {
+      "text": "(c) This selectivity is also reflected inside the model, where gradient alignment between I2I and I2T objectives varies sharply across parameter groups and is strongest in pre-attention normalization.",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 10,
+        "end_line": 10,
+        "raw_tex": "(c) This selectivity is also reflected inside the model, where gradient alignment between I2I and I2T objectives varies sharply across parameter groups and is strongest in pre-attention normalization.",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "related_example": {
+      "text": "The clearest example is Object pointing: training the model to mark every instance matching a category query produces the largest observed improvement on Counting (+3.57 pp).",
+      "source": {
+        "file": "iclr2026/sections/5_analysis.tex",
+        "start_line": 59,
+        "end_line": 59,
+        "raw_tex": "The clearest example is \\textit{Object pointing}: training the model to mark every instance matching a category query produces the largest observed improvement on \\textit{Counting} ($+3.57$ pp).",
+        "file_sha256": "7423b5b0eba18fa5062c6fa448122f4b117760356e1e0f0cc364c67fff4129da"
+      }
+    },
+    "depth_example": {
+      "text": "Similarly, Z-depth produces the largest gain on Metric 3D relation (+2.90 pp), connecting depth prediction to metric spatial reasoning.",
+      "source": {
+        "file": "iclr2026/sections/5_analysis.tex",
+        "start_line": 61,
+        "end_line": 61,
+        "raw_tex": "Similarly, \\textit{Z-depth} produces the largest gain on \\textit{Metric 3D relation} ($+2.90$ pp), connecting depth prediction to metric spatial reasoning.",
+        "file_sha256": "7423b5b0eba18fa5062c6fa448122f4b117760356e1e0f0cc364c67fff4129da"
+      }
+    },
+    "nav_training": {
+      "text": "Training",
+      "source": {
+        "file": "iclr2026/sections/3_poc.tex",
+        "start_line": 62,
+        "end_line": 62,
+        "raw_tex": "Training",
+        "file_sha256": "c155b75672ec8122f959da95f6b85ebf8d4bee787fa044b044e5576166074bbb"
+      }
     }
   }
 }
