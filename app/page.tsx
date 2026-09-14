@@ -2,6 +2,7 @@ import { FileText, Code } from 'lucide-react';
 import type { ReactNode } from 'react';
 import manuscriptContent from '@/content/manuscript-excerpts.json';
 import authorContent from '@/content/author-provided-copy.json';
+import { InteractiveTaxonomy, InteractiveTransferMap } from '@/components/interactive-figures';
 
 // The author requested resource buttons with their destinations left blank.
 const resourceLinks = { paper: '', github: '', huggingface: '' };
@@ -105,6 +106,14 @@ function Figure({ name, caption, width, height, eager = false, className = '', n
   </figure>;
 }
 
+function InteractiveFigure({ name, caption, width, height, children }: { name: string; caption: ExcerptId; width: number; height: number; children: ReactNode }) {
+  return <figure className="interactive-figure">
+    {children}
+    <figcaption><span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(text(caption), emphasis[caption])}</span></figcaption>
+    <details className="original-figure"><summary>Original paper figure</summary><a className="figure-link" href={'/figures/' + name + '.png'} target="_blank" rel="noreferrer"><img src={'/figures/' + name + '.png'} alt={text(caption)} width={width} height={height} loading="lazy" /><span className="figure-expand">View full size ↗</span></a></details>
+  </figure>;
+}
+
 export default function Home() {
   const title = text('title');
   const titleBreak = title.indexOf(' Help ');
@@ -157,7 +166,7 @@ export default function Home() {
       <section id="taxonomy" className="chapter"><div className="shell">
         <Heading id="taxonomy_heading" number="03" />
         <Passage id="taxonomy_lead" className="section-lead" />
-        <Figure name="unitaskonomy" caption="taxonomy_caption" width={1604} height={1128} className="taxonomy-figure" />
+        <InteractiveFigure name="unitaskonomy" caption="taxonomy_caption" width={1604} height={1128}><InteractiveTaxonomy /></InteractiveFigure>
         <Passage id="taxonomy_quantity" className="prose supporting-copy" />
         <aside className="method-note"><h3>Annotation protocol</h3><Passage id="taxonomy_annotation" /></aside>
       </div></section>
@@ -165,7 +174,7 @@ export default function Home() {
       <section id="transfer" className="chapter chapter-tinted"><div className="shell">
         <Heading id="transfer_heading" number="04" />
         <aside className="method-note experiment-setup"><Passage id="transfer_setup" /><Passage id="transfer_scope" /></aside>
-        <Figure name="transfer-matrix" caption="transfer_caption" width={1616} height={1190} className="matrix-figure" />
+        <InteractiveFigure name="transfer-matrix" caption="transfer_caption" width={1616} height={1190}><InteractiveTransferMap /></InteractiveFigure>
         <Passage id="transfer_lead" className="section-lead" />
         <div className="two-columns results-notes">
           <div><h3 data-manuscript-excerpt="related_heading">{text('related_heading')}</h3><Passage id="related_example" /><Passage id="depth_example" /></div>
