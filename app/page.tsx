@@ -18,7 +18,9 @@ const sections: [string, ExcerptId][] = [
 ];
 const emphasis: Partial<Record<ExcerptId, string[]>> = {
   tldr_paired: ['paired generation and understanding tasks', 'same visual operation', 'different modalities'],
-  tldr_taxonomy_compact: ['UniTaskonomy', 'unified capability taxonomy'],
+  tldr_question_1: ['improve visual understanding', 'training setup'],
+  tldr_question_2: ['generation data', 'understanding tasks'],
+  tldr_question_3: ['transfer successfully'],
   finding_a: ['steadily improve', 'training recipe'],
   finding_b: ['highly task-dependent', 'large gains', 'interfere with understanding'],
   overview_panel_a: ['steadily improve', 'training recipe'],
@@ -106,11 +108,10 @@ function Figure({ name, caption, width, height, eager = false, className = '', n
   </figure>;
 }
 
-function InteractiveFigure({ name, caption, width, height, children }: { name: string; caption: ExcerptId; width: number; height: number; children: ReactNode }) {
+function InteractiveFigure({ caption, children }: { caption: ExcerptId; children: ReactNode }) {
   return <figure className="interactive-figure">
     {children}
     <figcaption><span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(text(caption), emphasis[caption])}</span></figcaption>
-    <details className="original-figure"><summary>Original paper figure</summary><a className="figure-link" href={'/figures/' + name + '.png'} target="_blank" rel="noreferrer"><img src={'/figures/' + name + '.png'} alt={text(caption)} width={width} height={height} loading="lazy" /><span className="figure-expand">View full size ↗</span></a></details>
   </figure>;
 }
 
@@ -131,11 +132,13 @@ export default function Home() {
     <section className="overview shell" id="overview">
       <h2 className="tldr-heading">TL;DR</h2>
       <div className="tldr-box">
-        <div className="tldr-step"><span className="tldr-number" aria-hidden="true">1</span><div>
-          <Passage id="tldr_paired" />
-          <div className="task-pair"><span data-manuscript-excerpt="tldr_i2i">{formatted(text('tldr_i2i'))}</span><span className="pair-separator" aria-hidden="true">→</span><span data-manuscript-excerpt="tldr_i2t">{formatted(text('tldr_i2t'))}</span></div>
-        </div></div>
-        <div className="tldr-step"><span className="tldr-number" aria-hidden="true">2</span><div><Passage id="tldr_taxonomy_compact" /></div></div>
+        <Passage id="tldr_paired" className="tldr-intro" />
+        <div className="task-pair"><span data-manuscript-excerpt="tldr_i2i">{formatted(text('tldr_i2i'))}</span><span className="pair-separator" aria-hidden="true">→</span><span data-manuscript-excerpt="tldr_i2t">{formatted(text('tldr_i2t'))}</span></div>
+        <ol className="tldr-questions">
+          <li><Passage id="tldr_question_1" /></li>
+          <li><Passage id="tldr_question_2" /></li>
+          <li><Passage id="tldr_question_3" /></li>
+        </ol>
       </div>
       <div className="overview-notes">
         <div><h3 className="finding-label">Finding 1</h3><Passage id="finding_a" /></div>
@@ -166,7 +169,7 @@ export default function Home() {
       <section id="taxonomy" className="chapter"><div className="shell">
         <Heading id="taxonomy_heading" number="03" />
         <Passage id="taxonomy_lead" className="section-lead" />
-        <InteractiveFigure name="unitaskonomy" caption="taxonomy_caption" width={1604} height={1128}><InteractiveTaxonomy /></InteractiveFigure>
+        <InteractiveFigure caption="taxonomy_caption"><InteractiveTaxonomy /></InteractiveFigure>
         <Passage id="taxonomy_quantity" className="prose supporting-copy" />
         <aside className="method-note"><h3>Annotation protocol</h3><Passage id="taxonomy_annotation" /></aside>
       </div></section>
@@ -174,7 +177,7 @@ export default function Home() {
       <section id="transfer" className="chapter chapter-tinted"><div className="shell">
         <Heading id="transfer_heading" number="04" />
         <aside className="method-note experiment-setup"><Passage id="transfer_setup" /><Passage id="transfer_scope" /></aside>
-        <InteractiveFigure name="transfer-matrix" caption="transfer_caption" width={1616} height={1190}><InteractiveTransferMap /></InteractiveFigure>
+        <InteractiveFigure caption="transfer_caption"><InteractiveTransferMap /></InteractiveFigure>
         <Passage id="transfer_lead" className="section-lead" />
         <div className="two-columns results-notes">
           <div><h3 data-manuscript-excerpt="related_heading">{text('related_heading')}</h3><Passage id="related_example" /><Passage id="depth_example" /></div>

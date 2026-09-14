@@ -9,7 +9,7 @@ excerpts=book['excerpts']
 author_excerpts=json.loads((BASE/'content/author-provided-copy.json').read_text())['excerpts']
 def clean(s): return re.sub(r'\s+',' ',s).strip()
 ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Annotation protocol','01','02','03','04','05','TL;DR','Paper','GitHub','Hugging Face','🤗','1','2','3','Finding 1','Finding 2','Finding 3'}
-ui.update({'Original paper figure','Image Generation · I2I','Image Understanding · I2T',
+ui.update({'Image Generation · I2I','Image Understanding · I2T',
  'Click a node to explore','UniTaskonomy','I2I','I2T','Counts: I2T evaluation samples','v12',
  'Benchmark','Capabilities','19 · n > 100','All 25','Transfer (Δ pp)','Accuracy (%)',
  'Hover to magnify · click to pin','Negative','Positive','Row maximum','I2I supervision task',
@@ -61,8 +61,11 @@ with urllib.request.urlopen(url) as response:
  html=response.read().decode()
 audit=Audit();audit.feed(html)
 assert not audit.errors,json.dumps(audit.errors,ensure_ascii=False,indent=2)
-assert audit.description and audit.images==6,(audit.description,audit.images)
+assert audit.description and audit.images==4,(audit.description,audit.images)
 assert len(audit.matched)>=40,audit.matched
+assert {'tldr_question_1','tldr_question_2','tldr_question_3'} <= set(audit.matched)
+assert 'tldr_taxonomy_compact' not in audit.matched
+assert 'Original paper figure' not in html and 'class="ut-modalities"' not in html
 assert set(audit.author_matched)==set(author_excerpts),audit.author_matched
 assert sum(k=='data-v12-metric' for k,v in audit.v12_matched)==19*15
 assert len({v for k,v in audit.v12_matched if k=='data-v12-copy' and v.startswith('leaf|') and v.endswith('|name')})==40

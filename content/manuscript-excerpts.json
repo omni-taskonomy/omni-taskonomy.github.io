@@ -682,6 +682,36 @@
         "raw_tex": "Across visual capabilities, transfer is highly task-dependent: some I2I--I2T pairs yield large gains, whereas others interfere with understanding",
         "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
       }
+    },
+    "tldr_question_1": {
+      "text": "Can generation supervision improve visual understanding, and under what training setup does this transfer emerge?",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 31,
+        "end_line": 31,
+        "raw_tex": "Can generation supervision improve visual understanding, and under what training setup does this transfer emerge?",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "tldr_question_2": {
+      "text": "Which kinds of generation data help which kinds of understanding tasks?",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 41,
+        "end_line": 41,
+        "raw_tex": "Which kinds of generation data help which kinds of understanding tasks?",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "tldr_question_3": {
+      "text": "What makes generation supervision transfer successfully to a particular understanding task?",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 55,
+        "end_line": 55,
+        "raw_tex": "What makes generation supervision transfer successfully to a particular understanding task?",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
     }
   }
 }

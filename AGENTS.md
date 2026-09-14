@@ -24,3 +24,9 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 - data-v12-copy identifies exact source fields; data-v12-metric identifies numeric cells calculated from the supplied correct/total pairs; data-v12-view identifies displayed row and sample counts. The rendered-copy audit validates these records separately and continues to reject unregistered text.
 - Family membership follows the supplied v12 data. Keep the original manuscript figures accessible for comparison; they are a separate, older snapshot. Use the >100 global sample threshold for the default 19 rows, and preserve missing values as missing.
 - Run scripts/verify-interactive-data.py in addition to the existing manuscript and rendered-copy checks.
+
+## Subsequent author correction on September 14, 2026
+
+- Remove both "Original paper figure" disclosures from the rendered page, as explicitly requested. This supersedes the earlier requirement to display the original taxonomy and transfer figures; leave their source assets intact.
+- Remove the two modality badges above the taxonomy tree. This does not remove modality definitions elsewhere.
+- TL;DR should introduce the paired setup and I2I/I2T abbreviations, then list the introduction's three exact research questions before Finding 1/2/3. Remove the UniTaskonomy introduction from TL;DR.

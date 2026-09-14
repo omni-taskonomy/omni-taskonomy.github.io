@@ -22,7 +22,7 @@ export function InteractiveTaxonomy() {
   const trigger = useRef<HTMLButtonElement | null>(null);
   const sample = selected?.sample;
   return <div className="ut-figure ut-taxonomy" aria-label="Interactive UniTaskonomy tree">
-    <div className="ut-tree-toolbar"><div className="ut-modalities"><Modality role="i2i" /><Modality role="i2t" /></div><span>Click a node to explore</span></div>
+    <div className="ut-tree-toolbar"><span>Click a node to explore</span></div>
     <div className="ut-root"><span>UniTaskonomy</span></div>
     <div className="ut-tree">
       {data.tree.families.map(f => {

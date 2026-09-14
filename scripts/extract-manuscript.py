@@ -102,6 +102,10 @@ take('tldr_findings',A,'Taken together, our results challenge the view','what vi
 take('tldr_taxonomy_compact',A,r'\methodname, a unified capability taxonomy for generation and understanding')
 take('finding_a',I,'Increasing I2I supervision can steadily improve downstream I2T performance, while the effect depends strongly on the training recipe.')
 take('finding_b',I,'Across visual capabilities, transfer is highly task-dependent: some I2I--I2T pairs yield large gains, whereas others interfere with understanding')
+# Three research questions already stated verbatim in the active introduction.
+take('tldr_question_1',I,'Can generation supervision improve visual understanding, and under what training setup does this transfer emerge?')
+take('tldr_question_2',I,'Which kinds of generation data help which kinds of understanding tasks?')
+take('tldr_question_3',I,'What makes generation supervision transfer successfully to a particular understanding task?')
 result={'manuscript_project':'https://www.overleaf.com/project/69d99c42c6f3e61ae13f54f1','manuscript_commit':REV,'rendering':'Whitespace and LaTeX typography only; expand methodname using the manuscript macro. No rewritten or synthesized scientific prose.','excerpts':entries}
 output=BASE/'content/manuscript-excerpts.json'
 serialized=json.dumps(result,ensure_ascii=False,indent=2)+'\n'
