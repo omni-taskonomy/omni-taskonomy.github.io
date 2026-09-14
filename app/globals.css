@@ -117,6 +117,7 @@ h3 { font-size:1.65rem; line-height:1.2; margin:0 0 17px; color:#365872; }
 .method-note h3 { font-size:1.75rem; color:#34536d; margin-bottom:16px; }
 .method-note p { font-size:1rem; line-height:1.85; color:#5e6e7c; }
 .method-note p:last-child { margin-bottom:0; }
+.experiment-setup { margin:28px auto; padding-top:0; border-top:0; }
 .acknowledgments { max-width:780px; padding:60px 0 48px; text-align:center; }
 .acknowledgments h2 { font-size:2rem; margin-bottom:19px; }
 .ack-names { font-size:1rem; color:#4b5f70; }

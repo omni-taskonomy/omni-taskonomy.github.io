@@ -164,21 +164,22 @@ export default function Home() {
 
       <section id="transfer" className="chapter chapter-tinted"><div className="shell">
         <Heading id="transfer_heading" number="04" />
-        <Passage id="transfer_lead" className="section-lead" />
+        <aside className="method-note experiment-setup"><h3>Experimental setup</h3><Passage id="transfer_setup" /><Passage id="transfer_scope" /></aside>
         <Figure name="transfer-matrix" caption="transfer_caption" width={1616} height={1190} className="matrix-figure" />
+        <Passage id="transfer_lead" className="section-lead" />
         <div className="two-columns results-notes">
           <div><h3 data-manuscript-excerpt="related_heading">{text('related_heading')}</h3><Passage id="related_example" /><Passage id="depth_example" /></div>
           <div><h3 data-manuscript-excerpt="cross_heading">{text('cross_heading')}</h3><Passage id="cross_results" /></div>
         </div>
-        <aside className="method-note"><h3>Experimental setup</h3><Passage id="transfer_setup" /><Passage id="transfer_scope" /></aside>
       </div></section>
 
       <section id="alignment" className="chapter"><div className="shell">
         <Heading id="alignment_heading" number="05" />
-        <Passage id="alignment_lead" className="section-lead" />
+        <aside className="method-note experiment-setup"><h3>Experimental setup</h3><Passage id="alignment_setup" /></aside>
         <Figure name="gradient-alignment" caption="alignment_caption" width={1476} height={674} />
+        <Passage id="alignment_results" className="prose supporting-copy" />
+        <Passage id="alignment_lead" className="section-lead" />
         <blockquote className="finding"><Passage id="alignment_finding" /></blockquote>
-        <aside className="method-note"><h3>Experimental setup</h3><Passage id="alignment_setup" /><Passage id="alignment_results" /></aside>
       </div></section>
 
       <section className="acknowledgments shell" id="acknowledgments">
