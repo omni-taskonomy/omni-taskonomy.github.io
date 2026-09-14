@@ -5,12 +5,13 @@ import json,re,sys,urllib.request
 BASE=Path(__file__).resolve().parents[1]
 book=json.loads((BASE/'content/manuscript-excerpts.json').read_text())
 excerpts=book['excerpts']
+author_excerpts=json.loads((BASE/'content/author-provided-copy.json').read_text())['excerpts']
 def clean(s): return re.sub(r'\s+',' ',s).strip()
-ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Experimental setup','Annotation protocol','01','02','03','04','05','TL;DR','Paper','GitHub','Hugging Face','🤗','1','2','3'}
+ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Experimental setup','Annotation protocol','01','02','03','04','05','TL;DR','Paper','GitHub','Hugging Face','🤗','1','2','3','A','B','C'}
 credit='This project page’s design and presentation are inspired by Beyond Language Modeling: An Exploration of Multimodal Pretraining. We thank its authors for the inspiration.'
 class Audit(HTMLParser):
  def __init__(self):
-  super().__init__();self.depth=0;self.skip=[];self.active=None;self.matched=[];self.images=0;self.description=False;self.errors=[]
+  super().__init__();self.depth=0;self.skip=[];self.active=None;self.matched=[];self.author_matched=[];self.images=0;self.description=False;self.errors=[]
  def handle_starttag(self,tag,attrs):
   attrs=dict(attrs);self.depth+=1
   if tag in {'head','script','style'}: self.skip.append((tag,self.depth))
@@ -19,9 +20,10 @@ class Audit(HTMLParser):
   if tag=='img':
    assert attrs.get('alt') in {v['text'] for v in excerpts.values()},'Unmapped image alt text';self.images+=1
   key=attrs.get('data-manuscript-excerpt')
-  if key or attrs.get('data-site-credit'):
+  author_key=attrs.get('data-author-copy')
+  if key or author_key or attrs.get('data-site-credit'):
    assert self.active is None,'Nested provenance records'
-   self.active={'depth':self.depth,'tag':tag,'key':key,'parts':[]}
+   self.active={'depth':self.depth,'tag':tag,'key':key,'author_key':author_key,'parts':[]}
   if tag in {'area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'}: self.depth-=1
  def handle_startendtag(self,tag,attrs):
   self.handle_starttag(tag,attrs)
@@ -29,9 +31,11 @@ class Audit(HTMLParser):
  def handle_endtag(self,tag):
   if self.active and self.active['depth']==self.depth:
    record=self.active;actual=clean(''.join(record['parts']));key=record['key']
-   expected=excerpts[key]['text'] if key else credit
+   author_key=record['author_key']
+   expected=excerpts[key]['text'] if key else author_excerpts[author_key]['text'] if author_key else credit
    if actual!=expected:self.errors.append({'key':key,'actual':actual,'expected':expected})
    if key:self.matched.append(key)
+   if author_key:self.author_matched.append(author_key)
    self.active=None
   if self.skip and self.skip[-1]==(tag,self.depth):self.skip.pop()
   self.depth-=1
@@ -47,4 +51,5 @@ audit=Audit();audit.feed(html)
 assert not audit.errors,json.dumps(audit.errors,ensure_ascii=False,indent=2)
 assert audit.description and audit.images==6,(audit.description,audit.images)
 assert len(audit.matched)>=40,audit.matched
-print(json.dumps({'source_commit':book['manuscript_commit'],'rendered_excerpt_instances':len(audit.matched),'unique_rendered_excerpts':len(set(audit.matched)),'manuscript_derived_image_alts':audit.images,'metadata_verbatim':audit.description,'unmapped_research_text':0},indent=2))
+assert set(audit.author_matched)==set(author_excerpts),audit.author_matched
+print(json.dumps({'source_commit':book['manuscript_commit'],'rendered_excerpt_instances':len(audit.matched),'unique_rendered_excerpts':len(set(audit.matched)),'author_provided_excerpts':len(audit.author_matched),'manuscript_derived_image_alts':audit.images,'metadata_verbatim':audit.description,'unmapped_research_text':0},indent=2))

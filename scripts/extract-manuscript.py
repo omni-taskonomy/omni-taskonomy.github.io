@@ -98,6 +98,10 @@ take('tldr_i2t',A,'image-to-text (I2T)')
 take('tldr_taxonomy',I,r'We therefore introduce \methodname, a unified capability taxonomy','within the same visual capability space.')
 take('tldr_systematic',I,'This shared structure allows us to systematically measure transfer from each I2I task to each understanding capability.')
 take('tldr_findings',A,'Taken together, our results challenge the view','what visual capability it supervises.')
+# Short contiguous passages for the author's requested direct TL;DR findings.
+take('tldr_taxonomy_compact',A,r'\methodname, a unified capability taxonomy for generation and understanding')
+take('finding_a',I,'Increasing I2I supervision can steadily improve downstream I2T performance, while the effect depends strongly on the training recipe.')
+take('finding_b',I,'Across visual capabilities, transfer is highly task-dependent: some I2I--I2T pairs yield large gains, whereas others interfere with understanding')
 result={'manuscript_project':'https://www.overleaf.com/project/69d99c42c6f3e61ae13f54f1','manuscript_commit':REV,'rendering':'Whitespace and LaTeX typography only; expand methodname using the manuscript macro. No rewritten or synthesized scientific prose.','excerpts':entries}
 output=BASE/'content/manuscript-excerpts.json'
 serialized=json.dumps(result,ensure_ascii=False,indent=2)+'\n'

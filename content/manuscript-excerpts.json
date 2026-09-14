@@ -652,6 +652,36 @@
         "raw_tex": "Taken together, our results challenge the view that generation provides little value for understanding: \ngeneration can provide effective supervision for visual understanding, but whether it transfers depends critically on how it is trained and what visual capability it supervises.",
         "file_sha256": "ce46c68a676829ff0644490435c03e86eac9b7dd7f8dfb645246cf4d6960a32e"
       }
+    },
+    "tldr_taxonomy_compact": {
+      "text": "UniTaskonomy, a unified capability taxonomy for generation and understanding",
+      "source": {
+        "file": "iclr2026/sections/0_abstract.tex",
+        "start_line": 14,
+        "end_line": 14,
+        "raw_tex": "\\methodname, a unified capability taxonomy for generation and understanding",
+        "file_sha256": "ce46c68a676829ff0644490435c03e86eac9b7dd7f8dfb645246cf4d6960a32e"
+      }
+    },
+    "finding_a": {
+      "text": "Increasing I2I supervision can steadily improve downstream I2T performance, while the effect depends strongly on the training recipe.",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 8,
+        "end_line": 8,
+        "raw_tex": "Increasing I2I supervision can steadily improve downstream I2T performance, while the effect depends strongly on the training recipe.",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
+    },
+    "finding_b": {
+      "text": "Across visual capabilities, transfer is highly task-dependent: some I2I–I2T pairs yield large gains, whereas others interfere with understanding",
+      "source": {
+        "file": "iclr2026/sections/1_introduction_clean.tex",
+        "start_line": 9,
+        "end_line": 9,
+        "raw_tex": "Across visual capabilities, transfer is highly task-dependent: some I2I--I2T pairs yield large gains, whereas others interfere with understanding",
+        "file_sha256": "a5e0efae062b008ff904bd7cc3c54cfb64974c3932a207ccddfa4b8a94f6cca6"
+      }
     }
   }
 }

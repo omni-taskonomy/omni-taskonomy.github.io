@@ -9,3 +9,10 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 - Interface controls and the existing, separately marked website-design acknowledgment are the only non-manuscript copy on this site. The manuscript's acknowledgment names are also copied as an exact passage.
 - Run python scripts/extract-manuscript.py --check and python scripts/verify-page-copy.py <local-url> before publishing. The second check rejects unregistered rendered research text and verifies captions, alt text, and metadata.
 - Follow the user-requested visual direction while preserving original manuscript figures and the current site audience. Use short contiguous excerpts and progressive disclosure for long original passages; never rewrite prose to fit a layout. This site task does not authorize manuscript or bibliography changes on Overleaf.
+
+## Explicit author edits on September 14, 2026
+
+- The author supplied replacement R1–R6 descriptions and a compact plot legend. These are recorded separately in content/author-provided-copy.json and rendered with data-author-copy. This narrowly scoped exception does not permit invented research prose elsewhere.
+- Use short, contiguous manuscript excerpts for TL;DR findings. Remove the rejected systematic-transfer and Taken-together lead-ins.
+- Explain R1–R6 visibly before the training plot and link its caption to that note. Display annotation and experimental details in readable, open sections; do not hide them behind small disclosure labels.
+- The rendered-copy audit must verify both manuscript excerpts and the explicit author-provided replacements against their separate records.

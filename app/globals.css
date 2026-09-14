@@ -52,10 +52,21 @@ figcaption { color:#6c7683; font-size:.875rem; line-height:1.75; margin:13px aut
 .teaser { margin:12px auto 0; max-width:none; }
 .teaser .figure-link { padding:17px 20px 30px; border:0; border-radius:0; }
 .teaser figcaption { text-align:center; font-family:'Cormorant Garamond',Georgia,serif; font-size:1.5rem; font-weight:600; color:#2c4055; margin-top:8px; }
-.overview-notes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px; margin:20px 20px 25px; }
-.overview-notes p { font-size:.875rem; color:#657180; line-height:1.75; margin:0; padding-top:12px; border-top:2px solid #d7e3ef; }
-.overview-notes p:nth-child(2) { border-color:#dfd7c7; }
-.overview-notes p:nth-child(3) { border-color:#cedfd7; }
+.overview-notes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px; margin:26px 20px 22px; }
+.overview-notes>div { padding-top:15px; border-top:2px solid #d7e3ef; }
+.overview-notes>div:nth-child(2) { border-color:#dfd7c7; }
+.overview-notes>div:nth-child(3) { border-color:#cedfd7; }
+.finding-letter { display:block; margin-bottom:9px; font-size:.9rem; font-weight:600; color:#527491; line-height:1; }
+.overview-notes p { font-size:.92rem; color:#657180; line-height:1.75; margin:0; }
+.plot-legend { display:flex; justify-content:center; flex-wrap:wrap; gap:12px 28px; margin:18px auto 24px; }
+.legend-item { display:inline-flex; align-items:center; gap:8px; font-size:.875rem; line-height:1.5; color:#5a6978; }
+.legend-dot { display:block; width:11px; height:11px; border-radius:50%; }
+.legend-dot.positive { background:#82adce; }
+.legend-dot.negative { background:#d99198; }
+.bubble-key { display:flex; align-items:center; gap:3px; }
+.bubble-key i { display:block; width:5px; height:5px; border-radius:50%; background:#a0aab4; }
+.bubble-key i:nth-child(2) { width:8px; height:8px; }
+.bubble-key i:nth-child(3) { width:12px; height:12px; }
 .section-nav { position:sticky; top:0; z-index:10; border-block:1px solid var(--border); background:rgba(255,255,255,.97); backdrop-filter:blur(12px); }
 .nav-inner { display:flex; justify-content:center; align-items:center; gap:26px; min-height:55px; padding:8px 20px; margin:auto; width:max-content; max-width:100%; }
 .nav-inner a { white-space:nowrap; color:#687583; font-size:.875rem; line-height:1.5; padding:7px 0; }
@@ -69,10 +80,14 @@ h2 { font-size:clamp(1.95rem,3.4vw,2.7rem); line-height:1.13; letter-spacing:-.0
 .section-lead { max-width:780px; margin:0 auto 28px; text-align:center; color:#5d6977; font-size:1rem; line-height:1.8; }
 .two-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:40px; max-width:920px; margin-inline:auto; }
 .supporting-copy { color:#586777; font-size:.96rem; }
-.recipe-flow { display:flex; justify-content:center; align-items:center; gap:24px; margin:8px auto 32px; }
-.recipe-flow strong { padding:9px 18px; border:1px solid #edced3; background:#fbeef0; border-radius:5px; font-weight:600; color:#a45862; font-size:1rem; }
-.recipe-flow strong:last-child { border-color:#ccdeed; background:#edf4fb; color:#47799f; }
-.recipe-flow>span { color:#8698a8; font-size:1.4rem; }
+.recipe-note { max-width:850px; margin:30px auto; scroll-margin-top:90px; }
+.recipe-note-intro { display:flex; align-items:baseline; gap:8px; margin-bottom:14px; }
+.recipe-note-intro>sup { color:#527491; font-size:.75rem; }
+.recipe-note-intro p { margin:0; font-size:1rem; color:#455969; }
+.recipe-list { list-style:none; padding:0; margin:0; border-top:1px solid #dce4ec; }
+.recipe-list li { padding:13px 0; border-bottom:1px solid #e3e9ef; }
+.recipe-list p { margin:0; font-size:.96rem; line-height:1.75; color:#5d6b78; }
+.footnote-ref { padding:0 4px; font-size:.8rem; }
 .finding { max-width:780px; margin:30px auto; padding:3px 0 3px 22px; border-left:2px solid #80a9cc; }
 .finding p { margin:0; font-family:'Cormorant Garamond',Georgia,serif; font-size:1.65rem; color:#305d83; line-height:1.35; font-weight:500; }
 .taxonomy-figure { max-width:900px; }
@@ -80,12 +95,10 @@ h2 { font-size:clamp(1.95rem,3.4vw,2.7rem); line-height:1.13; letter-spacing:-.0
 .results-notes { margin-top:34px; }
 h3 { font-size:1.65rem; line-height:1.2; margin:0 0 17px; color:#365872; }
 .results-notes p { font-size:.96rem; color:#5e6d7b; }
-.paper-details { max-width:900px; margin:24px auto 0; border-top:1px solid #dfe6ed; }
-.paper-details summary { cursor:pointer; list-style:none; padding:15px 0; color:#56718b; font-size:.875rem; display:flex; justify-content:space-between; align-items:center; }
-.paper-details summary::-webkit-details-marker { display:none; }
-.paper-details summary::after { content:'+'; font-size:1.1rem; line-height:1; color:#7390ab; }
-.paper-details[open] summary::after { content:'−'; }
-.details-content { padding:8px 0 12px; color:#657180; font-size:.95rem; }
+.method-note { max-width:850px; margin:36px auto 0; padding-top:25px; border-top:1px solid #d9e3ec; }
+.method-note h3 { font-size:1.75rem; color:#34536d; margin-bottom:16px; }
+.method-note p { font-size:1rem; line-height:1.85; color:#5e6e7c; }
+.method-note p:last-child { margin-bottom:0; }
 .acknowledgments { max-width:780px; padding:60px 0 48px; text-align:center; }
 .acknowledgments h2 { font-size:2rem; margin-bottom:19px; }
 .ack-names { font-size:1rem; color:#4b5f70; }
@@ -95,6 +108,6 @@ footer a { color:#718295; }
 .skip-link { position:fixed; top:-100px; left:16px; z-index:100; padding:10px 16px; background:#fff; }
 .skip-link:focus { top:12px; }
 @media(max-width:800px) { .shell { width:calc(100% - 44px); } .nav-inner { gap:16px; } .nav-inner a { font-size:.875rem; } .paper-header { padding-top:50px; } .overview-notes { gap:18px; margin-inline:4px; } .chapter { padding:48px 0; } .two-columns { gap:26px; } }
-@media(max-width:600px) { .shell { width:calc(100% - 36px); } .paper-header { padding:38px 0 24px; } h1 { font-size:2.8rem; } .resource-buttons { gap:8px; margin-top:23px; } .resource-button { padding-inline:13px; font-size:.81rem; } .tldr-box { padding:20px 16px; margin-bottom:24px; } .tldr-step { grid-template-columns:22px minmax(0,1fr); gap:10px; } .tldr-step p { font-size:.92rem; } .tldr-number { width:22px; height:22px; } .tldr-step + .tldr-step { margin-top:18px; } .task-pair { gap:6px; } .task-pair>span[data-manuscript-excerpt] { font-size:.78rem; padding-inline:7px; } .teaser .figure-link { padding:6px 0 25px; } .teaser figcaption { font-size:1.3rem; } .overview-notes { grid-template-columns:1fr; gap:12px; margin-block:16px; } .overview-notes p { padding-top:10px; } .section-nav { overflow-x:auto; scrollbar-width:none; } .section-nav::-webkit-scrollbar { display:none; } .nav-inner { width:max-content; max-width:none; min-height:49px; gap:24px; justify-content:flex-start; padding-inline:18px; } .nav-inner a { font-size:.875rem; } .section-heading { max-width:430px; } .section-lead { text-align:left; } .two-columns { grid-template-columns:1fr; gap:8px; } figure { margin-block:25px; } .figure-link { padding:12px 8px 28px; border-radius:7px; } figcaption { font-size:.875rem; } .recipe-flow { gap:12px; } .recipe-flow strong { font-size:.875rem; padding:9px 12px; } .finding { padding-left:17px; } .finding p { font-size:1.5rem; } .results-notes { gap:22px; } .acknowledgments { padding-block:44px 35px; } footer>span { flex-basis:100%; text-align:center; } }
+@media(max-width:600px) { .shell { width:calc(100% - 36px); } .paper-header { padding:38px 0 24px; } h1 { font-size:2.8rem; } .resource-buttons { gap:8px; margin-top:23px; } .resource-button { padding-inline:13px; font-size:.81rem; } .tldr-box { padding:20px 16px; margin-bottom:24px; } .tldr-step { grid-template-columns:22px minmax(0,1fr); gap:10px; } .tldr-step p { font-size:.92rem; } .tldr-number { width:22px; height:22px; } .tldr-step + .tldr-step { margin-top:18px; } .task-pair { gap:6px; } .task-pair>span[data-manuscript-excerpt] { font-size:.78rem; padding-inline:7px; } .teaser .figure-link { padding:6px 0 25px; } .teaser figcaption { font-size:1.3rem; } .overview-notes { grid-template-columns:1fr; gap:12px; margin-block:16px; } .overview-notes>div { padding-top:13px; } .overview-notes p { font-size:.92rem; } .plot-legend { justify-content:flex-start; gap:12px 20px; } .legend-item { font-size:.83rem; } .recipe-list p { font-size:.92rem; } .method-note { margin-top:28px; } .method-note h3 { font-size:1.65rem; } .method-note p { font-size:.95rem; } .section-nav { overflow-x:auto; scrollbar-width:none; } .section-nav::-webkit-scrollbar { display:none; } .nav-inner { width:max-content; max-width:none; min-height:49px; gap:24px; justify-content:flex-start; padding-inline:18px; } .nav-inner a { font-size:.875rem; } .section-heading { max-width:430px; } .section-lead { text-align:left; } .two-columns { grid-template-columns:1fr; gap:8px; } figure { margin-block:25px; } .figure-link { padding:12px 8px 28px; border-radius:7px; } figcaption { font-size:.875rem; } .finding { padding-left:17px; } .finding p { font-size:1.5rem; } .results-notes { gap:22px; } .acknowledgments { padding-block:44px 35px; } footer>span { flex-basis:100%; text-align:center; } }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
-@media print { .section-nav,.resource-buttons,.figure-expand,.skip-link,footer { display:none; } .paper-header { padding-top:0; } .chapter { padding-block:25px; } figure { break-inside:avoid; } details:not([open])>.details-content { display:block; } }
+@media print { .section-nav,.resource-buttons,.figure-expand,.skip-link,footer { display:none; } .paper-header { padding-top:0; } .chapter { padding-block:25px; } figure { break-inside:avoid; } }

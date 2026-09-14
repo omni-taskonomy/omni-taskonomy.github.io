@@ -1,10 +1,13 @@
 import { FileText, Code } from 'lucide-react';
 import type { ReactNode } from 'react';
 import manuscriptContent from '@/content/manuscript-excerpts.json';
+import authorContent from '@/content/author-provided-copy.json';
 
 // The author requested resource buttons with their destinations left blank.
 const resourceLinks = { paper: '', github: '', huggingface: '' };
 const excerpts = manuscriptContent.excerpts;
+const authorExcerpts = authorContent.excerpts;
+type AuthorId = keyof typeof authorExcerpts;
 type ExcerptId = keyof typeof excerpts;
 const text = (id: ExcerptId) => excerpts[id].text;
 const source = (id: ExcerptId) => `${excerpts[id].source.file}:${excerpts[id].source.start_line}-${excerpts[id].source.end_line}`;
@@ -14,9 +17,9 @@ const sections: [string, ExcerptId][] = [
 ];
 const emphasis: Partial<Record<ExcerptId, string[]>> = {
   tldr_paired: ['paired generation and understanding tasks', 'same visual operation', 'different modalities'],
-  tldr_taxonomy: ['UniTaskonomy', 'unified capability taxonomy'],
-  tldr_systematic: ['systematically measure transfer', 'each I2I task', 'each understanding capability'],
-  tldr_findings: ['effective supervision', 'depends critically', 'how it is trained', 'what visual capability it supervises'],
+  tldr_taxonomy_compact: ['UniTaskonomy', 'unified capability taxonomy'],
+  finding_a: ['steadily improve', 'training recipe'],
+  finding_b: ['highly task-dependent', 'large gains', 'interfere with understanding'],
   overview_panel_a: ['steadily improve', 'training recipe'],
   overview_panel_b: ['highly task-dependent', 'large gains', 'interfere with understanding'],
   overview_panel_c: ['gradient alignment', 'pre-attention normalization'],
@@ -57,16 +60,36 @@ function ResourceButton({ label, href, children }: { label: string; href: string
 function Passage({ id, className }: { id: ExcerptId; className?: string }) {
   return <p className={className} data-manuscript-excerpt={id} data-source={source(id)}>{formatted(text(id), emphasis[id])}</p>;
 }
+function AuthorPassage({ id, highlights = [] }: { id: AuthorId; highlights?: string[] }) {
+  return <p data-author-copy={id}>{formatted(authorExcerpts[id].text, highlights)}</p>;
+}
+function PlotLegend() {
+  return <div className="plot-legend" aria-label="Plot legend">
+    <span className="legend-item"><i className="legend-dot positive" aria-hidden="true" /><span data-author-copy="legend_blue">{authorExcerpts.legend_blue.text}</span></span>
+    <span className="legend-item"><i className="legend-dot negative" aria-hidden="true" /><span data-author-copy="legend_red">{authorExcerpts.legend_red.text}</span></span>
+    <span className="legend-item"><span className="bubble-key" aria-hidden="true"><i /><i /><i /></span><span data-author-copy="legend_size">{authorExcerpts.legend_size.text}</span></span>
+  </div>;
+}
+function RecipeNote() {
+  const ids: AuthorId[] = ['recipe_r1', 'recipe_r2', 'recipe_r3', 'recipe_r4', 'recipe_r5', 'recipe_r6'];
+  return <aside className="recipe-note" id="training-recipes" role="note" aria-label="Training recipes">
+    <div className="recipe-note-intro"><sup>1</sup><AuthorPassage id="recipe_intro" /></div>
+    <ol className="recipe-list">{ids.map(id => {
+      const label = authorExcerpts[id].text.split('. ')[0] + '.';
+      return <li key={id}><AuthorPassage id={id} highlights={[label, 'updating', 'frozen']} /></li>;
+    })}</ol>
+  </aside>;
+}
 function Heading({ id, number }: { id: ExcerptId; number: string }) {
   return <div className="section-heading"><span className="section-index" aria-hidden="true">{number}</span><h2 data-manuscript-excerpt={id} data-source={source(id)}>{text(id)}</h2></div>;
 }
-function Figure({ name, caption, width, height, eager = false, className = '' }: { name: string; caption: ExcerptId; width: number; height: number; eager?: boolean; className?: string }) {
+function Figure({ name, caption, width, height, eager = false, className = '', note }: { name: string; caption: ExcerptId; width: number; height: number; eager?: boolean; className?: string; note?: string }) {
   return <figure className={className}>
     <a className="figure-link" href={`/figures/${name}.png`} target="_blank" rel="noreferrer" aria-label="Open full-resolution figure">
       <img src={`/figures/${name}.png`} alt={text(caption)} width={width} height={height} loading={eager ? 'eager' : 'lazy'} />
       <span className="figure-expand">View full size ↗</span>
     </a>
-    <figcaption data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(text(caption), emphasis[caption])}</figcaption>
+    <figcaption><span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(text(caption), emphasis[caption])}</span>{note && <a href={`#${note}`} className="footnote-ref" aria-label="Training recipe definitions"><sup>1</sup></a>}</figcaption>
   </figure>;
 }
 
@@ -91,11 +114,15 @@ export default function Home() {
           <Passage id="tldr_paired" />
           <div className="task-pair"><span data-manuscript-excerpt="tldr_i2i">{formatted(text('tldr_i2i'))}</span><span className="pair-separator" aria-hidden="true">→</span><span data-manuscript-excerpt="tldr_i2t">{formatted(text('tldr_i2t'))}</span></div>
         </div></div>
-        <div className="tldr-step"><span className="tldr-number" aria-hidden="true">2</span><div><Passage id="tldr_taxonomy" /><Passage id="tldr_systematic" /></div></div>
-        <div className="tldr-step"><span className="tldr-number" aria-hidden="true">3</span><div><Passage id="tldr_findings" /></div></div>
+        <div className="tldr-step"><span className="tldr-number" aria-hidden="true">2</span><div><Passage id="tldr_taxonomy_compact" /></div></div>
+      </div>
+      <div className="overview-notes">
+        <div><span className="finding-letter">A</span><Passage id="finding_a" /></div>
+        <div><span className="finding-letter">B</span><Passage id="finding_b" /></div>
+        <div><span className="finding-letter">C</span><Passage id="alignment_finding" /></div>
       </div>
       <Figure name="overview" caption="overview_caption_short" width={1608} height={478} eager className="teaser" />
-      <div className="overview-notes"><Passage id="overview_panel_a" /><Passage id="overview_panel_b" /><Passage id="overview_panel_c" /></div>
+      <PlotLegend />
     </section>
 
     <nav className="section-nav" aria-label="Page sections"><div className="nav-inner"><a href="#top">Top ↑</a>{sections.map(([id, label]) => <a key={id} href={`#${id}`} data-manuscript-excerpt={label}>{text(label)}</a>)}</div></nav>
@@ -109,11 +136,10 @@ export default function Home() {
 
       <section id="recipe" className="chapter chapter-tinted"><div className="shell">
         <Heading id="recipe_heading" number="02" />
+        <RecipeNote />
+        <Figure name="scaling" caption="scaling_caption" width={1604} height={496} note="training-recipes" />
         <Passage id="recipe_result" className="section-lead" />
-        <div className="recipe-flow"><strong data-manuscript-excerpt="stage_i2i">{text('stage_i2i')}</strong><span aria-hidden="true">→</span><strong data-manuscript-excerpt="stage_i2t">{text('stage_i2t')}</strong></div>
-        <Figure name="scaling" caption="scaling_caption" width={1604} height={496} />
         <blockquote className="finding"><Passage id="recipe_finding" /></blockquote>
-        <details className="paper-details"><summary>Training recipes</summary><div className="details-content prose"><Passage id="recipe_setup" /></div></details>
       </div></section>
 
       <section id="taxonomy" className="chapter"><div className="shell">
@@ -121,7 +147,7 @@ export default function Home() {
         <Passage id="taxonomy_lead" className="section-lead" />
         <Figure name="unitaskonomy" caption="taxonomy_caption" width={1604} height={1128} className="taxonomy-figure" />
         <Passage id="taxonomy_quantity" className="prose supporting-copy" />
-        <details className="paper-details"><summary>Annotation protocol</summary><div className="details-content prose"><Passage id="taxonomy_annotation" /></div></details>
+        <aside className="method-note"><h3>Annotation protocol</h3><Passage id="taxonomy_annotation" /></aside>
       </div></section>
 
       <section id="transfer" className="chapter chapter-tinted"><div className="shell">
@@ -132,7 +158,7 @@ export default function Home() {
           <div><h3 data-manuscript-excerpt="related_heading">{text('related_heading')}</h3><Passage id="related_example" /><Passage id="depth_example" /></div>
           <div><h3 data-manuscript-excerpt="cross_heading">{text('cross_heading')}</h3><Passage id="cross_results" /></div>
         </div>
-        <details className="paper-details"><summary>Experimental setup</summary><div className="details-content prose"><Passage id="transfer_setup" /><Passage id="transfer_scope" /></div></details>
+        <aside className="method-note"><h3>Experimental setup</h3><Passage id="transfer_setup" /><Passage id="transfer_scope" /></aside>
       </div></section>
 
       <section id="alignment" className="chapter"><div className="shell">
@@ -140,7 +166,7 @@ export default function Home() {
         <Passage id="alignment_lead" className="section-lead" />
         <Figure name="gradient-alignment" caption="alignment_caption" width={1476} height={674} />
         <blockquote className="finding"><Passage id="alignment_finding" /></blockquote>
-        <details className="paper-details"><summary>Experimental setup</summary><div className="details-content prose"><Passage id="alignment_setup" /><Passage id="alignment_results" /></div></details>
+        <aside className="method-note"><h3>Experimental setup</h3><Passage id="alignment_setup" /><Passage id="alignment_results" /></aside>
       </div></section>
 
       <section className="acknowledgments shell" id="acknowledgments">
