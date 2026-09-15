@@ -84,6 +84,12 @@ function AbilityTransfer() {
     <AbilityNode id="ability_understanding" kind="understanding" />
   </div>;
 }
+function TldrPairPreview() {
+  return <div className="tldr-pair-preview" role="group" aria-label="Jigsaw I2I and Jigsaw I2T example crops from the controlled settings figure">
+    <div className="tldr-crop tldr-crop-i2i" aria-label="Jigsaw I2I crop" />
+    <div className="tldr-crop tldr-crop-i2t" aria-label="Jigsaw I2T crop" />
+  </div>;
+}
 function PlotLegend() {
   return <div className="plot-legend" aria-label="Plot legend">
     <span className="legend-item"><i className="legend-dot positive" aria-hidden="true" /><span data-author-copy="legend_blue">{authorExcerpts.legend_blue.text}</span></span>
@@ -157,7 +163,7 @@ export default function Home() {
     <section className="overview shell" id="overview">
       <h2 className="tldr-heading">TL;DR</h2>
       <div className="tldr-box">
-        <Passage id="tldr_paired" className="tldr-intro" />
+        <TldrPairPreview />
         <AbilityTransfer />
         <ol className="tldr-questions">
           <li><Passage id="tldr_question_1" /></li>

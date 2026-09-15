@@ -66,3 +66,7 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 ## Footer acknowledgment placement
 
 - The author requested removing the manuscript acknowledgments section from the project page, including the names "Grace Luo, Amil Dravid, Xiaochuang Han, Yushi Hu." Keep only the website design inspiration credit to Beyond Language Modeling, placed at the bottom of the page.
+
+## TL;DR controlled-example crop
+
+- The author requested removing the TL;DR sentence "We construct paired generation and understanding tasks..." and placing cropped Jigsaw I2I / Jigsaw I2T examples from the controlled-settings figure above the Image Generation / Image Understanding diagram. Use the existing controlled-tasks figure asset for this visual crop; do not add new research prose.
