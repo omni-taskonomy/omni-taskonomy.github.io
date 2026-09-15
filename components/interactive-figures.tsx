@@ -6,10 +6,9 @@ import { Button } from '@/components/ui/button';
 import { NativeSelect } from '@/components/ui/native-select';
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { coloredTerms } from '@/components/colored-terms';
 import { data, leaves, familyColors, metric, number, fill, rowsFor, modelsFor, sourceCopy, viewLabel, type Leaf } from '@/lib/unitaskonomy';
 
-function V({ id }: { id: string }) { return <span data-v12-copy={id}>{coloredTerms(sourceCopy(id))}</span>; }
+function V({ id }: { id: string }) { return <span data-v12-copy={id}>{sourceCopy(id)}</span>; }
 function Value({ scope, row, model, precision = 1 }: { scope: string; row: string; model: string; precision?: number }) {
   return <span data-v12-metric={[scope, row, model, 'delta', precision].join('|')}>{number(metric(scope, row, model).delta, precision, true)}</span>;
 }
