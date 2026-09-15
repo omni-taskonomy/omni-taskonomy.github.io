@@ -36,9 +36,9 @@ h1 .term-understanding { color:#7ca6c9; }
 .tldr-heading { text-align:center; font-size:2rem; letter-spacing:-.015em; margin:2px 0 18px; }
 .tldr-box { max-width:970px; margin:0 auto 30px; padding:25px 30px; border:1px solid #e3eaf0; border-radius:10px; background:#f7f9fb; }
 .tldr-pair-preview { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:22px; width:min(800px,100%); margin:3px auto 20px; }
-.tldr-crop { min-height:150px; border:1px solid #dfe8f0; border-radius:8px; background-image:url('/figures/controlled-tasks.png'); background-repeat:no-repeat; background-size:928px auto; box-shadow:0 8px 24px rgba(49,72,94,.08); overflow:hidden; }
-.tldr-crop-i2i { background-position:0 4px; }
-.tldr-crop-i2t { background-position:-260px 4px; }
+.tldr-crop { aspect-ratio:430/220; border:1px solid #dfe8f0; border-radius:8px; background-color:#fff; background-repeat:no-repeat; background-position:center; background-size:contain; box-shadow:0 8px 24px rgba(49,72,94,.08); overflow:hidden; }
+.tldr-crop-i2i { background-image:url('/figures/tldr-crops/jigsaw-i2i.png'); }
+.tldr-crop-i2t { background-image:url('/figures/tldr-crops/jigsaw-i2t.png'); }
 .tldr-intro { font-size:1.04rem; line-height:1.75; margin:0; color:var(--body-copy); }
 .tldr-questions { margin:23px 0 0; padding:20px 0 0 1.9em; border-top:1px solid #dce5ee; list-style:upper-roman; font-family:var(--body-font); font-size:var(--body-size); }
 .tldr-questions li { padding-left:9px; }
@@ -291,8 +291,7 @@ figcaption, .teaser figcaption, .site-credit,
   .tldr-heading { margin-top:0; }
   .tldr-box { padding:20px 16px; margin-bottom:24px; }
   .tldr-pair-preview { gap:12px; margin-bottom:18px; }
-  .tldr-crop { min-height:112px; background-size:690px auto; border-radius:7px; }
-  .tldr-crop-i2t { background-position:-193px 4px; }
+  .tldr-crop { border-radius:7px; }
   .tldr-questions { padding-left:1.65em; margin-top:20px; }
   .tldr-questions li { padding-left:4px; }
   .tldr-questions li + li { margin-top:18px; }
@@ -392,8 +391,7 @@ figcaption, .teaser figcaption, .site-credit,
 }
 @media screen and (max-width:540px) {
   .tldr-pair-preview { grid-template-columns:minmax(0,1fr); gap:12px; width:min(360px,100%); }
-  .tldr-crop { min-height:126px; background-size:780px auto; }
-  .tldr-crop-i2t { background-position:-219px 4px; }
+  .tldr-crop { aspect-ratio:430/220; }
   .ability-transfer { grid-template-columns:minmax(0,1fr); gap:14px; margin:28px auto; }
   .ability-title { font-size:2rem; }
   .ability-definition { font-size:1.25rem; }

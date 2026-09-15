@@ -56,7 +56,7 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 
 ## Consistent modality colors
 
-- Color editable page text for generation / image-to-image / I2I in muted red and image understanding / image-to-text / I2T in blue, including terms within existing bold passages. Color bare "understanding" only in paired modality phrases such as "generation and understanding" and "generation-to-understanding"; do not color capability names such as "Appearance understanding" or "Depth understanding." Apply colors by wrapping exact text, without rewriting it.
+- Color editable page text for generation / image-to-image / I2I in muted red and image understanding / visual understanding / understanding task(s) / image-to-text / I2T in blue, including terms within existing bold passages. Color bare "understanding" only in paired modality phrases such as "generation and understanding" and "generation-to-understanding"; do not color capability names such as "Appearance understanding" or "Depth understanding." Apply colors by wrapping exact text, without rewriting it.
 - Retain the original plot assets and their scientific color scales. The positive/negative transfer legend is independent of prose modality colors.
 
 ## Author correction for transfer heading
