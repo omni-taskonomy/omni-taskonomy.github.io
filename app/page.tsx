@@ -17,6 +17,9 @@ const sections: [string, ExcerptId][] = [
   ['controlled', 'nav_controlled'], ['recipe', 'nav_training'], ['taxonomy', 'nav_taxonomy'],
   ['transfer', 'nav_transfer'], ['alignment', 'nav_alignment'],
 ];
+const headingOverrides: Partial<Record<ExcerptId, AuthorId>> = {
+  transfer_heading: 'transfer_heading_corrected',
+};
 const emphasis: Partial<Record<ExcerptId, string[]>> = {
   tldr_paired: ['paired generation and understanding tasks', 'same visual operation', 'different modalities'],
   tldr_question_1: ['improve visual understanding', 'training setup'],
@@ -111,7 +114,10 @@ function RecipeNote() {
   </aside>;
 }
 function Heading({ id, number }: { id: ExcerptId; number: string }) {
-  return <div className="section-heading"><span className="section-index" aria-hidden="true">{number}</span><h2 data-manuscript-excerpt={id} data-source={source(id)}>{formatted(text(id))}</h2></div>;
+  const override = headingOverrides[id];
+  return <div className="section-heading"><span className="section-index" aria-hidden="true">{number}</span>{override
+    ? <h2 data-author-copy={override}>{formatted(authorExcerpts[override].text)}</h2>
+    : <h2 data-manuscript-excerpt={id} data-source={source(id)}>{formatted(text(id))}</h2>}</div>;
 }
 function Figure({ name, caption, width, height, eager = false, className = '', note, showCaption = true }: { name: string; caption: ExcerptId; width: number; height: number; eager?: boolean; className?: string; note?: string; showCaption?: boolean }) {
   return <figure className={className}>

@@ -58,3 +58,7 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 
 - Color editable page text for generation / image-to-image / I2I in muted red and image understanding / image-to-text / I2T in blue, including terms within existing bold passages. Color bare "understanding" only in paired modality phrases such as "generation and understanding" and "generation-to-understanding"; do not color capability names such as "Appearance understanding" or "Depth understanding." Apply colors by wrapping exact text, without rewriting it.
 - Retain the original plot assets and their scientific color scales. The positive/negative transfer legend is independent of prose modality colors.
+
+## Author correction for transfer heading
+
+- The author clarified that the Section 04 heading should say "Which image-to-image tasks help which visual capabilities?" even though the current Overleaf source says "image-editing." Render the corrected heading from content/author-provided-copy.json and leave the manuscript excerpt pinned to the original source for audit history.

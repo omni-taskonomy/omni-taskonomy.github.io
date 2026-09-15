@@ -42,6 +42,10 @@
     "ability_transfer": {
       "text": "Ability Transfer",
       "source": "Author-specified text above the diagram arrow."
+    },
+    "transfer_heading_corrected": {
+      "text": "Which image-to-image tasks help which visual capabilities?",
+      "source": "Author correction on September 14, 2026: the Overleaf heading used image-editing, but the project page should use image-to-image."
     }
   }
 }
