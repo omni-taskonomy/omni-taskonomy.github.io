@@ -1,9 +1,25 @@
 """Independent copy/numeric expectations for the author-supplied v12 figures."""
 import json
+from copy import deepcopy
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = json.loads((ROOT / 'content/unitaskonomy-v12.json').read_text())
+RAW = json.loads((ROOT / 'content/unitaskonomy-v12.json').read_text())
+CORRECTIONS = json.loads((ROOT / 'content/unitaskonomy-author-corrections.json').read_text())
+DATA = deepcopy(RAW)
+for leaf in DATA['tree']['leaves']:
+    leaf['family'] = CORRECTIONS['leaf_families'].get(leaf['id'], leaf['family'])
+corrected_leaves = {leaf['id']: leaf for leaf in DATA['tree']['leaves']}
+families = {family['id']: family for family in DATA['tree']['families']}
+models_by_leaf = {model['leaf']: model for model in DATA['heatmap']['models'] if 'leaf' in model}
+assert set(CORRECTIONS['i2i_column_order']) == set(models_by_leaf)
+assert len(CORRECTIONS['i2i_column_order']) == len(models_by_leaf)
+ordered_models = []
+for ident in CORRECTIONS['i2i_column_order']:
+    model = models_by_leaf[ident]
+    model['group'] = families[corrected_leaves[ident]['family']]['name'] + ' I2I'
+    ordered_models.append(model)
+DATA['heatmap']['models'] = [m for m in DATA['heatmap']['models'] if m['id'] == DATA['heatmap']['baseline']] + ordered_models
 H = DATA['heatmap']
 LEAVES = {l['id']: l for l in DATA['tree']['leaves']}
 MODELS = {m['id']: m for m in H['models']}
@@ -19,7 +35,8 @@ def copy(key):
     if kind == 'family':
         if field == 'count':
             children = [l for l in LEAVES.values() if l['family'] == ident]
-            return f"{sum(l['role']=='i2i' for l in children)} I2I · {sum(l['role']=='i2t' for l in children)} I2T"
+            counts = [(sum(l['role']==role for l in children),role.upper()) for role in ('i2i','i2t')]
+            return ' · '.join(f'{n} {role}' for n,role in counts if n)
         assert field in {'name', 'definition'}
         return FAMILIES[ident][field]
     if kind == 'model': return MODELS[ident]['name']

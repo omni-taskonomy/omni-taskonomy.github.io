@@ -41,3 +41,9 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 
 - Keep the established manuscript copy and uniform Times New Roman body size while adapting spacing, figures, touch targets and dialogs to narrow screens.
 - The author requested a final Citation section with pending BibTeX. Display the explicit comment `% BibTeX pending.` until an authoritative entry is supplied; do not invent citation metadata. This is a narrowly scoped interface placeholder, registered in the copy audit.
+
+## Author clarification of I2I families
+
+- The author clarified with an updated paper heatmap that Recognition no longer contains I2I tasks. Semantic segmentation moves from Recognition to Reorganization; I2T Region semantic recognition stays in Recognition.
+- Preserve the original v12 export and apply the explicit mapping and heatmap column order in content/unitaskonomy-author-corrections.json. Its source is the author's supplied paper figure. The heatmap has 8 Reconstruction and 7 Reorganization columns; the combined taxonomy still has three families because I2T retains Recognition.
+- This supersedes the original v12 I2I family assignment and single-column Recognition header rule. Do not change measurements, definitions, examples, I2T assignments or manuscript prose to implement this correction.

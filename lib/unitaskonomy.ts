@@ -1,4 +1,5 @@
 import payload from '@/content/unitaskonomy-v12.json';
+import authorCorrections from '@/content/unitaskonomy-author-corrections.json';
 
 export type Pair = [number, number];
 export type Mode = 'delta' | 'accuracy';
@@ -6,7 +7,7 @@ export type Subset = 'main' | 'all';
 export type Sample = { uid: string; benchmark: string; question: string; choices: string[] | null; answer: string; images: string[]; reason: string };
 export type Leaf = { id: string; family: string; role: string; name: string; definition: string; n: number; sample: Sample | null };
 export type Model = { id: string; name: string; group: string; leaf?: string };
-export const data = payload as unknown as {
+const original = payload as unknown as {
   heatmap: {
     models: Model[]; nodes: { id: string; name: string; type: string }[];
     scopes: { id: string; label: string; n: number }[];
@@ -15,6 +16,23 @@ export const data = payload as unknown as {
   };
   tree: { families: { id: string; name: string; definition: string; n: number }[]; leaves: Leaf[] };
   source: { heatmap: string; viewer: string; samples: string; hash: string; exported: string };
+};
+// Preserve the supplied v12 export; apply only the author's later figure correction.
+const correctedLeaves = original.tree.leaves.map(leaf => ({
+  ...leaf,
+  family: (authorCorrections.leaf_families as Record<string, string>)[leaf.id] ?? leaf.family,
+}));
+const orderedModels = authorCorrections.i2i_column_order.map(id => {
+  const model = original.heatmap.models.find(model => model.leaf === id);
+  const leaf = correctedLeaves.find(leaf => leaf.id === id);
+  const family = original.tree.families.find(family => family.id === leaf?.family);
+  if (!model || !family) throw new Error('Unknown author-corrected I2I task: ' + id);
+  return { ...model, group: family.name + ' I2I' };
+});
+export const data: typeof original = {
+  ...original,
+  tree: { ...original.tree, leaves: correctedLeaves },
+  heatmap: { ...original.heatmap, models: [...original.heatmap.models.filter(model => model.id === original.heatmap.baseline), ...orderedModels] },
 };
 export const familyColors: Record<string, string> = { REC: '#b77939', RCN: '#527eaf', RORG: '#3d8b71' };
 export const leaves = new Map(data.tree.leaves.map(l => [l.id, l]));
@@ -54,7 +72,10 @@ export function sourceCopy(key: string): string {
     const f = data.tree.families.find(f => f.id === id)!;
     if (field === 'count') {
       const children = data.tree.leaves.filter(l => l.family === id);
-      return children.filter(l => l.role === 'i2i').length + ' I2I · ' + children.filter(l => l.role === 'i2t').length + ' I2T';
+      return ['i2i', 'i2t'].flatMap(role => {
+        const count = children.filter(l => l.role === role).length;
+        return count ? [count + ' ' + role.toUpperCase()] : [];
+      }).join(' · ');
     }
     return f[field as 'name' | 'definition'];
   }

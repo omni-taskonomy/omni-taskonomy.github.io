@@ -1,0 +1,27 @@
+{
+  "source": {
+    "type": "author-provided-figure",
+    "file": "codex-clipboard-b9c7e198-0050-4591-a9c6-2b1f15bb0ff4.png",
+    "sha256": "ba2b43bbc7fcf5e0e6c902aed3ca29f9364b8465412922e6a6e9759bd2198dba"
+  },
+  "leaf_families": {
+    "i2i:semantic_segmentation": "RORG"
+  },
+  "i2i_column_order": [
+    "i2i:colorization",
+    "i2i:z_depth",
+    "i2i:euclidean_depth",
+    "i2i:surface_normals",
+    "i2i:principal_curvature",
+    "i2i:occlusion_edges",
+    "i2i:keypoints_3d",
+    "i2i:reshading",
+    "i2i:semantic_segmentation",
+    "i2i:edges_2d",
+    "i2i:keypoints_2d",
+    "i2i:segmentation_2d",
+    "i2i:segmentation_25d",
+    "i2i:object_pointing",
+    "i2i:jigsaw"
+  ]
+}
