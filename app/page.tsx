@@ -218,16 +218,14 @@ export default function Home() {
         <blockquote className="finding"><Passage id="alignment_finding" /></blockquote>
       </div></section>
 
-      <section className="acknowledgments shell" id="acknowledgments">
-        <h2 data-manuscript-excerpt="ack_heading">{text('ack_heading')}</h2>
-        <Passage id="ack_names" className="ack-names" />
-        <p data-site-credit="design" className="site-credit">This project page’s design and presentation are inspired by <a href="https://beyond-llms.github.io/" target="_blank" rel="noreferrer">Beyond Language Modeling: An Exploration of Multimodal Pretraining</a>. We thank its authors for the inspiration.</p>
-      </section>
       <section className="citation shell" id="citation" aria-labelledby="citation-heading">
         <h2 id="citation-heading">Citation</h2>
         <pre aria-label="Pending BibTeX"><code>% BibTeX pending.</code></pre>
       </section>
     </main>
-    <footer className="shell"><span data-manuscript-excerpt="title">{formatted(text('title'))}</span><a href="#top">Back to top ↑</a></footer>
+    <footer className="shell">
+      <span data-manuscript-excerpt="title">{formatted(text('title'))}</span><a href="#top">Back to top ↑</a>
+      <p data-site-credit="design" className="site-credit">This project page’s design and presentation are inspired by <a href="https://beyond-llms.github.io/" target="_blank" rel="noreferrer">Beyond Language Modeling: An Exploration of Multimodal Pretraining</a>. We thank its authors for the inspiration.</p>
+    </footer>
   </>;
 }

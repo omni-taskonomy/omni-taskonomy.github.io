@@ -62,3 +62,7 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 ## Author correction for transfer heading
 
 - The author clarified that the Section 04 heading should say "Which image-to-image tasks help which visual capabilities?" even though the current Overleaf source says "image-editing." Render the corrected heading from content/author-provided-copy.json and leave the manuscript excerpt pinned to the original source for audit history.
+
+## Footer acknowledgment placement
+
+- The author requested removing the manuscript acknowledgments section from the project page, including the names "Grace Luo, Amil Dravid, Xiaochuang Han, Yushi Hu." Keep only the website design inspiration credit to Beyond Language Modeling, placed at the bottom of the page.

@@ -140,7 +140,7 @@ h3 { font-size:1.65rem; line-height:1.2; margin:0 0 17px; color:#365872; }
 .acknowledgments { max-width:780px; padding:60px 0 48px; text-align:left; }
 .acknowledgments h2 { font-size:2rem; margin-bottom:19px; text-align:center; }
 .ack-names { font-size:1.075rem; color:var(--body-copy); }
-.site-credit { font-size:.95rem; line-height:1.8; color:var(--body-secondary); margin:20px auto 0; }
+.site-credit { flex-basis:100%; max-width:780px; font-size:.95rem; line-height:1.8; color:var(--body-secondary); margin:10px auto 0; text-align:center; }
 footer { display:flex; justify-content:center; gap:12px 26px; flex-wrap:wrap; padding:24px 0 30px; border-top:1px solid var(--border); font-size:.75rem; color:#8a949e; }
 footer a { color:#718295; }
 .skip-link { position:fixed; top:-100px; left:16px; z-index:100; padding:10px 16px; background:#fff; }
@@ -374,6 +374,7 @@ figcaption, .teaser figcaption, .site-credit,
   .citation pre { padding:18px; }
   footer { justify-content:flex-start; gap:4px; padding-bottom:max(24px,env(safe-area-inset-bottom)); }
   footer > span { text-align:left; }
+  .site-credit { text-align:left; margin-top:8px; }
   footer a { display:inline-flex; align-items:center; min-height:44px; font-size:.875rem; }
 }
 @media (hover:none), (pointer:coarse) {
