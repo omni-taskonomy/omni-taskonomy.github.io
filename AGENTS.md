@@ -36,3 +36,8 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 - All prose uses Times New Roman at the same body size, including the TL;DR questions; the author withdrew the larger question size. Preserve Roman question numbering and Cormorant Garamond headings, including Finding labels.
 - The transfer heatmap has only one selector: Benchmark. Show delta from the I2T-only baseline for the original 19-capability main analysis. Remove accuracy mode and the capability-subset selector.
 - Keep family headers in their own column groups; the single-column Recognition label must not extend into Reconstruction.
+
+## Mobile layout and pending citation
+
+- Keep the established manuscript copy and uniform Times New Roman body size while adapting spacing, figures, touch targets and dialogs to narrow screens.
+- The author requested a final Citation section with pending BibTeX. Display the explicit comment `% BibTeX pending.` until an authoritative entry is supplied; do not invent citation metadata. This is a narrowly scoped interface placeholder, registered in the copy audit.

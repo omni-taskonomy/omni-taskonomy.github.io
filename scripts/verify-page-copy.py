@@ -14,6 +14,7 @@ ui.update({'Image Generation · I2I','Image Understanding · I2T',
  'Benchmark',
  'Hover to magnify · click to pin','Negative','Positive','Row maximum','I2I supervision task',
  'I2T capability','−15 pp','+15 pp','Close'})
+ui.update({'Swipe to explore', 'Swipe to explore · tap a cell', 'Citation', '% BibTeX pending.'})
 credit='This project page’s design and presentation are inspired by Beyond Language Modeling: An Exploration of Multimodal Pretraining. We thank its authors for the inspiration.'
 class Audit(HTMLParser):
  def __init__(self):
@@ -67,6 +68,7 @@ assert len(audit.matched)>=40,audit.matched
 assert {'tldr_question_1','tldr_question_2','tldr_question_3'} <= set(audit.matched)
 assert 'tldr_taxonomy_compact' not in audit.matched
 assert 'Original paper figure' not in html and 'class="ut-modalities"' not in html
+assert 'id="citation"' in html and '<code>% BibTeX pending.</code>' in html
 assert set(audit.author_matched)==set(author_excerpts),audit.author_matched
 assert sum(k=='data-v12-metric' for k,v in audit.v12_matched)==19*15
 assert audit.selects==['Benchmark'],audit.selects

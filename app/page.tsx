@@ -1,5 +1,5 @@
 import { FileText, Code } from 'lucide-react';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import manuscriptContent from '@/content/manuscript-excerpts.json';
 import authorContent from '@/content/author-provided-copy.json';
 import { InteractiveTaxonomy, InteractiveTransferMap } from '@/components/interactive-figures';
@@ -100,10 +100,14 @@ function Heading({ id, number }: { id: ExcerptId; number: string }) {
 }
 function Figure({ name, caption, width, height, eager = false, className = '', note, showCaption = true }: { name: string; caption: ExcerptId; width: number; height: number; eager?: boolean; className?: string; note?: string; showCaption?: boolean }) {
   return <figure className={className}>
-    <a className="figure-link" href={`/figures/${name}.png`} target="_blank" rel="noreferrer" aria-label="Open full-resolution figure">
-      <img src={`/figures/${name}.png`} alt={text(caption)} width={width} height={height} loading={eager ? 'eager' : 'lazy'} />
-      <span className="figure-expand">View full size ↗</span>
-    </a>
+    <div className="figure-frame" style={{ '--figure-mobile-width': width > 1500 ? '820px' : '740px' } as CSSProperties}>
+      <div className="figure-viewport" tabIndex={0} role="region" aria-label="Scrollable figure">
+        <a className="figure-link" href={`/figures/${name}.png`} target="_blank" rel="noreferrer" aria-label="Open full-resolution figure">
+          <img src={`/figures/${name}.png`} alt={text(caption)} width={width} height={height} loading={eager ? 'eager' : 'lazy'} />
+        </a>
+      </div>
+      <div className="figure-actions"><span className="mobile-hint">Swipe to explore</span><a className="figure-expand" href={`/figures/${name}.png`} target="_blank" rel="noreferrer">View full size ↗</a></div>
+    </div>
     {showCaption && <figcaption><span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(text(caption), emphasis[caption])}</span>{note && <a href={`#${note}`} className="footnote-ref" aria-label="Training recipe definitions"><sup>1</sup></a>}</figcaption>}
   </figure>;
 }
@@ -197,6 +201,10 @@ export default function Home() {
         <h2 data-manuscript-excerpt="ack_heading">{text('ack_heading')}</h2>
         <Passage id="ack_names" className="ack-names" />
         <p data-site-credit="design" className="site-credit">This project page’s design and presentation are inspired by <a href="https://beyond-llms.github.io/" target="_blank" rel="noreferrer">Beyond Language Modeling: An Exploration of Multimodal Pretraining</a>. We thank its authors for the inspiration.</p>
+      </section>
+      <section className="citation shell" id="citation" aria-labelledby="citation-heading">
+        <h2 id="citation-heading">Citation</h2>
+        <pre aria-label="Pending BibTeX"><code>% BibTeX pending.</code></pre>
       </section>
     </main>
     <footer className="shell"><span data-manuscript-excerpt="title">{text('title')}</span><a href="#top">Back to top ↑</a></footer>

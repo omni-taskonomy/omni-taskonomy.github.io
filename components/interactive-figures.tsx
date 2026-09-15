@@ -1,10 +1,10 @@
 'use client';
 
-import { useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
 import { ChevronDown, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { NativeSelect } from '@/components/ui/native-select';
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Dialog, DialogClose, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { data, leaves, familyColors, metric, number, fill, rowsFor, modelsFor, sourceCopy, viewLabel, type Leaf } from '@/lib/unitaskonomy';
 
@@ -20,6 +20,10 @@ export function InteractiveTaxonomy() {
   const [collapsed, setCollapsed] = useState<string[]>([]);
   const [selected, setSelected] = useState<Leaf | null>(null);
   const trigger = useRef<HTMLButtonElement | null>(null);
+  // Start with one branch on phones; each family remains independently expandable.
+  useEffect(() => {
+    if (window.matchMedia('(max-width: 760px)').matches) setCollapsed(data.tree.families.slice(1).map(f => f.id));
+  }, []);
   const sample = selected?.sample;
   return <div className="ut-figure ut-taxonomy" aria-label="Interactive UniTaskonomy tree">
     <div className="ut-tree-toolbar"><span>Click a node to explore</span></div>
@@ -47,8 +51,9 @@ export function InteractiveTaxonomy() {
     </div>
     <div className="ut-tree-note"><span>Counts: I2T evaluation samples</span><span>v12</span></div>
     <Dialog open={selected !== null} onOpenChange={open => { if (!open) setSelected(null); }}>
-      <DialogContent className="ut-leaf-dialog" finalFocus={trigger}>
-        {selected && <>
+      <DialogContent className="ut-leaf-dialog" finalFocus={trigger} showCloseButton={false}>
+        <div className="ut-dialog-close-bar"><DialogClose render={<Button variant="ghost" size="icon" aria-label="Close" />}><X size={20} /></DialogClose></div>
+        <div className="ut-dialog-body">{selected && <>
           <div className="ut-dialog-heading"><span className="ut-dialog-family"><V id={'family|' + selected.family + '|name'} /></span><DialogTitle><V id={'leaf|' + selected.id + '|name'} /></DialogTitle><Modality role={selected.role} /></div>
           <DialogDescription className="ut-definition"><V id={'leaf|' + selected.id + '|definition'} /></DialogDescription>
           {sample ? <div className="ut-sample">
@@ -61,7 +66,7 @@ export function InteractiveTaxonomy() {
             <p className="ut-answer"><strong>Answer</strong><V id={'sample|' + selected.id + '|answer'} /></p>
             {sample.reason && <details className="ut-routing"><summary>Why this sample belongs here</summary><p><V id={'sample|' + selected.id + '|reason'} /></p></details>}
           </div> : <p className="ut-no-example">No representative image was supplied for this I2I task.</p>}
-        </>}
+        </>}</div>
       </DialogContent>
     </Dialog>
   </div>;
@@ -115,7 +120,7 @@ export function InteractiveTransferMap() {
         <label><span>Benchmark</span><NativeSelect className="ut-select" aria-label="Benchmark" value={scope} onChange={e => { setScope(e.target.value); resetSelection(); }}>{data.heatmap.scopes.map(s => <option key={s.id} value={s.id} data-v12-copy={'scope|' + s.id}>{s.label}</option>)}</NativeSelect></label>
       </div>
     </div>
-    <div className="ut-map-guide"><span>Hover to magnify · click to pin</span><span className="ut-color-key"><span><i className="ut-swatch negative" />Negative</span><span><i className="ut-swatch positive" />Positive</span><span><i className="ut-swatch best" />Row maximum</span></span></div>
+    <div className="ut-map-guide"><span className="pointer-hint">Hover to magnify · click to pin</span><span className="touch-hint">Swipe to explore · tap a cell</span><span className="ut-color-key"><span><i className="ut-swatch negative" />Negative</span><span><i className="ut-swatch positive" />Positive</span><span><i className="ut-swatch best" />Row maximum</span></span></div>
     <TooltipProvider delay={70}>
       <div className="ut-map-scroll" ref={grid} tabIndex={0} role="region" aria-label="Transfer matrix; use arrow keys to move between cells">
         <table className="ut-map">
