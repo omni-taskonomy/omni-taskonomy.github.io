@@ -35,7 +35,7 @@ h1 .term-understanding { color:#7ca6c9; }
 .hf-icon { font-size:1rem; line-height:1; }
 .tldr-heading { text-align:center; font-size:2rem; letter-spacing:-.015em; margin:2px 0 18px; }
 .tldr-box { max-width:970px; margin:0 auto 30px; padding:25px 30px; border:1px solid #e3eaf0; border-radius:10px; background:#f7f9fb; }
-.tldr-pair-preview { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:22px; width:min(800px,100%); margin:3px auto 20px; }
+.tldr-pair-preview { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:36px; width:100%; margin:3px auto 20px; }
 .tldr-crop { aspect-ratio:430/220; border:1px solid #dfe8f0; border-radius:8px; background-color:#fff; background-repeat:no-repeat; background-position:center; background-size:contain; box-shadow:0 8px 24px rgba(49,72,94,.08); overflow:hidden; }
 .tldr-crop-i2i { background-image:url('/figures/tldr-crops/jigsaw-i2i.png'); }
 .tldr-crop-i2t { background-image:url('/figures/tldr-crops/jigsaw-i2t.png'); }
