@@ -63,7 +63,7 @@ export function InteractiveTaxonomy() {
             </div>
             <p className="ut-question"><V id={'sample|' + selected.id + '|question'} /></p>
             {!!sample.choices?.length && <ul className="ut-choices">{sample.choices.map((c, i) => <li key={i}><V id={'sample|' + selected.id + '|choice:' + i} /></li>)}</ul>}
-            <p className="ut-answer"><strong>Answer</strong><V id={'sample|' + selected.id + '|answer'} /></p>
+            {sample.answer && <p className="ut-answer"><strong>Answer</strong><V id={'sample|' + selected.id + '|answer'} /></p>}
             {sample.reason && <details className="ut-routing"><summary>Why this sample belongs here</summary><p><V id={'sample|' + selected.id + '|reason'} /></p></details>}
           </div> : <p className="ut-no-example">No representative image was supplied for this I2I task.</p>}
         </>}</div>

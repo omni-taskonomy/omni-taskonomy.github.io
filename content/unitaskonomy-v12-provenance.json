@@ -8,7 +8,7 @@
   "models": 16,
   "i2i": 15,
   "i2t": 25,
-  "representative_samples": 25,
+  "representative_samples": 37,
   "images": {
     "i2t:CATEGORY_INSTANCE-1.png": "a2c331cf4d2ac6095676f166f2da186f2d118dcc11617c582720788e19d1aa03",
     "i2t:PART_RECOGNITION-1.png": "c523a48d441c1692d538dafef2a4bbff63787d0204e0292211d689c4619388c9",
@@ -40,6 +40,179 @@
     "i2t:GLOBAL_ORDERING-1.png": "61459cea8a187848ef1102205323b793d18849431d5dd7a5197ae817e5f850f7",
     "i2t:LANDMARKS_JUNCTIONS_2D-1.png": "4c8b40f476e9af649fc5774da7319e866e53708ef46e109d6f69b8dd246f3bca",
     "i2t:CORRESPONDENCE_TRACKING-1.jpg": "54db1e660e14f7f570291b1d2f8ff7b0e1f1918d8e82a78d8f1d9cc0f9eadfdb",
-    "i2t:CORRESPONDENCE_TRACKING-2.jpg": "aec77281a850c00674a76572a1c240b139485155e4aa7cd104261cdaa9f84915"
+    "i2t:CORRESPONDENCE_TRACKING-2.jpg": "aec77281a850c00674a76572a1c240b139485155e4aa7cd104261cdaa9f84915",
+    "i2i_edges_2d-input.png": "0941e30481aa63ec97b60a9a3f535632e915e219a6e3cbe7343572ac88384b46",
+    "i2i_edges_2d-target.png": "faf149865a1f80fde1486326adc19e3b632d4f01013f7a66136c2a53d32ca4ba",
+    "i2i_euclidean_depth-input.png": "efba0c2d551c64e39e12c1b8d4989a792827834a62cc5ff99536d167813dd61e",
+    "i2i_euclidean_depth-target.png": "f33c6b6e9c9395668c8804906addd1956c1f2510103986445afd6f21dae62eeb",
+    "i2i_keypoints_2d-input.png": "bf95f9dae941a53185b6d958663d7408c918cd2bbc695333fb6dcb66d93d0fa9",
+    "i2i_keypoints_2d-target.png": "e1b54068330a4903242d53abe070b27fdf5fe98d4381fe81ffdf780ade6e3aa4",
+    "i2i_keypoints_3d-input.png": "ab22addba0ec842fb5609ffec8ce77763de957555f8d36827e8639f9a693599d",
+    "i2i_keypoints_3d-target.png": "1462e11596495518d3aed7a61aa9017a3e1d5da4ce210529846295536d58278d",
+    "i2i_object_pointing-input.png": "082caaa393f0418b0a69761bcd0f7f62712d0607305a1c886f0700a3cc7ac16e",
+    "i2i_object_pointing-target.png": "086268d12c548da32b92c5f752cfc7359ff80a84717769415c083941ef67c447",
+    "i2i_occlusion_edges-input.png": "1614d5e3763384edfaa2d1d6e8d793a61d42d9ef76e15381dbd5fbcfe42d672a",
+    "i2i_occlusion_edges-target.png": "3a642a1c5989d18c6b5b09f8edfc892c32ac7210f3b5d5f20f239a8f8ec35f25",
+    "i2i_principal_curvature-input.png": "963558f38ba9fa0ef706abc254e434e55d3ca116c2444b80cfe513a09747c561",
+    "i2i_principal_curvature-target.png": "53651c8587667371a92041d79e296b44271d8525d0f0aff8f6b8c235c6000f0b",
+    "i2i_reshading-input.png": "e505cabcf99434ae3b45fdba2ecab52e597405e02573fd9c9cf8b253cf9ef042",
+    "i2i_reshading-target.png": "bdbe314f0544c7a9988587ef1d3be434f5999bf4e9f469c8a18e18d1587d42b8",
+    "i2i_segmentation_25d-input.png": "88b0c71890f4466abce8a79ab1bae681374f1140b0da47a9ec750f22be3cf94e",
+    "i2i_segmentation_25d-target.png": "852d80eefd6fb85436dffe17f741a8c11a8a9dbf9410a7340b531673354e7b76",
+    "i2i_segmentation_2d-input.png": "748c516a4e73ede5a8bcc519e131260cf487ffa168a6243d37c0531bedf82bbf",
+    "i2i_segmentation_2d-target.png": "6f4ff73b861fffe0fdd9ebef556a22e94d3e284854af4bfc246360dbb25830c4",
+    "i2i_surface_normals-input.png": "9f7927035e271fdbdc4a79256129024fc488d5bc5d621d8496911d61322c3158",
+    "i2i_surface_normals-target.png": "5d1d73470a26b2fb51236005eecd317d234e99d294d22649ffa230474af01d5f",
+    "i2i_z_depth-input.png": "f3d7f6bc8c6bc6df62c52ac1d6ed299aa2a751195254cae00762b8e394796515",
+    "i2i_z_depth-target.png": "ab9eb0e89e666d8ecf0d206de9ade5a3722a48faa54d97a429fb51f35e43e575"
+  },
+  "i2i_representative_samples": {
+    "source_directory": "/Users/xieji/Library/Containers/com.tencent.xinWeChat/Data/Documents/xwechat_files/wxid_7816758167212_f9f8/msg/file/2026-09/归档(1)",
+    "samples": {
+      "i2i:edges_2d": {
+        "archive": "i2i_edges_2d_val_000000.zip",
+        "archive_sha256": "4251a194a5ff17b7738e55251b9b7e9579bbf9fb8d7ac003abcde5aa7767688f",
+        "split": "val",
+        "index": 0,
+        "task_key": "edge_texture",
+        "checkpoint_model": "BAGEL-taskonomy-edge-texture",
+        "images": {
+          "i2i_edges_2d-input.png": "0941e30481aa63ec97b60a9a3f535632e915e219a6e3cbe7343572ac88384b46",
+          "i2i_edges_2d-target.png": "faf149865a1f80fde1486326adc19e3b632d4f01013f7a66136c2a53d32ca4ba"
+        }
+      },
+      "i2i:euclidean_depth": {
+        "archive": "i2i_euclidean_depth_val_000005.zip",
+        "archive_sha256": "35b08b9997f0f634b20f1845f1165c02fd7290629ff2e307846e6442abdcd268",
+        "split": "val",
+        "index": 5,
+        "task_key": "depth_euclidean",
+        "checkpoint_model": "BAGEL-taskonomy-depth-euclidean",
+        "images": {
+          "i2i_euclidean_depth-input.png": "efba0c2d551c64e39e12c1b8d4989a792827834a62cc5ff99536d167813dd61e",
+          "i2i_euclidean_depth-target.png": "f33c6b6e9c9395668c8804906addd1956c1f2510103986445afd6f21dae62eeb"
+        }
+      },
+      "i2i:keypoints_2d": {
+        "archive": "i2i_keypoints_2d_val_000002.zip",
+        "archive_sha256": "c11a3b72e92f1c1b586ffa9e23d0947a3f03b8c7805bbeb13f694108b765e4e1",
+        "split": "val",
+        "index": 2,
+        "task_key": "keypoints2d",
+        "checkpoint_model": "BAGEL-taskonomy-keypoints2d",
+        "images": {
+          "i2i_keypoints_2d-input.png": "bf95f9dae941a53185b6d958663d7408c918cd2bbc695333fb6dcb66d93d0fa9",
+          "i2i_keypoints_2d-target.png": "e1b54068330a4903242d53abe070b27fdf5fe98d4381fe81ffdf780ade6e3aa4"
+        }
+      },
+      "i2i:keypoints_3d": {
+        "archive": "i2i_keypoints_3d_val_000211.zip",
+        "archive_sha256": "8b8ca7682f4fd0008d64d0d742846f8af26b84ab61d218e5df00d4a78e4ac571",
+        "split": "val",
+        "index": 211,
+        "task_key": "keypoints3d",
+        "checkpoint_model": "BAGEL-taskonomy-keypoints3d",
+        "images": {
+          "i2i_keypoints_3d-input.png": "ab22addba0ec842fb5609ffec8ce77763de957555f8d36827e8639f9a693599d",
+          "i2i_keypoints_3d-target.png": "1462e11596495518d3aed7a61aa9017a3e1d5da4ce210529846295536d58278d"
+        }
+      },
+      "i2i:object_pointing": {
+        "archive": "i2i_object_pointing_val_000002.zip",
+        "archive_sha256": "6a0a33a2f6ffc0cebdcadcaecb236fc88935316d805fe16dea593576344f3ab6",
+        "split": "val",
+        "index": 2,
+        "task_key": "object_pointing",
+        "checkpoint_model": "BAGEL-clean-llava-from-counting-i2i",
+        "images": {
+          "i2i_object_pointing-input.png": "082caaa393f0418b0a69761bcd0f7f62712d0607305a1c886f0700a3cc7ac16e",
+          "i2i_object_pointing-target.png": "086268d12c548da32b92c5f752cfc7359ff80a84717769415c083941ef67c447"
+        }
+      },
+      "i2i:occlusion_edges": {
+        "archive": "i2i_occlusion_edges_val_000001.zip",
+        "archive_sha256": "6cdf1b50131937cacb125b3e8359b3c010837a4b26cb7fa88408650b4be8fe18",
+        "split": "val",
+        "index": 1,
+        "task_key": "edge_occlusion",
+        "checkpoint_model": "BAGEL-taskonomy-edge-occlusion",
+        "images": {
+          "i2i_occlusion_edges-input.png": "1614d5e3763384edfaa2d1d6e8d793a61d42d9ef76e15381dbd5fbcfe42d672a",
+          "i2i_occlusion_edges-target.png": "3a642a1c5989d18c6b5b09f8edfc892c32ac7210f3b5d5f20f239a8f8ec35f25"
+        }
+      },
+      "i2i:principal_curvature": {
+        "archive": "i2i_principal_curvature_val_000001.zip",
+        "archive_sha256": "06e5b3adcd80512d439475476c46921a293af9c8eb196936289080d0adeaf104",
+        "split": "val",
+        "index": 1,
+        "task_key": "principal_curvature",
+        "checkpoint_model": "BAGEL-taskonomy-principal-curvature",
+        "images": {
+          "i2i_principal_curvature-input.png": "963558f38ba9fa0ef706abc254e434e55d3ca116c2444b80cfe513a09747c561",
+          "i2i_principal_curvature-target.png": "53651c8587667371a92041d79e296b44271d8525d0f0aff8f6b8c235c6000f0b"
+        }
+      },
+      "i2i:reshading": {
+        "archive": "i2i_reshading_val_000002.zip",
+        "archive_sha256": "1e4a3a261b51277dc1de061e43807ca833085a4ff23dd242f66daf4531c4f862",
+        "split": "val",
+        "index": 2,
+        "task_key": "reshading",
+        "checkpoint_model": "BAGEL-taskonomy-reshading",
+        "images": {
+          "i2i_reshading-input.png": "e505cabcf99434ae3b45fdba2ecab52e597405e02573fd9c9cf8b253cf9ef042",
+          "i2i_reshading-target.png": "bdbe314f0544c7a9988587ef1d3be434f5999bf4e9f469c8a18e18d1587d42b8"
+        }
+      },
+      "i2i:segmentation_25d": {
+        "archive": "i2i_segmentation_25d_val_000003.zip",
+        "archive_sha256": "c075dec4749eb91900a297e24d2d8cd76472da560e5acc0cb7704b66f798067a",
+        "split": "val",
+        "index": 3,
+        "task_key": "segment_unsup25d",
+        "checkpoint_model": "BAGEL-taskonomy-segment-unsup25d",
+        "images": {
+          "i2i_segmentation_25d-input.png": "88b0c71890f4466abce8a79ab1bae681374f1140b0da47a9ec750f22be3cf94e",
+          "i2i_segmentation_25d-target.png": "852d80eefd6fb85436dffe17f741a8c11a8a9dbf9410a7340b531673354e7b76"
+        }
+      },
+      "i2i:segmentation_2d": {
+        "archive": "i2i_segmentation_2d_val_000019.zip",
+        "archive_sha256": "5abd6b0f03ffa5aeff0d971666ef55448a93016d005144142f2cc55f5b5249d6",
+        "split": "val",
+        "index": 19,
+        "task_key": "segment_unsup2d",
+        "checkpoint_model": "BAGEL-taskonomy-segment-unsup2d",
+        "images": {
+          "i2i_segmentation_2d-input.png": "748c516a4e73ede5a8bcc519e131260cf487ffa168a6243d37c0531bedf82bbf",
+          "i2i_segmentation_2d-target.png": "6f4ff73b861fffe0fdd9ebef556a22e94d3e284854af4bfc246360dbb25830c4"
+        }
+      },
+      "i2i:surface_normals": {
+        "archive": "i2i_surface_normals_val_000004.zip",
+        "archive_sha256": "6f94233bbb9f530e7b3c0f95ab113bdfdc6efc017ee1b5426ae2045aa4c0bc8d",
+        "split": "val",
+        "index": 4,
+        "task_key": "normal",
+        "checkpoint_model": "BAGEL-taskonomy-normal",
+        "images": {
+          "i2i_surface_normals-input.png": "9f7927035e271fdbdc4a79256129024fc488d5bc5d621d8496911d61322c3158",
+          "i2i_surface_normals-target.png": "5d1d73470a26b2fb51236005eecd317d234e99d294d22649ffa230474af01d5f"
+        }
+      },
+      "i2i:z_depth": {
+        "archive": "i2i_z_depth_val_000001.zip",
+        "archive_sha256": "cc3f030dd1d6cbf48d6e40748c0c808dc0c30b22ad87821b487d59310a34e99c",
+        "split": "val",
+        "index": 1,
+        "task_key": "depth_zbuffer",
+        "checkpoint_model": "BAGEL-taskonomy-depth-zbuffer",
+        "images": {
+          "i2i_z_depth-input.png": "f3d7f6bc8c6bc6df62c52ac1d6ed299aa2a751195254cae00762b8e394796515",
+          "i2i_z_depth-target.png": "ab9eb0e89e666d8ecf0d206de9ade5a3722a48faa54d97a429fb51f35e43e575"
+        }
+      }
+    }
   }
 }
