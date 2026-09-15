@@ -47,3 +47,9 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 - The author clarified with an updated paper heatmap that Recognition no longer contains I2I tasks. Semantic segmentation moves from Recognition to Reorganization; I2T Region semantic recognition stays in Recognition.
 - Preserve the original v12 export and apply the explicit mapping and heatmap column order in content/unitaskonomy-author-corrections.json. Its source is the author's supplied paper figure. The heatmap has 8 Reconstruction and 7 Reorganization columns; the combined taxonomy still has three families because I2T retains Recognition.
 - This supersedes the original v12 I2I family assignment and single-column Recognition header rule. Do not change measurements, definitions, examples, I2T assignments or manuscript prose to implement this correction.
+
+## Opening ability-transfer diagram
+
+- Remove the standalone overview caption "When does generation help understanding?" from the rendered page; preserve the main paper title and research figure.
+- Replace the small I2I/I2T badges with the author's centered diagram: "Image Generation (Image to Image, I2I)" → "Image Understanding (Image to Text, I2T)", with "Ability Transfer" above the arrow. These explicit labels are registered in content/author-provided-copy.json.
+- This diagram uses Cormorant Garamond to match the title, with red generation and blue understanding. It is an explicit exception to the uniform body font rule; surrounding prose remains unchanged.

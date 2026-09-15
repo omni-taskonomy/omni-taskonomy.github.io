@@ -67,6 +67,9 @@ assert audit.description and audit.images==4,(audit.description,audit.images)
 assert len(audit.matched)>=40,audit.matched
 assert {'tldr_question_1','tldr_question_2','tldr_question_3'} <= set(audit.matched)
 assert 'tldr_taxonomy_compact' not in audit.matched
+assert 'overview_caption_short' not in audit.matched
+assert {'ability_generation','ability_transfer','ability_understanding'} <= set(audit.author_matched)
+assert 'class="task-pair"' not in html
 assert 'Original paper figure' not in html and 'class="ut-modalities"' not in html
 assert 'id="citation"' in html and '<code>% BibTeX pending.</code>' in html
 assert set(audit.author_matched)==set(author_excerpts),audit.author_matched

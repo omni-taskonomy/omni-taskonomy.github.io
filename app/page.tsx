@@ -66,6 +66,21 @@ function Passage({ id, className }: { id: ExcerptId; className?: string }) {
 function AuthorPassage({ id, highlights = [] }: { id: AuthorId; highlights?: string[] }) {
   return <p data-author-copy={id}>{formatted(authorExcerpts[id].text, highlights)}</p>;
 }
+function AbilityNode({ id, kind }: { id: 'ability_generation' | 'ability_understanding'; kind: string }) {
+  const value = authorExcerpts[id].text;
+  const split = value.indexOf(' (');
+  return <div className={'ability-node ability-' + kind} data-author-copy={id}>
+    <span className="ability-title">{value.slice(0, split)}</span>{' '}
+    <span className="ability-definition">{value.slice(split + 1)}</span>
+  </div>;
+}
+function AbilityTransfer() {
+  return <div className="ability-transfer" role="group" aria-label="Ability Transfer">
+    <AbilityNode id="ability_generation" kind="generation" />
+    <div className="ability-arrow"><span data-author-copy="ability_transfer">{authorExcerpts.ability_transfer.text}</span><i aria-hidden="true" /></div>
+    <AbilityNode id="ability_understanding" kind="understanding" />
+  </div>;
+}
 function PlotLegend() {
   return <div className="plot-legend" aria-label="Plot legend">
     <span className="legend-item"><i className="legend-dot positive" aria-hidden="true" /><span data-author-copy="legend_blue">{authorExcerpts.legend_blue.text}</span></span>
@@ -137,7 +152,7 @@ export default function Home() {
       <h2 className="tldr-heading">TL;DR</h2>
       <div className="tldr-box">
         <Passage id="tldr_paired" className="tldr-intro" />
-        <div className="task-pair"><span data-manuscript-excerpt="tldr_i2i">{formatted(text('tldr_i2i'))}</span><span className="pair-separator" aria-hidden="true">→</span><span data-manuscript-excerpt="tldr_i2t">{formatted(text('tldr_i2t'))}</span></div>
+        <AbilityTransfer />
         <ol className="tldr-questions">
           <li><Passage id="tldr_question_1" /></li>
           <li><Passage id="tldr_question_2" /></li>
@@ -149,7 +164,7 @@ export default function Home() {
         <div><h3 className="finding-label">Finding 2</h3><Passage id="finding_b" /></div>
         <div><h3 className="finding-label">Finding 3</h3><Passage id="alignment_finding" /></div>
       </div>
-      <Figure name="overview" caption="overview_caption_short" width={1608} height={478} eager className="teaser" />
+      <Figure name="overview" caption="overview_caption_short" width={1608} height={478} eager className="teaser" showCaption={false} />
       <PlotLegend />
     </section>
 

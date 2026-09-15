@@ -42,10 +42,18 @@ h1 .term-understanding { color:#7ca6c9; }
 .tldr-questions li::marker { color:#476b8b; font-weight:400; }
 .tldr-questions p { margin:0; font-family:inherit; font-size:inherit; font-weight:400; line-height:1.65; color:var(--body-copy); }
 .tldr-questions strong { font-weight:700; }
-.task-pair { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-top:11px; }
-.task-pair>span[data-manuscript-excerpt] { display:inline-block; border-radius:5px; padding:3px 10px; font-size:.875rem; font-weight:500; line-height:1.65; background:#f8e8ea; }
-.task-pair>span[data-manuscript-excerpt]:last-child { background:#e5eff8; }
-.pair-separator { color:#8595a3; line-height:1; }
+.ability-transfer { display:grid; grid-template-columns:minmax(0,1fr) minmax(110px,150px) minmax(0,1fr); align-items:center; gap:20px; width:min(840px,100%); margin:32px auto 28px; font-family:'Cormorant Garamond',Georgia,serif; text-align:center; }
+.ability-node { min-width:0; }
+.ability-title { display:block; font-size:2rem; font-weight:600; line-height:1.15; text-wrap:balance; }
+.ability-definition { display:block; margin-top:7px; font-size:1.25rem; font-weight:500; line-height:1.3; }
+.ability-generation { color:#ba747e; }
+.ability-understanding { color:#6492b7; }
+.ability-generation .ability-definition { color:#955563; }
+.ability-understanding .ability-definition { color:#477496; }
+.ability-arrow { display:flex; flex-direction:column; justify-content:center; gap:11px; color:#687f93; padding-bottom:14px; }
+.ability-arrow > span { font-size:1.25rem; font-weight:600; line-height:1.2; white-space:nowrap; }
+.ability-arrow > i { position:relative; display:block; height:1px; width:100%; background:#8b9eae; }
+.ability-arrow > i:after { content:''; position:absolute; right:1px; top:-4px; width:9px; height:9px; border-top:1px solid #8b9eae; border-right:1px solid #8b9eae; transform:rotate(45deg); }
 .overview { padding-bottom:28px; }
 figure { max-width:1000px; margin:30px auto; }
 .figure-frame { padding:18px 18px 5px; border:1px solid #e7ebf0; border-radius:10px; background:white; }
@@ -252,7 +260,7 @@ footer a { color:#718295; }
 /* All prose uses one face and size, including mobile and expanded sample text. */
 :root { --body-font:'Times New Roman',Times,'Liberation Serif',serif; --body-size:1.075rem; }
 p[data-manuscript-excerpt], p[data-author-copy], .tldr-questions,
-.recipe-description, .recipe-id, .recipe-route, .task-pair > span[data-manuscript-excerpt],
+.recipe-description, .recipe-id, .recipe-route,
 figcaption, .teaser figcaption, .site-credit,
 .ut-definition, .ut-question, .ut-choices, .ut-answer, .ut-routing p, .ut-no-example {
   font-family:var(--body-font);
@@ -281,9 +289,10 @@ figcaption, .teaser figcaption, .site-credit,
   .tldr-questions { padding-left:1.65em; margin-top:20px; }
   .tldr-questions li { padding-left:4px; }
   .tldr-questions li + li { margin-top:18px; }
-  .task-pair { display:grid; grid-template-columns:minmax(0,1fr); justify-items:start; gap:7px; margin-top:16px; }
-  .task-pair .pair-separator { display:none; }
-  .task-pair > span[data-manuscript-excerpt] { max-width:100%; padding:4px 9px; }
+  .ability-transfer { grid-template-columns:minmax(0,1fr) 100px minmax(0,1fr); gap:12px; }
+  .ability-title { font-size:1.75rem; }
+  .ability-definition { font-size:1.125rem; }
+  .ability-arrow > span { font-size:1.125rem; }
   .overview-notes { grid-template-columns:1fr; gap:20px; margin:24px 0; }
   .overview-notes .finding-label { margin-bottom:8px; }
   p[data-manuscript-excerpt],p[data-author-copy],.recipe-description,figcaption { line-height:1.65; }
@@ -372,6 +381,15 @@ figcaption, .teaser figcaption, .site-credit,
   .touch-hint { display:inline; }
   .ut-cell-tooltip { display:none!important; }
   .ut-cell:hover:not(.ut-pinned) .ut-tile { transform:none; }
+}
+@media screen and (max-width:540px) {
+  .ability-transfer { grid-template-columns:minmax(0,1fr); gap:14px; margin:28px auto; }
+  .ability-title { font-size:2rem; }
+  .ability-definition { font-size:1.25rem; }
+  .ability-arrow { display:grid; grid-template-columns:1fr 1px 1fr; grid-template-rows:48px; gap:12px; align-items:center; padding:0; }
+  .ability-arrow > span { grid-column:3; grid-row:1; justify-self:start; text-align:left; white-space:normal; font-size:1.125rem; }
+  .ability-arrow > i { grid-column:2; grid-row:1; width:1px; height:48px; }
+  .ability-arrow > i:after { top:auto; right:-4px; bottom:1px; transform:rotate(135deg); }
 }
 @media print {
   .figure-actions { display:none; }
