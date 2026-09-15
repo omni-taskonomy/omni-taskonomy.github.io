@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import manuscriptContent from '@/content/manuscript-excerpts.json';
 import authorContent from '@/content/author-provided-copy.json';
 import { InteractiveTaxonomy, InteractiveTransferMap } from '@/components/interactive-figures';
+import { coloredTerms } from '@/components/colored-terms';
 
 // The author requested resource buttons with their destinations left blank.
 const resourceLinks = { paper: '', github: '', huggingface: '' };
@@ -46,15 +47,14 @@ const emphasis: Partial<Record<ExcerptId, string[]>> = {
 };
 // Split and wrap existing characters only: emphasis never creates or edits copy.
 function formatted(value: string, highlights: string[] = []): ReactNode {
-  const colors = ['Image Generation', 'Image Understanding', 'image-to-image (I2I)', 'image-to-text (I2T)'];
-  const terms = [...new Set([...highlights, ...colors])].sort((a, b) => b.length - a.length);
+  if (!highlights.length) return coloredTerms(value);
+  const terms = [...new Set(highlights)].sort((a, b) => b.length - a.length);
   const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const pattern = new RegExp(`(${terms.map(escape).join('|')})`, 'gi');
   return value.split(pattern).map((part, i) => {
     const lower = part.toLowerCase();
-    const color = lower === 'image generation' || lower === 'image-to-image (i2i)' ? 'term-generation' : lower === 'image understanding' || lower === 'image-to-text (i2t)' ? 'term-understanding' : '';
-    if (highlights.some(term => term.toLowerCase() === lower)) return <strong key={i} className={color || undefined}>{part}</strong>;
-    return color ? <span key={i} className={color}>{part}</span> : part;
+    if (highlights.some(term => term.toLowerCase() === lower)) return <strong key={i}>{coloredTerms(part)}</strong>;
+    return coloredTerms(part);
   });
 }
 function ResourceButton({ label, href, children }: { label: string; href: string; children: ReactNode }) {
@@ -111,7 +111,7 @@ function RecipeNote() {
   </aside>;
 }
 function Heading({ id, number }: { id: ExcerptId; number: string }) {
-  return <div className="section-heading"><span className="section-index" aria-hidden="true">{number}</span><h2 data-manuscript-excerpt={id} data-source={source(id)}>{text(id)}</h2></div>;
+  return <div className="section-heading"><span className="section-index" aria-hidden="true">{number}</span><h2 data-manuscript-excerpt={id} data-source={source(id)}>{formatted(text(id))}</h2></div>;
 }
 function Figure({ name, caption, width, height, eager = false, className = '', note, showCaption = true }: { name: string; caption: ExcerptId; width: number; height: number; eager?: boolean; className?: string; note?: string; showCaption?: boolean }) {
   return <figure className={className}>
@@ -168,7 +168,7 @@ export default function Home() {
       <PlotLegend />
     </section>
 
-    <nav className="section-nav" aria-label="Page sections"><div className="nav-inner"><a href="#top">Top ↑</a>{sections.map(([id, label]) => <a key={id} href={`#${id}`} data-manuscript-excerpt={label}>{text(label)}</a>)}</div></nav>
+    <nav className="section-nav" aria-label="Page sections"><div className="nav-inner"><a href="#top">Top ↑</a>{sections.map(([id, label]) => <a key={id} href={`#${id}`} data-manuscript-excerpt={label}>{formatted(text(label))}</a>)}</div></nav>
     <main>
       <section id="controlled" className="chapter"><div className="shell">
         <Heading id="controlled_heading" number="01" />
@@ -199,8 +199,8 @@ export default function Home() {
         <InteractiveFigure caption="transfer_caption"><InteractiveTransferMap /></InteractiveFigure>
         <Passage id="transfer_lead" className="section-lead" />
         <div className="two-columns results-notes">
-          <div><h3 data-manuscript-excerpt="related_heading">{text('related_heading')}</h3><Passage id="related_example" /><Passage id="depth_example" /></div>
-          <div><h3 data-manuscript-excerpt="cross_heading">{text('cross_heading')}</h3><Passage id="cross_results" /></div>
+          <div><h3 data-manuscript-excerpt="related_heading">{formatted(text('related_heading'))}</h3><Passage id="related_example" /><Passage id="depth_example" /></div>
+          <div><h3 data-manuscript-excerpt="cross_heading">{formatted(text('cross_heading'))}</h3><Passage id="cross_results" /></div>
         </div>
       </div></section>
 
@@ -222,6 +222,6 @@ export default function Home() {
         <pre aria-label="Pending BibTeX"><code>% BibTeX pending.</code></pre>
       </section>
     </main>
-    <footer className="shell"><span data-manuscript-excerpt="title">{text('title')}</span><a href="#top">Back to top ↑</a></footer>
+    <footer className="shell"><span data-manuscript-excerpt="title">{formatted(text('title'))}</span><a href="#top">Back to top ↑</a></footer>
   </>;
 }

@@ -53,3 +53,8 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 - Remove the standalone overview caption "When does generation help understanding?" from the rendered page; preserve the main paper title and research figure.
 - Replace the small I2I/I2T badges with the author's centered diagram: "Image Generation (Image to Image, I2I)" → "Image Understanding (Image to Text, I2T)", with "Ability Transfer" above the arrow. These explicit labels are registered in content/author-provided-copy.json.
 - This diagram uses Cormorant Garamond to match the title, with red generation and blue understanding. It is an explicit exception to the uniform body font rule; surrounding prose remains unchanged.
+
+## Consistent modality colors
+
+- Color editable page text for generation / image-to-image / I2I in muted red and understanding / image-to-text / I2T in blue, including terms within existing bold passages. Apply colors by wrapping exact text, without rewriting it.
+- Retain the original plot assets and their scientific color scales. The positive/negative transfer legend is independent of prose modality colors.
