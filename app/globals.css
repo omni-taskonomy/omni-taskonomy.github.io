@@ -35,10 +35,10 @@ h1 .term-understanding { color:#7ca6c9; }
 .hf-icon { font-size:1rem; line-height:1; }
 .tldr-heading { text-align:center; font-size:2rem; letter-spacing:-.015em; margin:2px 0 18px; }
 .tldr-box { max-width:970px; margin:0 auto 30px; padding:25px 30px; border:1px solid #e3eaf0; border-radius:10px; background:#f7f9fb; }
-.tldr-pair-preview { display:flex; justify-content:center; align-items:center; gap:28px; width:min(780px,100%); margin:3px auto 20px; }
-.tldr-crop { flex:0 1 auto; height:170px; border:1px solid #dfe8f0; border-radius:8px; background-color:#fff; background-repeat:no-repeat; background-position:center; background-size:contain; box-shadow:0 8px 24px rgba(49,72,94,.08); overflow:hidden; }
-.tldr-crop-i2i { width:332px; background-image:url('/figures/tldr-crops/jigsaw-i2i.png'); }
-.tldr-crop-i2t { width:305px; background-image:url('/figures/tldr-crops/jigsaw-i2t.png'); }
+.tldr-pair-preview { display:grid; grid-template-columns:minmax(0,1fr) minmax(110px,150px) minmax(0,1fr); align-items:center; gap:20px; width:min(840px,100%); margin:3px auto 20px; }
+.tldr-crop { justify-self:center; height:158px; border:1px solid #dfe8f0; border-radius:8px; background-color:#fff; background-repeat:no-repeat; background-position:center; background-size:contain; box-shadow:0 8px 24px rgba(49,72,94,.08); overflow:hidden; }
+.tldr-crop-i2i { grid-column:1; width:309px; background-image:url('/figures/tldr-crops/jigsaw-i2i.png'); }
+.tldr-crop-i2t { grid-column:3; width:284px; background-image:url('/figures/tldr-crops/jigsaw-i2t.png'); }
 .tldr-intro { font-size:1.04rem; line-height:1.75; margin:0; color:var(--body-copy); }
 .tldr-questions { margin:23px 0 0; padding:20px 0 0 1.9em; border-top:1px solid #dce5ee; list-style:upper-roman; font-family:var(--body-font); font-size:var(--body-size); }
 .tldr-questions li { padding-left:9px; }
@@ -290,10 +290,10 @@ figcaption, .teaser figcaption, .site-credit,
   .resource-button { min-height:44px; padding:9px 12px; font-size:.875rem; }
   .tldr-heading { margin-top:0; }
   .tldr-box { padding:20px 16px; margin-bottom:24px; }
-  .tldr-pair-preview { gap:12px; width:min(560px,100%); margin-bottom:18px; }
-  .tldr-crop { height:124px; border-radius:7px; }
-  .tldr-crop-i2i { width:242px; }
-  .tldr-crop-i2t { width:223px; }
+  .tldr-pair-preview { grid-template-columns:minmax(0,1fr) 100px minmax(0,1fr); gap:12px; width:min(560px,100%); margin-bottom:18px; }
+  .tldr-crop { height:112px; border-radius:7px; }
+  .tldr-crop-i2i { width:218px; }
+  .tldr-crop-i2t { width:201px; }
   .tldr-questions { padding-left:1.65em; margin-top:20px; }
   .tldr-questions li { padding-left:4px; }
   .tldr-questions li + li { margin-top:18px; }
@@ -392,10 +392,10 @@ figcaption, .teaser figcaption, .site-credit,
   .ut-cell:hover:not(.ut-pinned) .ut-tile { transform:none; }
 }
 @media screen and (max-width:540px) {
-  .tldr-pair-preview { flex-direction:column; gap:12px; width:min(320px,100%); }
+  .tldr-pair-preview { grid-template-columns:minmax(0,1fr); gap:12px; width:min(320px,100%); }
   .tldr-crop { width:100%; height:auto; }
-  .tldr-crop-i2i { aspect-ratio:430/220; }
-  .tldr-crop-i2t { aspect-ratio:395/220; }
+  .tldr-crop-i2i { grid-column:1; aspect-ratio:430/220; }
+  .tldr-crop-i2t { grid-column:1; aspect-ratio:395/220; }
   .ability-transfer { grid-template-columns:minmax(0,1fr); gap:14px; margin:28px auto; }
   .ability-title { font-size:2rem; }
   .ability-definition { font-size:1.25rem; }
