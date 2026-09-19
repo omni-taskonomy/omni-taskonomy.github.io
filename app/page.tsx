@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import manuscriptContent from '@/content/manuscript-excerpts.json';
 import authorContent from '@/content/author-provided-copy.json';
 import { InteractiveTaxonomy, InteractiveTransferMap } from '@/components/interactive-figures';
+import { GradientBars } from '@/components/gradient-bars';
 import { coloredTerms } from '@/components/colored-terms';
 
 // The author requested resource buttons with their destinations left blank.
@@ -17,34 +18,24 @@ const sections: [string, ExcerptId][] = [
   ['controlled', 'nav_controlled'], ['recipe', 'nav_training'], ['taxonomy', 'nav_taxonomy'],
   ['transfer', 'nav_transfer'], ['alignment', 'nav_alignment'],
 ];
-const headingOverrides: Partial<Record<ExcerptId, AuthorId>> = {
-  transfer_heading: 'transfer_heading_corrected',
-};
 const emphasis: Partial<Record<ExcerptId, string[]>> = {
-  tldr_paired: ['paired generation and understanding tasks', 'same visual operation', 'different modalities'],
   tldr_question_1: ['improve visual understanding', 'training setup'],
   tldr_question_2: ['generation data', 'understanding tasks'],
   tldr_question_3: ['transfer successfully'],
-  finding_a: ['steadily improve', 'training recipe'],
-  finding_b: ['highly task-dependent', 'large gains', 'interfere with understanding'],
-  overview_panel_a: ['steadily improve', 'training recipe'],
-  overview_panel_b: ['highly task-dependent', 'large gains', 'interfere with understanding'],
-  overview_panel_c: ['gradient alignment', 'pre-attention normalization'],
-  controlled_lead: ['paired generation and understanding tasks', 'same underlying visual operation', 'output modality'],
-  controlled_inputs: ['Jigsaw', 'Zoom-In'],
-  controlled_output: ['reconstructs the correctly ordered image', 'predicts the patch order in text'],
-  recipe_result: ['I2I pretraining followed by I2T finetuning', 'default recipe'],
+  finding_a: ['schedules starting with I2I training'],
+  finding_b: ['complementary visual capabilities'],
+  alignment_finding: ['early pre-attention normalization layers', 'larger average transfer gains'],
+  controlled_lead: ['paired I2I and I2T tasks'],
+  recipe_result: ['I2I training followed by I2T finetuning'],
   recipe_finding: ['complements but does not replace', 'largest gains in low-I2T settings'],
-  taxonomy_lead: ['UniTaskonomy', 'shared hierarchy', 'visual information'],
+  taxonomy_lead: ['OmniTaskonomy', 'shared hierarchy'],
   taxonomy_annotation: ['three independent LLM judges', 'majority vote'],
-  transfer_lead: ['Z-depth', 'object pointing', '2D keypoint supervision', 'help some capabilities while interfering with others'],
-  transfer_caption: ['percentage points', 'I2T-only baseline', 'positive transfer', 'negative transfer'],
-  related_example: ['Object pointing', 'Counting', '+3.57 pp'],
-  depth_example: ['Z-depth', 'Metric 3D relation', '+2.90 pp'],
-  cross_results: ['Colorization', 'Visual correspondence', '+5.71 pp', '2D keypoints', 'Multi-view reasoning', '+7.38 pp'],
-  alignment_lead: ['optimization compatibility', 'one factor associated with successful transfer'],
-  alignment_setup: ['six tasks', '500 source pairs per task'],
-  alignment_finding: ['more aligned gradients', 'early normalization layers'],
+  transfer_lead: ['different sources benefiting different capabilities'],
+  related_example: ['Counting', 'Object pointing', '+3.57'],
+  depth_example: ['Z-depth', 'metric 3D relation'],
+  cross_results: ['Inpainting', 'Colorization', '+5.71'],
+  alignment_results: ['r=0.953'],
+  alignment_lead: ['r=0.496'],
 };
 // Split and wrap existing characters only: emphasis never creates or edits copy.
 function formatted(value: string, highlights: string[] = []): ReactNode {
@@ -92,7 +83,7 @@ function PlotLegend() {
   return <div className="plot-legend" aria-label="Plot legend">
     <span className="legend-item"><i className="legend-dot positive" aria-hidden="true" /><span data-author-copy="legend_blue">{authorExcerpts.legend_blue.text}</span></span>
     <span className="legend-item"><i className="legend-dot negative" aria-hidden="true" /><span data-author-copy="legend_red">{authorExcerpts.legend_red.text}</span></span>
-    <span className="legend-item"><span className="bubble-key" aria-hidden="true"><i /><i /><i /></span><span data-author-copy="legend_size">{authorExcerpts.legend_size.text}</span></span>
+    <span className="legend-item"><span className="bubble-key" aria-hidden="true"><i /><i /><i /></span><span data-manuscript-excerpt="legend_size" data-source={source("legend_size")}>{text("legend_size")}</span></span>
   </div>;
 }
 // Lay out the author's exact recipe strings as routes plus descriptions.
@@ -118,10 +109,7 @@ function RecipeNote() {
   </aside>;
 }
 function Heading({ id, number }: { id: ExcerptId; number: string }) {
-  const override = headingOverrides[id];
-  return <div className="section-heading"><span className="section-index" aria-hidden="true">{number}</span>{override
-    ? <h2 data-author-copy={override}>{formatted(authorExcerpts[override].text)}</h2>
-    : <h2 data-manuscript-excerpt={id} data-source={source(id)}>{formatted(text(id))}</h2>}</div>;
+  return <div className="section-heading"><span className="section-index" aria-hidden="true">{number}</span><h2 data-manuscript-excerpt={id} data-source={source(id)}>{formatted(text(id))}</h2></div>;
 }
 function Figure({ name, caption, width, height, eager = false, className = '', note, showCaption = true }: { name: string; caption: ExcerptId; width: number; height: number; eager?: boolean; className?: string; note?: string; showCaption?: boolean }) {
   return <figure className={className}>
@@ -146,7 +134,7 @@ function InteractiveFigure({ caption, children }: { caption: ExcerptId; children
 
 export default function Home() {
   const title = text('title');
-  const titleBreak = title.indexOf(' Help ');
+  const titleBreak = title.indexOf(': ') + 2;
   return <>
     <a className="skip-link" href="#overview">Skip to content</a>
     <header className="paper-header shell" id="top">
@@ -174,7 +162,7 @@ export default function Home() {
         <div><h3 className="finding-label">Finding 2</h3><Passage id="finding_b" /></div>
         <div><h3 className="finding-label">Finding 3</h3><Passage id="alignment_finding" /></div>
       </div>
-      <Figure name="overview" caption="overview_caption_short" width={1608} height={478} eager className="teaser" showCaption={false} />
+      <Figure name="overview" caption="overview_caption_short" width={1800} height={625} eager className="teaser" showCaption={false} />
       <PlotLegend />
     </section>
 
@@ -183,14 +171,14 @@ export default function Home() {
       <section id="controlled" className="chapter"><div className="shell">
         <Heading id="controlled_heading" number="01" />
         <Passage id="controlled_lead" className="section-lead" />
-        <Figure name="controlled-tasks" caption="controlled_caption" width={1604} height={260} />
+        <Figure name="controlled-tasks" caption="controlled_caption" width={2593} height={405} />
         <div className="two-columns supporting-copy"><Passage id="controlled_inputs" /><Passage id="controlled_output" /></div>
       </div></section>
 
       <section id="recipe" className="chapter chapter-tinted"><div className="shell">
         <Heading id="recipe_heading" number="02" />
         <RecipeNote />
-        <Figure name="scaling" caption="scaling_caption" width={1604} height={496} note="training-recipes" />
+        <Figure name="scaling" caption="scaling_caption" width={2593} height={875} note="training-recipes" />
         <Passage id="recipe_result" className="section-lead" />
         <blockquote className="finding"><Passage id="recipe_finding" /></blockquote>
       </div></section>
@@ -216,7 +204,7 @@ export default function Home() {
       <section id="alignment" className="chapter"><div className="shell">
         <Heading id="alignment_heading" number="05" />
         <aside className="method-note experiment-setup"><Passage id="alignment_setup" /></aside>
-        <Figure name="gradient-alignment" caption="alignment_caption" width={1476} height={674} showCaption={false} />
+        <InteractiveFigure caption="alignment_caption"><GradientBars /></InteractiveFigure>
         <div className="analysis-copy prose"><Passage id="alignment_results" /><Passage id="alignment_lead" /></div>
         <blockquote className="finding"><Passage id="alignment_finding" /></blockquote>
       </div></section>

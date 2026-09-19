@@ -1,20 +1,13 @@
-# Content provenance
+# Current paper and project-page provenance
 
-Source: Overleaf project https://www.overleaf.com/project/69d99c42c6f3e61ae13f54f1, compiled manuscript retrieved on 2026-09-13.
+The project page is aligned to the active Overleaf checkout recorded in `content/manuscript-revision.txt`. The source copies and exact rendered passages are in `content/manuscript-sources/` and `content/manuscript-excerpts.json`. The extractor refuses stale passages; the page audit checks all rendered research prose against those passages.
 
-- Title: manuscript page 1.
-- Controlled tasks and training recipes: pages 4–5, Figure 2.
-- UniTaskonomy: pages 5–7, Figure 3. Use the formal 3R taxonomy in Section 4; the introduction still contains a superseded four-family description.
-- Transfer setup and numbers: pages 7–8, Figure 4 and Section 5.2. Gains are percentage points against the I2T-only baseline, not aggregate or relative percentage improvements.
-- Gradient observations: pages 8–10, Figure 5. Do not imply causal confirmation from these descriptive results.
-- Research acknowledgments: page 11 — Grace Luo, Amil Dravid, Xiaochuang Han, Yushi Hu. No contribution or funding role was inferred.
-- Website acknowledgment links to https://beyond-llms.github.io/. Page code is newly written; its text and research figures are not copied from the reference site.
+The paper is titled *OmniTaskonomy: How Image Generation Improves Visual Understanding*. The taxonomy proper contains 15 I2I supervision leaves and 25 I2T capability leaves. The transfer experiment adds inpainting and localization, yielding 17 I2I checkpoints. The interactive tree shows all 17 sources and carries the exact paper sentence that explains the extension. The main heatmap displays 19 capabilities with more than 100 evaluation examples; the full data has 25 capabilities and 9,444 examples. The site does not change the manuscript or bibliography.
 
-## Editorial boundaries
+The teaser PNG is rendered from `iclr2026/figures/Figure1-analysis_teaser_v11.pdf`. The controlled example and scaling PNGs are cropped from `iclr2026/figures/combined_3subfigures_refined_v14.pdf`. The interactive gradient bars use the 86 vector-geometry readouts in `analysis/section6/data/initial_graph_data.json`; `analysis/section6/README.md` describes them as figure readouts, not original gradient records. The full current gradient figure is linked as a byte-identical SVG. Hover/click values are displayed to two decimals, so they should be treated as approximate plot readings.
 
-- Source author block contains ICLR template names; compiled PDF says Anonymous authors. Author identities, order, affiliations, and contribution markers are intentionally omitted pending confirmation.
-- No public paper, code, or dataset URL is provided by the manuscript; the resource button links to the supplied Overleaf project and requires appropriate Overleaf access.
-- Section 6.2 explicitly marks selective-freezing experiments as TODO. Claims about completed freezing ablations are excluded.
-- No conference acceptance, final model benchmark result, or funding claim is inferred.
-- Figures are cropped directly from the manuscript PDF at twice the 1600 px page rendering resolution. A full-resolution link is provided on every figure.
-- The site is initially owner-private and has noindex metadata. Before a public release, confirm author metadata, provide a public manuscript URL, add the final BibTeX, and update robots metadata to permit indexing.
+Every one of the 42 displayed leaf nodes now has a representative image. Colorization was completed with the exact example images in the paper's `analysis/unitaskonomy_examples/manifest.json`. Inpainting, localization, semantic segmentation and jigsaw use the author-supplied examples. The 17-column heatmap comes from the author-supplied v13 export. The I2I tree order is recorded separately from the figure column order.
+
+The transfer map does not display significance stars. Its on-page excerpt stops before the manuscript's sentence about stars; no significance inference is made from the visual alone. The site keeps the requested pending BibTeX placeholder and the author-supplied blank resource buttons. The website design acknowledgment to Beyond Language Modeling appears only in the footer. The title metadata remains `noindex` until a public manuscript and citation are supplied.
+
+Two contradictions inside the current manuscript require author review: Jigsaw instance-level numbers in the main text and appendix disagree slightly, and the Zoom-In task description says five views are shuffled in the main text while the appendix says one reference stays fixed and four views are shuffled. Neither discrepancy is resolved by altering the project page.

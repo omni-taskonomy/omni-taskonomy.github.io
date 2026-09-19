@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { NativeSelect } from '@/components/ui/native-select';
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { data, leaves, familyColors, metric, number, fill, rowsFor, modelsFor, sourceCopy, viewLabel, type Leaf } from '@/lib/unitaskonomy';
+import manuscriptContent from '@/content/manuscript-excerpts.json';
+import { data, leaves, familyColors, metric, number, fill, rowsFor, modelsFor, sourceCopy, treeLeavesFor, viewLabel, type Leaf } from '@/lib/unitaskonomy';
 
 function V({ id }: { id: string }) { return <span data-v12-copy={id}>{sourceCopy(id)}</span>; }
 function Value({ scope, row, model, precision = 1 }: { scope: string; row: string; model: string; precision?: number }) {
@@ -25,9 +26,9 @@ export function InteractiveTaxonomy() {
     if (window.matchMedia('(max-width: 760px)').matches) setCollapsed(data.tree.families.slice(1).map(f => f.id));
   }, []);
   const sample = selected?.sample;
-  return <div className="ut-figure ut-taxonomy" aria-label="Interactive UniTaskonomy tree">
+  return <div className="ut-figure ut-taxonomy" aria-label="Interactive OmniTaskonomy tree">
     <div className="ut-tree-toolbar"><span>Click a node to explore</span></div>
-    <div className="ut-root"><span>UniTaskonomy</span></div>
+    <div className="ut-root"><span>OmniTaskonomy</span></div>
     <div className="ut-tree">
       {data.tree.families.map(f => {
         const open = !collapsed.includes(f.id);
@@ -37,7 +38,7 @@ export function InteractiveTaxonomy() {
             {open ? <ChevronDown size={18} /> : <Plus size={18} />}
           </button>
           <ul className="ut-leaves" id={'ut-branch-' + f.id} hidden={!open}>
-            {data.tree.leaves.filter(l => l.family === f.id).map(l => <li key={l.id}>
+            {treeLeavesFor(f.id).map(l => <li key={l.id}>
               <button className="ut-leaf" onClick={e => { trigger.current = e.currentTarget; setSelected(l); }} aria-haspopup="dialog" aria-label={l.name + ', ' + l.role.toUpperCase() + ', open definition and example'}>
                 <i className={'ut-node-dot ' + l.role} aria-hidden="true" />
                 <span className="ut-leaf-name"><V id={'leaf|' + l.id + '|name'} /></span>
@@ -50,6 +51,7 @@ export function InteractiveTaxonomy() {
       })}
     </div>
     <div className="ut-tree-note"><span>Counts: I2T evaluation samples</span><span>v13 results</span></div>
+    <p className="ut-extension-note" data-manuscript-excerpt="taxonomy_extensions">{manuscriptContent.excerpts.taxonomy_extensions.text}</p>
     <Dialog open={selected !== null} onOpenChange={open => { if (!open) setSelected(null); }}>
       <DialogContent className="ut-leaf-dialog" finalFocus={trigger} showCloseButton={false}>
         <div className="ut-dialog-close-bar"><DialogClose render={<Button variant="ghost" size="icon" aria-label="Close" />}><X size={20} /></DialogClose></div>

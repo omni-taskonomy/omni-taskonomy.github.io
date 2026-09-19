@@ -72,7 +72,9 @@
     "i2i_jigsaw-input.png": "97413f1558c292aa11948f38c54af2c42802851b39d955ac719f9dc158965547",
     "i2i_jigsaw-target.png": "25ae6b2db638c4169ac82d01c12b2421137d171934c1506c42f421658a27d867",
     "i2i_localization-input.png": "f399542cd445d7b51050db15233fb7ee088e0af98cbe4979e3931e51cd6df502",
-    "i2i_localization-target.png": "0c00d5d7a243ce092afd44575f2246fcaf6e94422d74fd6481cf21b2adc7e859"
+    "i2i_localization-target.png": "0c00d5d7a243ce092afd44575f2246fcaf6e94422d74fd6481cf21b2adc7e859",
+    "i2i_colorization-input.png": "0ce4319edf07a0a9a653853c6b0b17447b502db92304a9834598042ae73a28e7",
+    "i2i_colorization-target.png": "f765b773fbdb47dd08244e73485710832cced9376041002fd096facb065fd8e2"
   },
   "i2i_representative_samples": {
     "source_directory": "/Users/xieji/Library/Containers/com.tencent.xinWeChat/Data/Documents/xwechat_files/wxid_7816758167212_f9f8/msg/file/2026-09/归档(1)",
@@ -289,5 +291,20 @@
         "i2i_localization-target.png": "0c00d5d7a243ce092afd44575f2246fcaf6e94422d74fd6481cf21b2adc7e859"
       }
     }
+  },
+  "paper_colorization_example": {
+    "manifest": "analysis/unitaskonomy_examples/manifest.json",
+    "manifest_sha256": "483748ac6f705aabea3654a3129e96f376d4bc47bb2fe0ba1b1d6018688c1b6e",
+    "source_commit": "de3aeb1a3158b9785ab8f13efaee8ce5898b81cf",
+    "assets": [
+      {
+        "path": "iclr2026/figures/unitaskonomy_examples/i2i_colorization_1.png",
+        "sha256": "0ce4319edf07a0a9a653853c6b0b17447b502db92304a9834598042ae73a28e7"
+      },
+      {
+        "path": "iclr2026/figures/unitaskonomy_examples/i2i_colorization_2.png",
+        "sha256": "f765b773fbdb47dd08244e73485710832cced9376041002fd096facb065fd8e2"
+      }
+    ]
   }
 }

@@ -8,14 +8,21 @@
 % Finally, we use these insights to train a unified model \amil{to potentially boost impact you can name your trained model and the size} that achieves stronger understanding ability by only adding more I2I data as supervision. These results suggest that image editing is not merely a generative objective, but also a useful source of supervision for visual understanding.
 % \end{abstract}
 \begin{abstract}
-Image generation provides dense supervision over visual structure, yet prior work has found surprisingly limited transfer from generation data to visual understanding.
-We revisit this asymmetry by studying training-time transfer from image generation to visual understanding.
-Using controlled pairs of image-to-image (I2I) and image-to-text (I2T) tasks that share the same input and underlying visual operation, we find that I2I supervision can substantially improve I2T understanding under an appropriate training recipe, with gains increasing as more I2I data is added.
-To characterize transfer beyond matched task pairs, we introduce \methodname, a unified capability taxonomy for generation and understanding, and use it to construct a capability-level transfer map that reveals which kinds of generation data benefit which understanding capabilities.
-The map reveals highly task-dependent transfer: some gains follow intuitive capability correspondences, while others emerge across different capabilities, and the same generation task can help some targets while interfering with others.
-Finally, in our controlled setting, we found stronger transfer is associated with greater gradient alignment between generation and understanding objectives, particularly in normalization parameters.
-Taken together, our results challenge the view that generation provides little value for understanding: 
-generation can provide effective supervision for visual understanding, but whether it transfers depends critically on how it is trained and what visual capability it supervises.
+Image generation provides dense supervision, yet its benefits for visual understanding remain unclear.
+We ask: how does generation supervision improve visual understanding?
+% \xd{should we just ask one question? lol better aligned with our title}
+% controlled study
+Using controlled pairs of image-to-image (I2I) and image-to-text (I2T) tasks that are two variants of the same puzzle, we find that \textit{only under an appropriate recipe} can I2I supervision substantially improve I2T performance, with \textit{gains increasing as more I2I data is added}.
+% taskonomy
+We next ask which kinds of generation data transfer to which understanding tasks.
+To study transfer beyond paired tasks, we introduce \methodname, a unified taxonomy spanning 15 I2I supervision tasks and 25 I2T capabilities. The resulting transfer map reveals selective benefits: some follow intuitive correspondences, such as depth supervision improving metric 3D reasoning and object pointing improving counting, while others cross capability boundaries; e.g.~keypoint supervision improves lighting understanding.
+% We find that transfer can follow intuitive correspondences, such as depth improving metric 3D reasoning and object pointing improving counting, but can also extend to less directly related capabilities, such as keypoints improving lighting understanding.
+% The same generation task can also benefit some targets while interfering with others.
+% gradient
+To understand these transfer patterns, we analyze the gradient from generation and understanding objectives. 
+In controlled task pairs, we show that I2I and I2T gradients align most in early pre-attention normalization layers.
+Extending this analysis to \methodname, we find that capabilities with higher gradient alignment at these layers also exhibit larger downstream transfer gains.
+Together, our results show that image generation can provide effective training-time supervision for visual understanding, with benefits that depend strongly on the training recipe, the amount of direct understanding supervision, and the source–target task pairing.
 \end{abstract}
 % start with "taxonomy" and "bridging" make the abs more exciting; start with stating the position
 

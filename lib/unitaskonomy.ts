@@ -37,6 +37,15 @@ export const data: typeof original = {
 export const familyColors: Record<string, string> = { REC: '#b77939', RCN: '#527eaf', RORG: '#3d8b71' };
 export const leaves = new Map(data.tree.leaves.map(l => [l.id, l]));
 export const models = new Map(data.heatmap.models.map(m => [m.id, m]));
+const treeOrder = new Map(authorCorrections.i2i_tree_order.map((id, index) => [id, index]));
+if (treeOrder.size !== data.tree.leaves.filter(l => l.role === 'i2i').length) throw new Error('Incomplete I2I tree order');
+export function treeLeavesFor(family: string) {
+  return data.tree.leaves.filter(l => l.family === family).sort((a, b) => {
+    if (a.role !== b.role) return a.role === 'i2i' ? -1 : 1;
+    if (a.role === 'i2i') return treeOrder.get(a.id)! - treeOrder.get(b.id)!;
+    return 0;
+  });
+}
 export function accuracy(pair?: Pair) { return pair && pair[1] > 0 ? 100 * pair[0] / pair[1] : null; }
 export function metric(scope: string, row: string, model: string) {
   const pair = data.heatmap.metrics[scope]?.[row]?.[model];

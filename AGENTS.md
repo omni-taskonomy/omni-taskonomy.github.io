@@ -6,7 +6,7 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 - Choose excerpts only from active files included by the manuscript's main.tex. Exclude commented drafts, TODOs, collaborator notes, and template author placeholders.
 - Use content/manuscript-excerpts.json through the existing components. Each excerpt records its pinned manuscript commit, file, source lines, raw TeX, and source hash. The source copies are under content/manuscript-sources and are not public assets.
 - Permitted transformations are LaTeX presentation only: whitespace, emphasis commands, math delimiters, typography, and expansion of verified manuscript macros. Do not invent citations or resolve them from memory. Prefer self-contained passages that do not require omitted references.
-- Interface controls and the existing, separately marked website-design acknowledgment are the only non-manuscript copy on this site. The manuscript's acknowledgment names are also copied as an exact passage.
+- Interface controls and the existing, separately marked website-design acknowledgment are the only non-manuscript copy on this site. The manuscript acknowledgment names are not rendered, per the author's later request.
 - Run python scripts/extract-manuscript.py --check and python scripts/verify-page-copy.py <local-url> before publishing. The second check rejects unregistered rendered research text and verifies captions, alt text, and metadata.
 - Follow the user-requested visual direction while preserving original manuscript figures and the current site audience. Use short contiguous excerpts and progressive disclosure for long original passages; never rewrite prose to fit a layout. This site task does not authorize manuscript or bibliography changes on Overleaf.
 
@@ -45,7 +45,7 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 ## Author clarification of I2I families
 
 - The author clarified with an updated paper heatmap that Recognition no longer contains I2I tasks. Semantic segmentation moves from Recognition to Reorganization; I2T Region semantic recognition stays in Recognition.
-- Preserve the original v12 export and apply the explicit mapping and heatmap column order in content/unitaskonomy-author-corrections.json. Its source is the author's supplied paper figure. The heatmap has 8 Reconstruction and 7 Reorganization columns; the combined taxonomy still has three families because I2T retains Recognition.
+- Preserve the original v12 export and apply the explicit mapping and heatmap column order in content/unitaskonomy-author-corrections.json. Its source is the author's supplied paper figure. The original 15-column heatmap had 8 Reconstruction and 7 Reorganization columns; the v13 heatmap has 9 and 8 respectively; the combined taxonomy still has three families because I2T retains Recognition.
 - This supersedes the original v12 I2I family assignment and single-column Recognition header rule. Do not change measurements, definitions, examples, I2T assignments or manuscript prose to implement this correction.
 
 ## Opening ability-transfer diagram
@@ -61,7 +61,7 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 
 ## Author correction for transfer heading
 
-- The author clarified that the Section 04 heading should say "Which image-to-image tasks help which visual capabilities?" even though the current Overleaf source says "image-editing." Render the corrected heading from content/author-provided-copy.json and leave the manuscript excerpt pinned to the original source for audit history.
+- The manuscript now says "Which generation data help which visual capabilities?" Render that active heading verbatim. The author's older image-to-image override applied to a superseded manuscript heading.
 
 ## Footer acknowledgment placement
 
@@ -76,5 +76,13 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 - Preserve the original v12 payload in `content/unitaskonomy-v12.json`. The active heatmap and tree payload is `content/unitaskonomy-v13.json`, derived from the author's v13 HTML and four sample archives. The v13 source hash and image hashes are recorded in `content/unitaskonomy-v12-provenance.json`.
 - Inpainting is an I2I Reconstruction node; Localization is an I2I Reorganization node. Semantic segmentation remains an I2I Reorganization node under the author's earlier correction, even though its sample archive labels it Recognition.
 - The v13 heatmap includes paper-removed I2T rows. Continue to display only the same 19 I2T capabilities with more than 100 global evaluation samples. Show all 17 v13 I2I model columns. Keep missing values missing.
-- The supplied I2I sample instructions and pair definitions may be displayed verbatim as author data. Do not invent new task descriptions or answers. The removed manuscript sentence saying there are 15 I2I nodes and the 50k-per-task sentence must stay off the page while v13 includes 17 nodes and two 38.4k-sample tasks.
+- The supplied I2I sample instructions and pair definitions may be displayed verbatim as author data. Do not invent new task descriptions or answers. Distinguish the 15 taxonomy I2I leaves from the 17 transfer checkpoints. Do not claim 50k examples for the two added checkpoints; they use 38.4k each.
 - Verify the updated data with `scripts/verify-interactive-data.py`, passing the source v13 HTML when available. Run the manuscript and rendered-copy audits before publishing.
+
+## Current paper refresh (September 19, 2026)
+
+- The active manuscript is pinned in `content/manuscript-revision.txt`. The title/method macro is OmniTaskonomy. Extract from active `6_gradient.tex`, never the retired `6_overall.tex`.
+- The taxonomy proper has 15 I2I and 25 I2T leaves. The transfer map has 17 source checkpoints after adding inpainting and localization. The interactive tree includes these two extra objectives as requested, with an exact source sentence explaining the extension.
+- Colorization's exact representative images come from the manuscript example manifest. All 42 displayed leaves have image files; verify them and the v13 data before publishing.
+- The gradient bars are readings from the current paper's plotting data and round to two decimals. Preserve the source hash, show the full figure, and do not represent the readings as raw gradient measurements.
+- Use the current teaser and controlled/scaling figures, and keep captions and claims exactly aligned to the current manuscript. The interactive map does not show significance stars, so do not quote the paper's star-caption clause as its on-page caption.

@@ -1,17 +1,19 @@
 """Import author-supplied v13 evaluation and four I2I examples.
 
-Usage: python3 scripts/import-v13-update.py HEATMAP.html SAMPLE.zip ...
+Usage: python3 scripts/import-v13-update.py HEATMAP.html SAMPLE.zip ... PAPER_EXAMPLES_MANIFEST.json
 """
 from copy import deepcopy
 from hashlib import sha256
 from pathlib import Path
 import json
+import subprocess
 import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 heatmap_path = Path(sys.argv[1])
-sample_paths = [Path(p) for p in sys.argv[2:]]
+paper_manifest_path = Path(sys.argv[-1])
+sample_paths = [Path(p) for p in sys.argv[2:-1]]
 assert len(sample_paths) == 4
 
 html = heatmap_path.read_text()
@@ -81,6 +83,35 @@ for ident, family in (('i2i:inpainting', 'RCN'), ('i2i:localization', 'RORG')):
         'id': ident, 'family': family, 'role': 'i2i', 'name': node['name'],
         'definition': definition, 'n': 0, 'sample': sample_by_id[ident],
     })
+
+# The current paper repository includes the missing Colorization example pair.
+paper_manifest_bytes = paper_manifest_path.read_bytes()
+paper_manifest = json.loads(paper_manifest_bytes)
+colorization = next(x for x in paper_manifest['examples'] if x['node_id'] == 'i2i:colorization')
+colorization_leaf = next(x for x in data['tree']['leaves'] if x['id'] == 'i2i:colorization')
+assert colorization_leaf['sample'] is None
+assert colorization_leaf['definition'] == colorization['definition']
+paper_root = paper_manifest_path.parents[2]
+colorization_images = []
+for index, asset in enumerate(colorization['assets']):
+    raw = (paper_root / asset['path']).read_bytes()
+    digest = sha256(raw).hexdigest()
+    assert digest == asset['sha256']
+    name = f'i2i_colorization-{"input" if index == 0 else "target"}.png'
+    (ROOT / 'public/interactive/examples' / name).write_bytes(raw)
+    provenance['images'][name] = digest
+    colorization_images.append('/interactive/examples/' + name)
+colorization_leaf['sample'] = {
+    **colorization['sample'], 'images': colorization_images, 'reason': '',
+}
+provenance['paper_colorization_example'] = {
+    'manifest': str(paper_manifest_path.relative_to(paper_root)),
+    'manifest_sha256': sha256(paper_manifest_bytes).hexdigest(),
+    'source_commit': subprocess.check_output(
+        ['git', '-C', str(paper_root), 'rev-parse', '--verify', 'HEAD'], text=True
+    ).strip(),
+    'assets': colorization['assets'],
+}
 
 model_leaves = {m['id']: m['leaf'] for m in old['heatmap']['models'] if 'leaf' in m}
 model_leaves.update({

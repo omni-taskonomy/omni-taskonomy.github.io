@@ -44,6 +44,13 @@ v12_leaves = {leaf['id']: leaf for leaf in v12['tree']['leaves']}
 added_images = 0
 for leaf in RAW['tree']['leaves']:
     ident = leaf['id']
+    if ident == 'i2i:colorization':
+        assert {**leaf, 'sample': None} == v12_leaves[ident]
+        assert leaf['sample'] and len(leaf['sample']['images']) == 2
+        for path, asset in zip(leaf['sample']['images'], manifest['paper_colorization_example']['assets'], strict=True):
+            digest = hashlib.sha256((ROOT / 'public' / path.lstrip('/')).read_bytes()).hexdigest()
+            assert digest == asset['sha256'] == manifest['images'][Path(path).name]
+        continue
     if ident not in v13_additions:
         assert leaf == v12_leaves[ident]
         continue
@@ -75,6 +82,14 @@ if len(sys.argv) > 1:
     assert RAW['heatmap']['baseline'] == source['default_baseline']
     assert [(m['id'], m['name'], m['group']) for m in RAW['heatmap']['models']] == [(m['id'], m['abbr'], m['group']) for m in source['models']]
     assert source['taxonomy']['hash'] == RAW['source']['hash']
+if len(sys.argv) > 2:
+    paper_manifest_bytes = Path(sys.argv[2]).read_bytes()
+    assert hashlib.sha256(paper_manifest_bytes).hexdigest() == manifest['paper_colorization_example']['manifest_sha256']
+    paper_manifest = json.loads(paper_manifest_bytes)
+    colorization = next(x for x in paper_manifest['examples'] if x['node_id'] == 'i2i:colorization')
+    leaf = next(x for x in RAW['tree']['leaves'] if x['id'] == 'i2i:colorization')
+    assert {k: leaf['sample'][k] for k in ('uid', 'question', 'choices', 'answer', 'benchmark')} == colorization['sample']
+    assert leaf['definition'] == colorization['definition']
 
 assert RAW['source']['heatmap'] == manifest['v13_heatmap']['file']
 assert RAW['source']['exported'] == manifest['v13_heatmap']['generated_at']
@@ -91,7 +106,7 @@ for current, original in zip(DATA['tree']['leaves'], RAW['tree']['leaves'], stri
 assert len(LEAVES) == 42
 assert sum(l['role'] == 'i2i' for l in LEAVES.values()) == 17
 assert sum(l['role'] == 'i2t' for l in LEAVES.values()) == 25
-assert sum(l['sample'] is not None for l in LEAVES.values()) == 41
+assert sum(l['sample'] is not None for l in LEAVES.values()) == 42
 assert sum(l['n'] for l in LEAVES.values()) == 9444
 assert LEAVES['i2i:semantic_segmentation']['family'] == 'RORG'
 assert LEAVES['i2i:inpainting']['family'] == 'RCN'

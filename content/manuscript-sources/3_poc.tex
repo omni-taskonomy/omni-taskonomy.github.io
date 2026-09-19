@@ -1,37 +1,31 @@
 \section{Does image generation help visual understanding?}
-We first study whether image generation can improve visual understanding at all. 
-% Directly comparing existing generation and understanding datasets is difficult, because any performance difference may come from the data rather than the training objective itself. 
-Studying this requires a clean setting to test whether knowledge learned from generation tasks can transfer to understanding tasks.
-% \todo{think more of the motivation here}
-We therefore construct controlled tasks in which the generation and understanding objectives require solving essentially the same visual task, differing primarily in the required output modality. 
-This allows us to examine whether the generation objective itself provides useful supervision for visual understanding.
-Our controlled framework is model-agnostic and applies in principle to any unified model with both generation and understanding capabilities.
-We instantiate it on BAGEL, a unified multimodal model based on a
-Mixture-of-Transformers (MoT) architecture. 
+\label{sec:controlled_settings}
+We first ask whether image generation can improve visual understanding at all.
+To isolate the effect of output modality, we construct paired I2I and I2T tasks that require solving the same task from the same input, differing primarily in whether the answer is produced as an image or as text.
+This allows us to directly test whether supervision from an image-generation objective transfers to the corresponding understanding task.
+We instantiate this on BAGEL, a unified multimodal model based on a Mixture-of-Transformers (MoT) architecture.
+Task construction, training details, and full recipe definitions are provided in Appendix~\ref{app:controlled}.
 % \todo{if we add T2I should we test on some other models eg BLIP-3o as well?}
-Under this setup, we investigate three questions.
-First, can I2I or T2I supervision improve performance on the corresponding understanding task?
-Second, how should generation and understanding data be combined during training?
-Third, how does transfer depend on the relative data budgets of the two objectives?
+% Under this setup, we investigate three questions.
+% First, can I2I supervision improve performance on the corresponding understanding task?
+% Second, how should generation and understanding data be combined during training?
+% Third, how does transfer depend on the relative data budgets of the two objectives?
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\linewidth]{iclr2026/figures/combined_3subfigures_refined_v13.pdf}
+    \includegraphics[width=\linewidth]{iclr2026/figures/combined_3subfigures_refined_v14.pdf}
     \caption{\textbf{Scaling I2I and I2T supervision.}
-    (a) I2T evaluation accuracy as the amount of I2I training data increases across different training recipes on Jigsaw and Zoom-In, with the I2T data size held fixed as 1k.
-    (b) I2T evaluation accuracy as the amount of I2T training data increases, comparing the I2T-only baseline (R1) with I2I pretraining followed by I2T finetuning using 100k I2I samples (R2).}
+    (a) Controlled Jigsaw and Zoom-In tasks with image and text outputs.
+    (b) I2T evaluation accuracy as the amount of I2I training data increases across different training recipes on Jigsaw and Zoom-In, with the I2T data size held fixed as 1k.
+    (c) I2T evaluation accuracy as the amount of I2T training data increases, comparing the I2T-only baseline with I2I training followed by I2T finetuning using 100k I2I samples.}
     \label{fig:scaling}
 \end{figure}
-\subsection{Controlled Generation-to-Understanding Transfer Setup}
-We construct paired generation and understanding tasks that require the same visual operation but produce answers in different modalities. 
-In all experiments, transfer is measured by performance on the corresponding I2T task.
-% \paragraph{Image-To-Image}
-% I2I setting and I2T setting, how is it controlled
-We adapt two tasks from VisGym~\citep{wang2026visgym}: Jigsaw puzzle and Zoom-in puzzles. 
-% \todo{add video unshuffle?, if so will need more setting with T2I}
-In Jigsaw, patches of an image are shuffled. 
-In Zoom-In, five views of the same image at different zoom levels are shuffled. 
-For both tasks, the I2I objective generates the correctly ordered image, while the paired I2T objective predicts the correct permutation in text, as shown in Figure~\ref{fig:scaling} (a).
-The two objectives therefore solve the same task from the same input, differing only in the output modality.
+\paragraph{Controlled Paired Tasks Setup}
+We adapt two tasks from VisGym~\citep{wang2026visgym}: Jigsaw and Zoom-In.
+As shown in Fig.~\ref{fig:scaling}(a), 
+in Jigsaw, image patches are shuffled, and in Zoom-In, five views of the same image at different zoom levels are shuffled.
+For both tasks, the I2I objective generates the correctly ordered image, while the corresponding I2T objective predicts the correct permutation in text.
+Thus, the two objectives are trained on the same input and require solving the same task, while differing only in output modality.
+We evaluate transfer exclusively on the paired I2T task.
 % \paragraph{Text-to-Image}
 % \todo{EXP: design and run experiments here, here I listed an idea; basically I2T be like (triangle, (3,1)); image is the rendered triangle at that coordinate; specifically synthetic scene rendering task:
 % randomly generate different color, shape, coordination objects
@@ -40,66 +34,58 @@ The two objectives therefore solve the same task from the same input, differing 
 % T2I: same canonical scene description → rendered image (refer to clever dataset?)}
 % % Grounding: I2T is given image with bbox output coordiantas; T2I is giving a bbox coordinate draw a box on a canvas (?)
 % We construct a synthetic scene task with objects of different shapes, colors, and locations. \todo{figure of illustration}
-% For I2T, the model takes a rendered scene and outputs its structured description, including the attributes and coordinates of each object. For T2I, the model takes the same description and generates the corresponding scene. 
+% For I2T, the model takes a rendered scene and outputs its structured description, including the attributes and coordinates of each object. For T2I, the model takes the same description and generates the corresponding scene.
 % The two objectives therefore learn opposite directions of the same deterministic text-image mapping.
 % experiment results, we found i2i help t2i does not; (why? any insight? i2i is learninng a delta, but for very toy t2i settings why does it not help)
-\subsection{How Should Generation and Understanding Be Combined?}
+\paragraph{Which Training Recipe Transfers Best?}
 % show the scaling curve of I2I toy tasks under different recipes;
 % show the curve udner different I2T data budgeste, enough I2I can appriximate I2T on toy settings
-We next study how I2I and I2T supervision should be combined during training.
-We compare an I2T-only baseline (R1) with five training recipes:
-(R2) I2I pretraining followed by I2T finetuning, with the shared understanding weights updated during I2I training;
-(R3) mixed I2I-I2T training followed by I2T finetuning;
-(R4) I2I pretraining with the understanding weights frozen, followed by mixed training;
-(R5) mixed training throughout; and
-(R6) I2I pretraining with the understanding weights updated, followed by mixed training.
-To identify the best recipe, we fix the I2T data budget and vary the amount of I2I data. 
-As shown in Figure~\ref{fig:scaling} (b), R2 and R6 scales consistently as the I2I data increases. 
-Both recipes first train on I2I data to update the understanding branch gradients. 
-In contrast, freezing these weights or mixing the two objectives from the beginning leads to weaker or less stable gains. 
-We therefore use I2I pretraining followed by I2T finetuning as the default recipe in subsequent experiments.
+We next study how I2I and I2T data should be combined during training. 
+We compare six training recipes: \textbf{I2T}, \textbf{I2I$\rightarrow$I2T}, \textbf{Mixed$\rightarrow$I2T}, \textbf{Frozen I2I$\rightarrow$Mixed}, \textbf{Mixed}, and \textbf{I2I$\rightarrow$Mixed}. 
+\textbf{Mixed} denotes joint training in which each optimization step uses both I2I and I2T data. 
+Unless otherwise specified, I2I training updates the parameters shared with the understanding objective. In \textbf{Frozen I2I$\rightarrow$Mixed}, these parameters are frozen during the initial I2I stage.
+To identify the best recipe, we fix the I2T data budget and vary the amount of I2I data.
+As shown in Figure~\ref{fig:scaling}(b), I2I $\rightarrow$ I2T and I2I $\rightarrow$ Mixed scale consistently as the I2I data increases.
+Both recipes first train on I2I data to update the understanding branch gradients.
+In contrast, freezing these weights or mixing the two objectives from the beginning leads to weaker or less stable gains.
+We therefore use I2I training followed by I2T finetuning as the default recipe in subsequent experiments.
 \begin{findingbox}
-I2I Training through weight sharing provides a good initialization.
+I2I training provides a useful initialization for visual understanding when it updates parameters shared with the I2T objective.
 \end{findingbox}
-% As shown in the figure \todo{refer the same plot}, with the best recipe, I2I improves performance on the paired I2T task, whereas T2I does not yield
-% comparable gains.  \todo{EXP: analysis whether there is a correlation between I2I success and I2T success}
-% \begin{findingbox}
-% Image editing can transfers to the paired understanding task, whereas text-to-image generation does not yield comparable gains.
-% \end{findingbox}
-\subsection{How Does Transfer Vary Across Data Regimes and Instances?}
-We next ask whether I2I supervision can substitute for direct I2T supervision.
-We fix the I2I budget at 100k examples and vary the I2T budget from 1k, 3k, 10k, and 30k, comparing with training on I2T-only data.
-As shown in Figure~\ref{fig:scaling}(c), performance continues to improve as more I2T data is added, indicating that I2I supervision complements but does not fully replace direct understanding supervision.
-Its benefit is largest when the I2T budget is small.
-
-\begin{wraptable}{r}{0.7\columnwidth}
-    \centering
-    \small
-    \setlength{\tabcolsep}{5.5pt}
-    \caption{\textbf{Instance-level I2I--I2T alignment.}}   \label{tab:instance_alignment}
-    \begin{tabular}{@{}lcccc@{}}
-        \toprule
-        & I2I Acc. & I2T Acc.
-        & $P(\mathrm{I2T}\checkmark\mid\mathrm{I2I}\checkmark)$
-        & $P(\mathrm{I2T}\checkmark\mid\mathrm{I2I}\times)$ \\
-        \midrule
-        Jigsaw  & 65.3 & 78.4 & 84.6 & 66.7 \\
-        Zoom-In & 93.5 & 83.0 & 84.0 & 69.2 \\
-        \bottomrule
-    \end{tabular}
-\end{wraptable}
-
-We further examine whether generation and understanding success are aligned
-at the instance level.
-As shown in Table~\ref{tab:instance_alignment}, I2T accuracy is substantially
-higher when the corresponding I2I prediction is correct, with gaps of
-17.9 points on Jigsaw and 14.8 points on Zoom-In.
-This suggests that the paired objectives exhibit substantial instance-level
-alignment, although shared example difficulty may partly contribute to this effect.
-
-\WFclear
-
+\paragraph{When Is I2I Supervision Most Useful?}
+We next vary the amount of I2T data.
+We fix the I2I budget at 100k examples and vary the I2T budget from 1k to 30k, comparing I2I$\rightarrow$I2T trained models with I2T-only baselines.
+As shown in Fig.~\ref{fig:scaling}(c), I2I training improves I2T performance across the amount of I2T data, with the largest gains when I2T supervision is scarce.
+Moreover, extensive I2I supervision can partially substitute for additional I2T data: for example, on Zoom-In, training with I2I$\rightarrow$3k I2T examples achieves comparable performance to training with 10k I2T examples alone.
 \begin{findingbox}
 I2I supervision complements but does not replace direct I2T supervision,
 with the largest gains in low-I2T settings.
 \end{findingbox}
+\begingroup
+\begin{wraptable}{r}{0.43\columnwidth}
+    \vspace{-\intextsep}
+    \centering
+    \small
+    \setlength{\tabcolsep}{3pt}
+    \makeatletter
+    \long\def\@makecaption#1#2{\vskip\abovecaptionskip{\small\raggedright #1: #2\par}\vskip\belowcaptionskip}
+    \makeatother
+    \caption{\textbf{Instance-level I2I--I2T alignment.}}   \label{tab:controlled_instance_alignment}
+    \begin{tabular}{@{}lcc@{}}
+        \toprule
+        & Jigsaw & Zoom-In \\
+        \midrule
+        I2I Acc. & 65.3 & 93.5 \\
+        I2T Acc. & 78.4 & 83.0 \\
+        $P(\mathrm{I2T}\checkmark\mid\mathrm{I2I}\checkmark)$ & 84.6 & 84.0 \\
+        $P(\mathrm{I2T}\checkmark\mid\mathrm{I2I}\times)$ & 66.7 & 69.2 \\
+        \bottomrule
+    \end{tabular}
+\end{wraptable}
+\raggedright
+\paragraph{Instance-level correspondence.}
+We next ask whether success on the paired I2I and I2T objectives is also correlated at the example level.
+As shown in Table~\ref{tab:controlled_instance_alignment}, I2T accuracy is substantially higher when the corresponding I2I prediction is correct, with gaps of 17.9 points on Jigsaw and 14.8 points on Zoom-In.
+This suggests that the paired objectives also exhibit instance-level alignment.
+\par\WFclear
+\endgroup

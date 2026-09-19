@@ -25,5 +25,24 @@
     "i2i:object_pointing",
     "i2i:jigsaw",
     "i2i:localization"
+  ],
+  "i2i_tree_order": [
+    "i2i:colorization",
+    "i2i:inpainting",
+    "i2i:z_depth",
+    "i2i:euclidean_depth",
+    "i2i:surface_normals",
+    "i2i:principal_curvature",
+    "i2i:occlusion_edges",
+    "i2i:keypoints_3d",
+    "i2i:reshading",
+    "i2i:segmentation_2d",
+    "i2i:object_pointing",
+    "i2i:localization",
+    "i2i:semantic_segmentation",
+    "i2i:edges_2d",
+    "i2i:keypoints_2d",
+    "i2i:segmentation_25d",
+    "i2i:jigsaw"
   ]
 }

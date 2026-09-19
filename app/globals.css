@@ -141,6 +141,32 @@ h3 { font-size:1.65rem; line-height:1.2; margin:0 0 17px; color:#365872; }
 .experiment-setup { margin:28px auto; padding-top:0; border-top:0; }
 .analysis-copy { margin-top:24px; color:var(--body-copy); font-size:1.075rem; line-height:1.85; text-align:left; }
 .analysis-copy p:last-child { margin-bottom:0; }
+.gradient-chart { width:min(950px,100%); margin:25px auto; border:1px solid #dfe7ef; border-radius:12px; overflow:hidden; background:#fff; color:var(--body-copy); box-shadow:0 12px 32px #334e6910; }
+.gradient-chart-head { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:16px 20px; border-bottom:1px solid #e6edf3; }
+.gradient-chart-head>a { white-space:nowrap; color:#4d708f; font-size:1rem; }
+.gradient-chart-tabs { display:flex; flex-wrap:wrap; gap:8px; }
+.gradient-chart-tabs button { border:1px solid #d5e2ec; background:#fff; color:#40576c; border-radius:20px; padding:5px 14px; font:inherit; font-size:1rem; cursor:pointer; }
+.gradient-chart-tabs button[aria-selected="true"] { color:#244b77; border-color:#a9c5dd; background:#ecf4fa; }
+.gradient-chart-tabs button:focus-visible,.gradient-chart-row:focus-visible { outline:2px solid #5a91c8; outline-offset:2px; }
+.gradient-chart-legend { display:flex; align-items:center; flex-wrap:wrap; gap:13px 24px; padding:12px 20px; color:#526575; border-bottom:1px solid #edf1f5; font-size:1rem; }
+.gradient-chart-legend span,.gradient-chart-detail span { display:inline-flex; align-items:center; gap:8px; }
+.gradient-chart-legend i,.gradient-chart-detail i { display:inline-block; width:12px; height:12px; border-radius:3px; flex:none; }
+.gradient-chart-legend .jigsaw,.gradient-chart-detail .jigsaw { background:#0064e0; }
+.gradient-chart-legend .zoomin,.gradient-chart-detail .zoomin { background:#ac97cc; }
+.gradient-chart-scroll { max-height:570px; overflow:auto; padding:8px 14px 8px 20px; scrollbar-width:thin; }
+.gradient-chart-row { display:grid; grid-template-columns:minmax(135px,180px) minmax(0,1fr); align-items:center; gap:12px; width:100%; min-height:47px; padding:4px 8px; border:0; border-bottom:1px solid #edf1f5; background:#fff; color:#334554; font:inherit; font-size:1rem; text-align:left; cursor:pointer; transition:background .15s ease; }
+.gradient-chart-row:hover,.gradient-chart-row.selected { background:#f3f7fb; }
+.gradient-chart-row:hover .gradient-chart-bar,.gradient-chart-row.selected .gradient-chart-bar { height:15px; }
+.gradient-chart-label { line-height:1.2; }
+.gradient-chart-track { position:relative; display:block; height:38px; background:repeating-linear-gradient(90deg,transparent,transparent calc(25% - 1px),#e9eef3 calc(25% - 1px),#e9eef3 25%); }
+.gradient-chart-zero { position:absolute; left:var(--zero); top:0; bottom:0; width:1px; background:#7f91a0; }
+.gradient-chart-bar { position:absolute; left:var(--bar-left); width:max(var(--bar-width),2px); height:12px; border-radius:2px; transition:height .12s ease; }
+.gradient-chart-bar.jigsaw { top:5px; background:#0064e0; }
+.gradient-chart-bar.zoomin { bottom:5px; background:#ac97cc; }
+.gradient-chart-detail { display:flex; align-items:center; flex-wrap:wrap; gap:10px 25px; min-height:52px; padding:11px 20px; border-top:1px solid #dde7ef; color:#40576c; font-size:1rem; }
+.gradient-chart-detail strong { min-width:155px; }
+.gradient-chart-detail b { font-variant-numeric:tabular-nums; color:#263e54; }
+@media(max-width:600px) { .gradient-chart-head { align-items:flex-start; flex-direction:column; padding:14px; gap:9px; } .gradient-chart-legend { padding:11px 14px; } .gradient-chart-scroll { padding:5px 8px; max-height:510px; } .gradient-chart-row { grid-template-columns:minmax(85px,112px) minmax(0,1fr); gap:6px; font-size:.9rem; } .gradient-chart-detail { padding:10px 14px; font-size:.94rem; } .gradient-chart-detail strong { flex-basis:100%; } }
 .acknowledgments { max-width:780px; padding:60px 0 48px; text-align:left; }
 .acknowledgments h2 { font-size:2rem; margin-bottom:19px; text-align:center; }
 .ack-names { font-size:1.075rem; color:var(--body-copy); }
@@ -409,3 +435,5 @@ figcaption, .teaser figcaption, .site-credit,
   .figure-frame { padding:0; border:0; }
   .figure-viewport { overflow:visible; }
 }
+
+.ut-extension-note { margin:16px 4px 0; color:var(--body-copy); text-align:left; }

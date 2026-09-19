@@ -1,12 +1,18 @@
+\PassOptionsToPackage{table,dvipsnames}{xcolor}
+% Allow the existing gallery math labels to use their exact script sizes.
+\RequirePackage{fix-cm}
 \documentclass{article} % For LaTeX2e
 \usepackage{iclr2026_conference,times}
 
+\usepackage{booktabs}
 % Optional math commands from https://github.com/goodfeli/dlbook_notation.
 \input{math_commands.tex}
 
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
 
 
 \usepackage{xcolor}
@@ -18,6 +24,24 @@
 \usetikzlibrary{shadings,positioning}
 \usepackage{wrapfig}
 \usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{graphicx}
+\input{iclr2026/paper_layout}
+
+% Prompt boxes for the appendix: \begin{promptbox}{Title}{label}...\end{promptbox}
+\newtcolorbox[auto counter]{promptbox}[2]{
+    enhanced,
+    breakable,
+    colback=gray!4,
+    colframe=gray!55,
+    boxrule=0.6pt,
+    arc=1mm,
+    fonttitle=\bfseries\small,
+    fontupper=\small\ttfamily,
+    title={Prompt~\thetcbcounter: #1},
+    label={#2},
+}
 
 % Modality colors
 \definecolor{i2iblue}{HTML}{DCEBFA}
@@ -57,13 +81,13 @@
     shading=sharedcap
   },
 }
-\title{When Does Image Generation Help Image Understanding?}
+\title{\methodname: How Image Generation Improves Visual Understanding}
 
 % Authors must not appear in the submitted version. They should be hidden
 % as long as the \iclrfinalcopy macro remains commented out below.
 % Non-anonymous submissions will be rejected without review.
 
-\author{Antiquus S.~Hippocampus, Natalia Cerebro \& Amelie P. Amygdale \thanks{ Use footnote for providing further information
+\author{Antiquus S.~Hippocampus, Natalia Cerebro \& Amelie P. Amygdale \thanks{ Use footnote for providing furtherinformation
 about author (webpage, alternative address)---\emph{not} for acknowledging
 funding agencies.  Funding acknowledgements go at the end of the paper.} \\
 Department of Computer Science\\
@@ -91,6 +115,7 @@ Address \\
 % puts 3 of 4 authors names on the first line, and the last on the second
 % line, try using \AND instead of \And before the third author name.
 
+\newcommand{\tbd}{\textcolor{red}{\textbf{?}}} % short placeholder for table cells
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
 \newcommand{\ranjay}[1]{\textcolor{orange}{$[$#1$]^R_K$}}
@@ -102,6 +127,7 @@ Address \\
 
 
 \maketitle
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}} % hide main-text sections from the appendix ToC
 
 
 \input{sections/0_abstract}
@@ -110,19 +136,26 @@ Address \\
 \input{sections/3_poc}
 \input{sections/4_taxonomy}
 \input{sections/5_analysis}
-\input{sections/6_overall}
+\input{sections/6_gradient}
 \input{sections/7_conclusion}
 
-\subsubsection*{Author Contributions}
+% \subsubsection*{Author Contributions}
+% \subsubsection*{Acknowledgments}
+% We thank Amil Dravid, Yushi Hu for the helpful discussions
+\subsubsection*{Reproducibility Statement}
+Appendices~\ref{app:controlled}--\ref{app:gradient_alignment} provide task definitions, training recipes, taxonomy annotations, complete transfer results, and gradient computation details. The accompanying numerical exports include evaluation counts, gradient estimates, taxonomy mappings, and figure-generation code.
 
-
-\subsubsection*{Acknowledgments}
-Grace Luo, Amil Dravid, Xiaochuang Han, Yushi Hu,
 \bibliography{iclr2026_conference}
 \bibliographystyle{iclr2026_conference}
 
 \appendix
-\input{iclr2026/sections/appendix/4_taskonomy}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}  % show appendix sections and subsections
+\input{iclr2026/sections/appendix/0_overview}   % clickable appendix ToC
+\input{iclr2026/sections/appendix/3_controlled} % A: controlled study (Sec. 3)
+\input{iclr2026/sections/appendix/4_taskonomy}  % B: UniTaskonomy (Sec. 4)
+\input{iclr2026/sections/appendix/5_transfer}   % C: transfer map (Sec. 5)
+\input{iclr2026/sections/appendix/6_gradient}   % D: gradient alignment (Sec. 6)
 
 
 \end{document}
+% OmniTaskonomy, sth about the generation and understanding synergy; unified understanding for visual understanding and visual generation; Omni is clearer

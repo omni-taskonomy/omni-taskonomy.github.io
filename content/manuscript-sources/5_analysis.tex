@@ -1,68 +1,38 @@
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\linewidth]{iclr2026/figures/transfer_matrix_B_semseg_reorg_top1_boxed_cropped_legend_centered.pdf}
+    \includegraphics[width=\linewidth]{iclr2026/figures/transfer_v13/transfer_map_17.pdf}
     \caption{\textbf{Generation-to-understanding transfer across visual capabilities.}
     Each column corresponds to an I2I supervision task and each row to an I2T capability in \methodname.
     Cells report the change in accuracy, in percentage points, relative to the I2T-only baseline.
     Blue indicates positive transfer and red indicates negative transfer.
-    Outlined cells and overlaid values denote the highest observed transfer score for each capability, including ties.
-    Rows and columns are organized according to \methodname for readability.
-    The main figure shows capabilities with more than 100 evaluation samples; the complete transfer matrix is provided in the Appendix.}
+    Outlined values mark each capability's largest observed gain, including ties.
+    Stars mark $p<0.05$ from paired permutation tests against the I2T-only baseline.
+    We show capabilities with more than 100 evaluation samples; Appendix~\ref{app:transfer} gives the full matrix and paired significance tests.}
     \label{fig:transfer-map}
 \end{figure}
 
-\section{Which image-editing tasks help which visual capabilities?}
-The controlled experiments above show that image-editing supervision can improve image understanding.
-We now ask: \emph{which types of generation data help which visual capabilities?}
-Using \methodname, we construct a comprehensive generation-to-understanding transfer map that relates individual I2I supervision tasks to downstream I2T capabilities.
-\subsection{Experimental Setup.}
-For each I2I supervision task, we initialize from the same BAGEL checkpoint and apply the two-stage training recipe identified in the previous section:
-I2I pretraining followed by finetuning on the same 10k LLaVA-Instruct examples~\citep{liu2024llava}. 
-We use 50k I2I training samples per task.
-We compare every resulting checkpoint against an I2T-only baseline trained on the same LLaVA-Instruct data.
-For an I2I task $t$ and an I2T capability $c$, we define the transfer score as:
+\section{Which generation data help which visual capabilities?}
+\label{sec:transfer}
+The controlled study shows that I2I training can improve the corresponding I2T task. We now evaluate the 15 I2I task types in \methodname and two additional objectives, inpainting and localization, across its 25 I2T capabilities.
+
+\subsection{Experimental setup}
+We follow the I2I $\rightarrow$ I2T recipe: starting from the same BAGEL checkpoint, the core experiments use approximately 50k I2I examples followed by 50k LLaVA-Instruct examples~\citep{liu2024llava}. We extend the map with inpainting and localization checkpoints; Appendix~\ref{app:transfer-setup} specifies the expanded checkpoint set. The baseline is trained only on the I2T data. We evaluate all checkpoints on the same 9,444 evaluation examples and define transfer from source $t$ to capability $c$ as
 \[
 \Delta(t,c)
-=
-\operatorname{Acc}(M_t,\mathcal{D}_c)
--
-\operatorname{Acc}(M_{\mathrm{I2T}},\mathcal{D}_c),
+=\operatorname{Acc}(M_t,\mathcal D_c)
+-\operatorname{Acc}(M_{\mathrm{I2T}},\mathcal D_c),
 \]
-where $\mathcal{D}_c$ contains all evaluation samples assigned to capability $c$ by \methodname.
-Our main analysis considers the 19 capabilities with more than 100 evaluation examples in \methodname. 
-The result is shown in \autoref{fig:transfer_matrix}.
-The complete results over all 25 capabilities are provided in the Appendix\todo{put all with scores}.
-We analyze single-task checkpoints in the main transfer map so that each effect can be attributed to a specific I2I supervision objective.
-% \paragraph{Experiment Settings}
-% % explain the exp settings, 
-% % 1. 用每种单独的editing task train， using R2 as recipe, 都是50k i2i data； followed by Llava-Instruct I2T data 10k
-% For each editing task, we initialize from the same BAGEL checkpoint and pretrain the model on 50k I2I examples from that task.
-% We then finetune each model on the same 10k LLaVA-Instruct
-% examples~\todo{add citation}, following the best-performing two-stage recipe identified in the previous section. \todo{EXP: check the number here}
-% We also evaluate selected mixtures of related editing tasks:  combined geometry supervision (depth, 2.5D, ..), \todo{list all, be comprehensive}.
-% We compare each model against an I2T-only baseline trained on the same 10k LLaVA-Instruct examples.
-% We evaluate every checkpoint using \methodname, and measure transfer for each editing task and visual capability as the performance difference from the I2T-only baseline.
-% \paragraph{The Generation-to-Understanding Transfer Map.}
-% % show the qualitative and quantative results. some insights
-% % maybe do a tree-like figure (see the taxonomy paper as reference)
-% % on each leafnode / node, show the ranking of the ckpts, 
-% Figure~\ref{fig:transfer-map} shows how different editing tasks transfer to the visual capabilities in \methodname.
-% At each leaf node, we rank the editing checkpoints by their transfer scores.
-% For each non-leaf node, we compute performance over all evaluation examples under its descendant leaves and rank the checkpoints in the same way.
-% The figure shows the top-performing editing tasks at each node, while the full task-by-capability results are provided in the appendix. \todo{actually organize the results; then write some insights here; eg counting helps counting, keypoint 3D helps broadly, geo helps depth etc}
-% \begin{findingbox}
-% write some insights here; eg counting helps counting, keypoint 3D helps broadly, geo helps depth; can be more summarized
-% \end{findingbox}
-\subsection{Transfer patterns}
-\paragraph{I2I supervision improves related visual capabilities.}
-Several I2I tasks yield gains on understanding capabilities that require closely related visual information.
-The clearest example is \textit{Object pointing}: training the model to mark every instance matching a category query produces the largest observed improvement on \textit{Counting} ($+3.57$ pp).
-Here, the image-valued supervision explicitly requires identifying individual instances, a visual requirement shared with counting.
-Similarly, \textit{Z-depth} produces the largest gain on \textit{Metric 3D relation} ($+2.90$ pp), connecting depth prediction to metric spatial reasoning.
-\textit{2.5D segmentation} also substantially improves \textit{2D Ordering} ($+11.58$ pp).
-These results show that supervision provided through image targets can improve performance on related visual questions.
+reported in percentage points. Figure~\ref{fig:transfer-map} shows the 19 capabilities with more than 100 evaluation examples; Appendix~\ref{app:transfer} gives all 25 capabilities, baseline accuracies, and benchmark-level results. Each checkpoint uses a single I2I source, separating the observed effects of different supervision objectives.
 
-\paragraph{Gains also extend across capability families.}
-Useful transfer is not limited to these direct correspondences.
-\textit{Colorization} yields the largest observed gain on \textit{Visual correspondence} ($+5.71$ pp), while \textit{2D keypoints} performs best on \textit{Multi-view reasoning} ($+7.38$ pp).
-These pairs cross the Reconstruction--Reorganization boundary in \methodname, showing that beneficial supervision can also come from tasks outside the target capability's family.
+\subsection{Transfer depends on the source and target tasks}
+\paragraph{Useful source-target pairs can share visual requirements.}
+Counting improves with all 17 sources, with 12 gains reaching $p<0.05$. Object pointing produces the largest observed gain ($+3.57$ pp, $p<0.001$): both tasks require identifying the objects to be counted. Geometry supervision also benefits metric 3D relation: Z-depth, Euclidean depth, and surface normals improve accuracy by $2.90$, $2.77$, and $2.49$ pp, respectively (all $p<0.03$). These results connect shared visual requirements to useful transfer.
+
+\paragraph{Different sources benefit complementary capabilities.}
+Inpainting improves category recognition ($+3.22$ pp) and 2D ordering ($+11.05$ pp), while 2.5D segmentation produces the largest observed ordering gain ($+11.58$ pp). Colorization gives the largest observed gain on visual correspondence ($+5.71$ pp), crossing the taxonomy's Reconstruction--Reorganization boundary. All four gains have $p<0.01$. Useful generation supervision thus extends across recognition, geometry, and spatial reasoning, with different sources benefiting different capabilities.
+
+All 17 checkpoints achieve higher pooled accuracy than the I2T-only baseline. Colorization and inpainting reach $70.08\%$ and $69.97\%$, respectively, compared with the baseline's $68.90\%$; both gains remain significant after Holm correction across the 17 sources (Appendix~\ref{app:transfer-tests}).
+
+\begin{findingbox}
+Image-generation supervision benefits complementary visual capabilities: useful transfer can follow shared visual requirements and cross task-family boundaries.
+\end{findingbox}

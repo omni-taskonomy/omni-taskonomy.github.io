@@ -10,11 +10,15 @@ author_excerpts=json.loads((BASE/'content/author-provided-copy.json').read_text(
 def clean(s): return re.sub(r'\s+',' ',s).strip()
 ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Annotation protocol','01','02','03','04','05','TL;DR','Paper','GitHub','Hugging Face','🤗','1','2','3','Finding 1','Finding 2','Finding 3'}
 ui.update({'Image Generation · I2I','Image Understanding · I2T',
- 'Click a node to explore','UniTaskonomy','I2I','I2T','Counts: I2T evaluation samples','v13 results',
+ 'Click a node to explore','OmniTaskonomy','I2I','I2T','Counts: I2T evaluation samples','v13 results',
  'Benchmark',
  'Hover to magnify · click to pin','Negative','Positive','Row maximum','I2I supervision task',
  'I2T capability','−15 pp','+15 pp','Close'})
-ui.update({'Swipe to explore', 'Swipe to explore · tap a cell', 'Citation', '% BibTeX pending.'})
+ui.update({'Swipe to explore', 'Swipe to explore · tap a cell', 'Citation', '% BibTeX pending.', 'Module groups', 'RMSNorm layers', 'Full figure ↗', 'Jigsaw', 'Zoom-In'})
+gradient=json.loads((BASE/'content/gradient-bars-v13.json').read_text())
+ui.update(gradient['module_labels'])
+ui.update('Layer '+str(i) for i in range(28))
+ui.update(format(v,'.2f') for area in ('module_values','layer_values') for task in ('jigsaw','zoomin') for v in gradient[area][task])
 credit='This project page’s design and presentation are inspired by Beyond Language Modeling: An Exploration of Multimodal Pretraining. We thank its authors for the inspiration.'
 class Audit(HTMLParser):
  def __init__(self):
@@ -63,8 +67,8 @@ with urllib.request.urlopen(url) as response:
  html=response.read().decode()
 audit=Audit();audit.feed(html)
 assert not audit.errors,json.dumps(audit.errors,ensure_ascii=False,indent=2)
-assert audit.description and audit.images==4,(audit.description,audit.images)
-assert len(audit.matched)>=39,audit.matched
+assert audit.description and audit.images==3,(audit.description,audit.images)
+assert len(audit.matched)>=35,audit.matched
 assert {'tldr_question_1','tldr_question_2','tldr_question_3'} <= set(audit.matched)
 assert 'tldr_taxonomy_compact' not in audit.matched
 assert 'overview_caption_short' not in audit.matched

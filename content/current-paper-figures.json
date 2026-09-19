@@ -1,0 +1,23 @@
+{
+  "manuscript_commit": "de3aeb1a3158b9785ab8f13efaee8ce5898b81cf",
+  "rendered_assets": {
+    "overview.png": {
+      "source_pdf": "iclr2026/figures/Figure1-analysis_teaser_v11.pdf",
+      "source_sha256": "d69894de44cedb47ebe40a2d4707cd7b6f49209a80fcc6e081a49685d2e6eb83",
+      "render": "pdftoppm -r 180, full page",
+      "output_sha256": "52d0f7fb3b29d0e641fab25049604d9ec993c5d8244600ad0b18ef97cf8fd3f9"
+    },
+    "controlled-tasks.png": {
+      "source_pdf": "iclr2026/figures/combined_3subfigures_refined_v14.pdf",
+      "source_sha256": "f176807069f228885e145a0e0937adc7ca11c8ffce588a1c407e1fdc361ed0cc",
+      "render": "pdftoppm -r 180 -x 0 -y 0 -W 2593 -H 405",
+      "output_sha256": "18a5a47fc5eb1a69f556f6e397049e6b1c908ac784f16e59ba60a6627d9c9c00"
+    },
+    "scaling.png": {
+      "source_pdf": "iclr2026/figures/combined_3subfigures_refined_v14.pdf",
+      "source_sha256": "f176807069f228885e145a0e0937adc7ca11c8ffce588a1c407e1fdc361ed0cc",
+      "render": "pdftoppm -r 180 -x 0 -y 430 -W 2593 -H 875",
+      "output_sha256": "ef4a298f0bca6a2611686d577e133486ff1b821f82c7c458b6e5c63130d97201"
+    }
+  }
+}

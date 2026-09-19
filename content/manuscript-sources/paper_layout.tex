@@ -1,0 +1,45 @@
+% Paper-specific commands, boxes, and compact float spacing.
+\usepackage{xspace}
+\usepackage[most]{tcolorbox}
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+\newcommand{\qin}[1]{\textcolor{ForestGreen}{YimingQ: #1}}
+\newcommand{\xie}[1]{\textcolor{orange}{Ji: #1}}
+\newcommand{\xd}[1]{\textcolor{blue}{XD: #1}}
+\newcommand{\methodname}{OmniTaskonomy\xspace}
+
+% Findings use a restrained frame and tint, with the established typography.
+\definecolor{findingaccent}{HTML}{617C96}
+\definecolor{findingink}{HTML}{1C2B33}
+\definecolor{paperlink}{HTML}{426780}
+\hypersetup{colorlinks=true,linkcolor=paperlink,citecolor=paperlink,urlcolor=paperlink}
+\newtcolorbox[auto counter]{findingbox}{
+    enhanced,
+    breakable,
+    colframe=findingaccent,
+    colback=findingaccent!5!white,
+    coltext=findingink,
+    boxrule=0.65pt,
+    sharp corners,
+    boxsep=0pt,
+    left=7pt,
+    right=7pt,
+    top=4pt,
+    bottom=4pt,
+    before skip=5pt,
+    after skip=5pt,
+    before upper={\textsc{Finding~\thetcbcounter.}\enspace},
+}
+
+% Permit large scientific figures to share a page with their discussion.
+\renewcommand{\topfraction}{0.90}
+\renewcommand{\bottomfraction}{0.80}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.80}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\setlength{\textfloatsep}{11pt plus 2pt minus 2pt}
+\setlength{\floatsep}{9pt plus 2pt minus 2pt}
+\setlength{\intextsep}{9pt plus 2pt minus 2pt}
+\setlength{\abovecaptionskip}{5pt}
+\setlength{\belowcaptionskip}{0pt}
