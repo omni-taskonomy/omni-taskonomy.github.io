@@ -36,11 +36,9 @@ const emphasis: Partial<Record<ExcerptId, string[]>> = {
   recipe_result: ['I2I pretraining followed by I2T finetuning', 'default recipe'],
   recipe_finding: ['complements but does not replace', 'largest gains in low-I2T settings'],
   taxonomy_lead: ['UniTaskonomy', 'shared hierarchy', 'visual information'],
-  taxonomy_quantity: ['15 I2I supervision leaves', '25 I2T capability leaves'],
   taxonomy_annotation: ['three independent LLM judges', 'majority vote'],
   transfer_lead: ['Z-depth', 'object pointing', '2D keypoint supervision', 'help some capabilities while interfering with others'],
   transfer_caption: ['percentage points', 'I2T-only baseline', 'positive transfer', 'negative transfer'],
-  transfer_setup: ['50k I2I training samples', 'I2T-only baseline'],
   related_example: ['Object pointing', 'Counting', '+3.57 pp'],
   depth_example: ['Z-depth', 'Metric 3D relation', '+2.90 pp'],
   cross_results: ['Colorization', 'Visual correspondence', '+5.71 pp', '2D keypoints', 'Multi-view reasoning', '+7.38 pp'],
@@ -201,13 +199,12 @@ export default function Home() {
         <Heading id="taxonomy_heading" number="03" />
         <Passage id="taxonomy_lead" className="section-lead" />
         <InteractiveFigure caption="taxonomy_caption"><InteractiveTaxonomy /></InteractiveFigure>
-        <Passage id="taxonomy_quantity" className="prose supporting-copy" />
         <aside className="method-note"><h3>Annotation protocol</h3><Passage id="taxonomy_annotation" /></aside>
       </div></section>
 
       <section id="transfer" className="chapter chapter-tinted"><div className="shell">
         <Heading id="transfer_heading" number="04" />
-        <aside className="method-note experiment-setup"><Passage id="transfer_setup" /><Passage id="transfer_scope" /></aside>
+        <aside className="method-note experiment-setup"><Passage id="transfer_scope" /></aside>
         <InteractiveFigure caption="transfer_caption"><InteractiveTransferMap /></InteractiveFigure>
         <Passage id="transfer_lead" className="section-lead" />
         <div className="two-columns results-notes">

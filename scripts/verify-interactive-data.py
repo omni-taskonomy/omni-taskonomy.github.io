@@ -1,77 +1,109 @@
-"""Verify imported data and representative images against the existing author-data artifact."""
+"""Verify the v13 heatmap and I2I examples against the supplied sources."""
 from pathlib import Path
-import base64, hashlib, json, re
-from v12_audit import DATA, RAW, CORRECTIONS, ROOT, H, LEAVES, MODELS, value
+import base64
+import hashlib
+import json
+import re
+import sys
 
-source = ROOT.parent / 'unitaskonomy-interactive'
-reference = json.loads(re.search(r'<script[^>]*id="data"[^>]*>(.*?)</script>', (source/'dist/index.html').read_text(), re.S).group(1))
+from v12_audit import DATA, RAW, CORRECTIONS, ROOT, H, LEAVES
+
+v12 = json.loads((ROOT / 'content/unitaskonomy-v12.json').read_text())
+reference_root = ROOT.parent / 'unitaskonomy-interactive'
+reference = json.loads(re.search(r'<script[^>]*id="data"[^>]*>(.*?)</script>', (reference_root/'dist/index.html').read_text(), re.S).group(1))
 manifest = json.loads((ROOT/'content/unitaskonomy-v12-provenance.json').read_text())
-assert manifest['sources'] == json.loads((source/'source-manifest.json').read_text())['sources']
-assert RAW['heatmap'] == reference['heatmap']
-assert RAW['source'] == reference['source']
-images = 0
-added_i2i = manifest.get('i2i_representative_samples', {}).get('samples', {})
-added_images = 0
-for current, original in zip(RAW['tree']['leaves'], reference['tree']['leaves'], strict=True):
+assert manifest['sources'] == json.loads((reference_root/'source-manifest.json').read_text())['sources']
+assert v12['heatmap'] == reference['heatmap']
+assert v12['source'] == reference['source']
+
+v12_additions = manifest['i2i_representative_samples']['samples']
+v13_additions = manifest['v13_representative_samples']
+assert len(v12_additions) == 12 and set(v13_additions) == {
+    'i2i:semantic_segmentation', 'i2i:inpainting', 'i2i:jigsaw', 'i2i:localization'
+}
+original_images = 0
+for current, original in zip(v12['tree']['leaves'], reference['tree']['leaves'], strict=True):
     if original['sample']:
-        assert current['sample']
         for path, encoded in zip(current['sample']['images'], original['sample']['images'], strict=True):
             raw = (ROOT / 'public' / path.lstrip('/')).read_bytes()
             assert raw == base64.b64decode(encoded.split(';base64,')[1])
             assert hashlib.sha256(raw).hexdigest() == manifest['images'][Path(path).name]
-            images += 1
+            original_images += 1
         original['sample']['images'] = current['sample']['images']
         assert current == original
     elif current['sample']:
-        assert current['role'] == 'i2i'
-        assert current['id'] in added_i2i
-        assert current['sample']['choices'] == []
-        assert current['sample']['answer'] == ''
-        assert current['sample']['reason'] == ''
-        assert len(current['sample']['images']) == 2
+        assert current['id'] in v12_additions and current['role'] == 'i2i'
         for path in current['sample']['images']:
-            raw = (ROOT / 'public' / path.lstrip('/')).read_bytes()
-            name = Path(path).name
-            assert hashlib.sha256(raw).hexdigest() == added_i2i[current['id']]['images'][name]
-            assert hashlib.sha256(raw).hexdigest() == manifest['images'][name]
-            added_images += 1
+            digest = hashlib.sha256((ROOT / 'public' / path.lstrip('/')).read_bytes()).hexdigest()
+            assert digest == v12_additions[current['id']]['images'][Path(path).name]
         assert {**current, 'sample': None} == original
     else:
         assert current == original
-assert RAW['tree']['families'] == reference['tree']['families']
+
+v12_leaves = {leaf['id']: leaf for leaf in v12['tree']['leaves']}
+added_images = 0
+for leaf in RAW['tree']['leaves']:
+    ident = leaf['id']
+    if ident not in v13_additions:
+        assert leaf == v12_leaves[ident]
+        continue
+    assert leaf['role'] == 'i2i' and leaf['sample']
+    assert leaf['sample']['choices'] == [] and leaf['sample']['answer'] == ''
+    assert leaf['sample']['reason'] == '' and len(leaf['sample']['images']) == 2
+    for path in leaf['sample']['images']:
+        digest = hashlib.sha256((ROOT / 'public' / path.lstrip('/')).read_bytes()).hexdigest()
+        assert digest == v13_additions[ident]['images'][Path(path).name]
+        assert digest == manifest['images'][Path(path).name]
+        added_images += 1
+    if ident in v12_leaves:
+        assert {**leaf, 'sample': None} == v12_leaves[ident]
+    else:
+        assert ident in {'i2i:inpainting', 'i2i:localization'}
+        assert leaf['definition'] == v13_additions[ident]['definition_source']
+assert RAW['tree']['families'] == v12['tree']['families']
+
+if len(sys.argv) > 1:
+    html_path = Path(sys.argv[1])
+    raw_html = html_path.read_bytes()
+    assert hashlib.sha256(raw_html).hexdigest() == manifest['v13_heatmap']['sha256']
+    html = raw_html.decode()
+    source, _ = json.JSONDecoder().raw_decode(html.split('const D=', 1)[1])
+    assert RAW['heatmap']['metrics'] == source['metrics']
+    assert RAW['heatmap']['expected'] == source['expected']
+    assert RAW['heatmap']['nodes'] == source['nodes']
+    assert RAW['heatmap']['scopes'] == source['scopes']
+    assert RAW['heatmap']['baseline'] == source['default_baseline']
+    assert [(m['id'], m['name'], m['group']) for m in RAW['heatmap']['models']] == [(m['id'], m['abbr'], m['group']) for m in source['models']]
+    assert source['taxonomy']['hash'] == RAW['source']['hash']
+
+assert RAW['source']['heatmap'] == manifest['v13_heatmap']['file']
+assert RAW['source']['exported'] == manifest['v13_heatmap']['generated_at']
+assert len(H['models']) == 18 and len(H['nodes']) == 29
+assert H['baseline'] == v12['heatmap']['baseline']
+assert H['nodes'] == v12['heatmap']['nodes']
+assert H['expected'] == v12['heatmap']['expected']
+assert H['scopes'] == v12['heatmap']['scopes']
+assert sum(n['type'] == 'leaf' and H['expected']['ALL'][n['id']] > 100 for n in H['nodes']) == 19
 assert CORRECTIONS['leaf_families'] == {'i2i:semantic_segmentation': 'RORG'}
 assert DATA['heatmap']['metrics'] == RAW['heatmap']['metrics']
-assert DATA['heatmap']['nodes'] == RAW['heatmap']['nodes']
-assert DATA['heatmap']['expected'] == RAW['heatmap']['expected']
-assert DATA['tree']['families'] == RAW['tree']['families']
 for current, original in zip(DATA['tree']['leaves'], RAW['tree']['leaves'], strict=True):
     assert current == {**original, 'family': CORRECTIONS['leaf_families'].get(original['id'], original['family'])}
-assert len(LEAVES) == 40
-assert sum(l['role'] == 'i2i' for l in LEAVES.values()) == 15
+assert len(LEAVES) == 42
+assert sum(l['role'] == 'i2i' for l in LEAVES.values()) == 17
 assert sum(l['role'] == 'i2t' for l in LEAVES.values()) == 25
-assert sum(l['sample'] is not None for l in LEAVES.values()) == 25 + len(added_i2i)
-assert len(added_i2i) == 12
-assert len([n for n in H['nodes'] if n['type']=='leaf' and H['expected']['ALL'][n['id']] > 100]) == 19
+assert sum(l['sample'] is not None for l in LEAVES.values()) == 41
 assert sum(l['n'] for l in LEAVES.values()) == 9444
-checks = [
-    ('i2t:OBJECT_COUNTING','BAGEL-clean-llava-from-counting-i2i',3.57),
-    ('i2t:METRIC_3D_RELATION','BAGEL-taskonomy-depth-zbuffer',2.90),
-    ('i2t:GLOBAL_ORDERING','BAGEL-taskonomy-segment-unsup25d',11.58),
-    ('i2t:CORRESPONDENCE_TRACKING','BAGEL-clean-llava-from-colorization-palette-i2i-n51200',5.71),
-    ('i2t:MULTIVIEW_VIEWPOINT_REASONING','BAGEL-taskonomy-keypoints2d',7.38),
-]
-for row, model, expected in checks:
-    assert round(value('ALL',row,model,'delta'),2)==expected
+assert LEAVES['i2i:semantic_segmentation']['family'] == 'RORG'
+assert LEAVES['i2i:inpainting']['family'] == 'RCN'
+assert LEAVES['i2i:localization']['family'] == 'RORG'
+assert [LEAVES[m['leaf']]['family'] for m in H['models'] if 'leaf' in m] == ['RCN'] * 9 + ['RORG'] * 8
+assert not any(l['role'] == 'i2i' and l['family'] == 'REC' for l in LEAVES.values())
 for scope in H['scopes']:
     for node in H['nodes']:
         for model in H['models']:
-            pair=H['metrics'].get(scope['id'],{}).get(node['id'],{}).get(model['id'])
+            pair = H['metrics'].get(scope['id'], {}).get(node['id'], {}).get(model['id'])
             if pair:
-                assert 0 <= pair[0] <= pair[1]
-                assert pair[1] == H['expected'][scope['id']][node['id']]
-assert LEAVES['i2i:semantic_segmentation']['family']=='RORG'
-assert LEAVES['i2t:SEMANTIC_SCENE_PARSING']['family']=='REC'
-i2i_families = [LEAVES[m['leaf']]['family'] for m in H['models'] if 'leaf' in m]
-assert i2i_families == ['RCN'] * 8 + ['RORG'] * 7
-assert not any(l['role']=='i2i' and l['family']=='REC' for l in LEAVES.values())
-print(json.dumps({'unchanged_original_export':True,'unchanged_evaluation_values':True,'author_corrected_i2i_families':{'Reconstruction':8,'Reorganization':7},'unchanged_original_images':images,'added_i2i_samples':len(added_i2i),'added_i2i_images':added_images,'tree_leaves':40,'default_cells':19*15,'verified_paper_examples':len(checks)},indent=2))
+                assert 0 <= pair[0] <= pair[1] == H['expected'][scope['id']][node['id']]
+print(json.dumps({'v13_models': 18, 'visible_paper_rows': 19, 'new_i2i_nodes': 2,
+                  'new_i2i_examples': 4, 'verified_new_images': added_images,
+                  'preserved_original_images': original_images, 'display_cells': 19*17}, indent=2))

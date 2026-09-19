@@ -16,12 +16,14 @@
     "i2i:occlusion_edges",
     "i2i:keypoints_3d",
     "i2i:reshading",
+    "i2i:inpainting",
     "i2i:semantic_segmentation",
     "i2i:edges_2d",
     "i2i:keypoints_2d",
     "i2i:segmentation_2d",
     "i2i:segmentation_25d",
     "i2i:object_pointing",
-    "i2i:jigsaw"
+    "i2i:jigsaw",
+    "i2i:localization"
   ]
 }

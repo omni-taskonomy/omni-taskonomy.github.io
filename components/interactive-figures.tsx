@@ -49,7 +49,7 @@ export function InteractiveTaxonomy() {
         </div>;
       })}
     </div>
-    <div className="ut-tree-note"><span>Counts: I2T evaluation samples</span><span>v12</span></div>
+    <div className="ut-tree-note"><span>Counts: I2T evaluation samples</span><span>v13 results</span></div>
     <Dialog open={selected !== null} onOpenChange={open => { if (!open) setSelected(null); }}>
       <DialogContent className="ut-leaf-dialog" finalFocus={trigger} showCloseButton={false}>
         <div className="ut-dialog-close-bar"><DialogClose render={<Button variant="ghost" size="icon" aria-label="Close" />}><X size={20} /></DialogClose></div>

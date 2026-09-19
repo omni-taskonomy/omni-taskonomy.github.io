@@ -1,4 +1,4 @@
-import payload from '@/content/unitaskonomy-v12.json';
+import payload from '@/content/unitaskonomy-v13.json';
 import authorCorrections from '@/content/unitaskonomy-author-corrections.json';
 
 export type Pair = [number, number];
@@ -17,7 +17,7 @@ const original = payload as unknown as {
   tree: { families: { id: string; name: string; definition: string; n: number }[]; leaves: Leaf[] };
   source: { heatmap: string; viewer: string; samples: string; hash: string; exported: string };
 };
-// Preserve the supplied v12 export; apply only the author's later figure correction.
+// Preserve the author-supplied v13 evaluations and apply the author's figure grouping.
 const correctedLeaves = original.tree.leaves.map(leaf => ({
   ...leaf,
   family: (authorCorrections.leaf_families as Record<string, string>)[leaf.id] ?? leaf.family,
@@ -85,7 +85,7 @@ export function sourceCopy(key: string): string {
     const s = leaves.get(id)!.sample!;
     return field.startsWith('choice:') ? s.choices![Number(field.split(':')[1])] : String(s[field as 'question' | 'answer' | 'benchmark' | 'uid' | 'reason']);
   }
-  throw new Error('Unknown v12 source key: ' + key);
+  throw new Error('Unknown source key: ' + key);
 }
 export function viewLabel(scope: string, subset: Subset) {
   const rows = rowsFor(subset);

@@ -64,7 +64,15 @@
     "i2i_surface_normals-input.png": "9f7927035e271fdbdc4a79256129024fc488d5bc5d621d8496911d61322c3158",
     "i2i_surface_normals-target.png": "5d1d73470a26b2fb51236005eecd317d234e99d294d22649ffa230474af01d5f",
     "i2i_z_depth-input.png": "f3d7f6bc8c6bc6df62c52ac1d6ed299aa2a751195254cae00762b8e394796515",
-    "i2i_z_depth-target.png": "ab9eb0e89e666d8ecf0d206de9ade5a3722a48faa54d97a429fb51f35e43e575"
+    "i2i_z_depth-target.png": "ab9eb0e89e666d8ecf0d206de9ade5a3722a48faa54d97a429fb51f35e43e575",
+    "i2i_semantic_segmentation-input.png": "9c0ad0924e517e93a61475daf387563786b4d5a53b70e6a77e84c35b7ed35f67",
+    "i2i_semantic_segmentation-target.png": "6a3c5305f1128bbe1eca775b9407b39129a1e9c75f3ee9fac89d718c8a3cd706",
+    "i2i_inpainting-input.png": "b482b36e058d5244f6557702a413ad11b1cfcde4972f7a6246da795447bf9157",
+    "i2i_inpainting-target.png": "bd1875ba10b07db2468a14e4b192a250dfb2085ea1a7ce7f6eba85d70943ca3b",
+    "i2i_jigsaw-input.png": "97413f1558c292aa11948f38c54af2c42802851b39d955ac719f9dc158965547",
+    "i2i_jigsaw-target.png": "25ae6b2db638c4169ac82d01c12b2421137d171934c1506c42f421658a27d867",
+    "i2i_localization-input.png": "f399542cd445d7b51050db15233fb7ee088e0af98cbe4979e3931e51cd6df502",
+    "i2i_localization-target.png": "0c00d5d7a243ce092afd44575f2246fcaf6e94422d74fd6481cf21b2adc7e859"
   },
   "i2i_representative_samples": {
     "source_directory": "/Users/xieji/Library/Containers/com.tencent.xinWeChat/Data/Documents/xwechat_files/wxid_7816758167212_f9f8/msg/file/2026-09/归档(1)",
@@ -212,6 +220,73 @@
           "i2i_z_depth-input.png": "f3d7f6bc8c6bc6df62c52ac1d6ed299aa2a751195254cae00762b8e394796515",
           "i2i_z_depth-target.png": "ab9eb0e89e666d8ecf0d206de9ade5a3722a48faa54d97a429fb51f35e43e575"
         }
+      }
+    }
+  },
+  "v13_heatmap": {
+    "file": "unitaskonomy_v13_ckpt_eval_heatmap_final.html",
+    "sha256": "58e31f240faec8d219700fc4156b1217169d9d8c38711e3539bb1b1f9fa1a1cf",
+    "generated_at": "2026-09-17T19:28:16.146961+00:00",
+    "taxonomy_hash": "sha256:c406443100eff30025f889c671910e13e8cc339fc6c78bc96aec33bdbd3ff1a0",
+    "models": 18,
+    "i2t_rows": 29,
+    "display_rows": 19
+  },
+  "v13_representative_samples": {
+    "i2i:semantic_segmentation": {
+      "archive": "i2i_coco_semantic_segmentation_train_000000.zip",
+      "archive_sha256": "6588a0b76c5b2ad141b9ab73e8627b030933b947835568c5bda0af950b5b7947",
+      "split": "train",
+      "index": 0,
+      "task_key": "coco_panoptic_semantic_i2i",
+      "checkpoint_model": "BAGEL-coco-panoptic-semseg-r2-i2i38400-llava50k-seed42",
+      "family": "Recognition",
+      "definition_source": null,
+      "images": {
+        "i2i_semantic_segmentation-input.png": "9c0ad0924e517e93a61475daf387563786b4d5a53b70e6a77e84c35b7ed35f67",
+        "i2i_semantic_segmentation-target.png": "6a3c5305f1128bbe1eca775b9407b39129a1e9c75f3ee9fac89d718c8a3cd706"
+      }
+    },
+    "i2i:inpainting": {
+      "archive": "i2i_inpainting_coco_rect_train_038009(1).zip",
+      "archive_sha256": "9b7bba3fa5c043ecba0b9e101e93a452d80d7db9f8ca828a21714b6e19c874e8",
+      "split": "train",
+      "index": 38009,
+      "task_key": "coco_inpainting_i2i",
+      "checkpoint_model": "BAGEL-v13-inpainting-coco2017-rect-r2-i2i38400-llava50k-seed42",
+      "family": "Reconstruction",
+      "definition_source": "black rectangular occlusion -> complete original COCO photo",
+      "images": {
+        "i2i_inpainting-input.png": "b482b36e058d5244f6557702a413ad11b1cfcde4972f7a6246da795447bf9157",
+        "i2i_inpainting-target.png": "bd1875ba10b07db2468a14e4b192a250dfb2085ea1a7ce7f6eba85d70943ca3b"
+      }
+    },
+    "i2i:jigsaw": {
+      "archive": "i2i_jigsaw_val_000187.zip",
+      "archive_sha256": "bfe99823cb4e0f252d478253b3ed6d3313713bbb2ddb0fddea5ebe372c91e6ba",
+      "split": "val",
+      "index": 187,
+      "task_key": "jigsaw",
+      "checkpoint_model": "BAGEL-clean-llava-from-jigsaw-i2i",
+      "family": "Reorganization",
+      "definition_source": null,
+      "images": {
+        "i2i_jigsaw-input.png": "97413f1558c292aa11948f38c54af2c42802851b39d955ac719f9dc158965547",
+        "i2i_jigsaw-target.png": "25ae6b2db638c4169ac82d01c12b2421137d171934c1506c42f421658a27d867"
+      }
+    },
+    "i2i:localization": {
+      "archive": "i2i_localization_val_000241.zip",
+      "archive_sha256": "fef14db9252c6429662848956841835064c9c1c2bc09c759440729938ba94e00",
+      "split": "val",
+      "index": 241,
+      "task_key": "refcocog_localize",
+      "checkpoint_model": "BAGEL-clean-llava-from-refcocog-localize-i2i-n38400",
+      "family": "Reorganization",
+      "definition_source": "original image + referring expression -> bounding-box-marked image",
+      "images": {
+        "i2i_localization-input.png": "f399542cd445d7b51050db15233fb7ee088e0af98cbe4979e3931e51cd6df502",
+        "i2i_localization-target.png": "0c00d5d7a243ce092afd44575f2246fcaf6e94422d74fd6481cf21b2adc7e859"
       }
     }
   }

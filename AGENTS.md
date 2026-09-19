@@ -70,3 +70,11 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 ## TL;DR controlled-example crop
 
 - The author requested removing the TL;DR sentence "We construct paired generation and understanding tasks..." and placing cropped Jigsaw I2I / Jigsaw I2T examples from the controlled-settings figure above the Image Generation / Image Understanding diagram. Use the existing controlled-tasks figure asset for this visual crop; do not add new research prose.
+
+## Author-supplied v13 evaluation and I2I examples
+
+- Preserve the original v12 payload in `content/unitaskonomy-v12.json`. The active heatmap and tree payload is `content/unitaskonomy-v13.json`, derived from the author's v13 HTML and four sample archives. The v13 source hash and image hashes are recorded in `content/unitaskonomy-v12-provenance.json`.
+- Inpainting is an I2I Reconstruction node; Localization is an I2I Reorganization node. Semantic segmentation remains an I2I Reorganization node under the author's earlier correction, even though its sample archive labels it Recognition.
+- The v13 heatmap includes paper-removed I2T rows. Continue to display only the same 19 I2T capabilities with more than 100 global evaluation samples. Show all 17 v13 I2I model columns. Keep missing values missing.
+- The supplied I2I sample instructions and pair definitions may be displayed verbatim as author data. Do not invent new task descriptions or answers. The removed manuscript sentence saying there are 15 I2I nodes and the 50k-per-task sentence must stay off the page while v13 includes 17 nodes and two 38.4k-sample tasks.
+- Verify the updated data with `scripts/verify-interactive-data.py`, passing the source v13 HTML when available. Run the manuscript and rendered-copy audits before publishing.

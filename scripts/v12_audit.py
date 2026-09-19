@@ -1,10 +1,10 @@
-"""Independent copy/numeric expectations for the author-supplied v12 figures."""
+"""Independent copy/numeric expectations for the author-supplied figures."""
 import json
 from copy import deepcopy
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RAW = json.loads((ROOT / 'content/unitaskonomy-v12.json').read_text())
+RAW = json.loads((ROOT / 'content/unitaskonomy-v13.json').read_text())
 CORRECTIONS = json.loads((ROOT / 'content/unitaskonomy-author-corrections.json').read_text())
 DATA = deepcopy(RAW)
 for leaf in DATA['tree']['leaves']:
@@ -46,7 +46,7 @@ def copy(key):
         if field.startswith('choice:'): return sample['choices'][int(field.split(':')[1])]
         assert field in {'question', 'answer', 'benchmark', 'uid', 'reason'}
         return sample[field]
-    raise AssertionError('Unregistered v12 key: ' + key)
+    raise AssertionError('Unregistered source key: ' + key)
 
 def accuracy(pair):
     return 100 * pair[0] / pair[1] if pair and pair[1] > 0 else None
