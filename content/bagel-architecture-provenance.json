@@ -11,7 +11,7 @@
   "paper_commit": "de3aeb1a3158b9785ab8f13efaee8ce5898b81cf",
   "paper_excerpt_id": "bagel_architecture_caption",
   "illustration": "public/figures/bagel-attention-architecture.svg",
-  "illustration_sha256": "669fd321ccc3aa15a74fedc7dadc4f0c9ba7652fc0565ebcf0cbe675eabd374e",
+  "illustration_sha256": "2dc63d76395e54f3e395f9c38f55efed5656862849976810b08fb878c1619283",
   "interpretation": "Modality-specific RMSNorm, QKV, output projection and MLP; packed QKV enter one masked attention computation. No shared projection weights are implied.",
   "packing_code_sha256": "bf92fead4471b61deb73667e79ba077dbdf1cb6ca6e706512836703ab1fb08f7"
 }

@@ -13,6 +13,8 @@ ns='{http://www.w3.org/2000/svg}'
 assert root.get('viewBox') and root.find(ns+'title') is not None and root.find(ns+'desc') is not None
 assert not list(root.iter(ns+'script')) and b'http://www.w3.org/1999/xlink' not in svg
 visible=' '.join((e.text or '') for e in root.iter(ns+'text'))
-for label in ('Q / K / V projections','Shared attention','attention_mask','Output projection','Feed-forward (MLP)','RMSNorm','VAE latent tokens','Text + ViT tokens'):
+for label in ('Q / K / V projections','Shared attention','Output projection','Feed-forward (MLP)','RMSNorm','VAE latent tokens','Text + ViT tokens'):
     assert label in visible,label
+for label in ('BAGEL','Mixture-of-Transformers','optional','Attention(Q, K, V; attention_mask)','packed Q, K, V','token indexes'):
+    assert label not in visible,label
 print('BAGEL architecture SVG and source provenance verified')

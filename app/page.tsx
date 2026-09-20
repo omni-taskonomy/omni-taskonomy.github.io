@@ -192,7 +192,6 @@ export default function Home() {
         <Passage id="controlled_lead" className="section-lead" />
         <Figure name="controlled-tasks" caption="controlled_caption" width={2593} height={405} />
         <div className="two-columns supporting-copy"><Passage id="controlled_inputs" /><Passage id="controlled_output" /></div>
-        <ArchitectureFigure />
       </div></section>
 
       <section id="recipe" className="chapter chapter-tinted"><div className="shell">
@@ -224,7 +223,10 @@ export default function Home() {
       <section id="alignment" className="chapter"><div className="shell">
         <Heading id="alignment_heading" number="05" />
         <aside className="method-note experiment-setup"><Passage id="alignment_setup" /></aside>
-        <InteractiveFigure caption="alignment_caption"><GradientBars /></InteractiveFigure>
+        <div className="alignment-visuals">
+          <InteractiveFigure caption="alignment_caption"><GradientBars /></InteractiveFigure>
+          <ArchitectureFigure />
+        </div>
         <div className="analysis-copy prose"><Passage id="alignment_results" /><Passage id="alignment_lead" /></div>
         <blockquote className="finding"><Passage id="alignment_finding" /></blockquote>
       </div></section>
