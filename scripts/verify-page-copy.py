@@ -14,7 +14,7 @@ ui.update({'Image Generation · I2I','Image Understanding · I2T',
  'Benchmark',
  'Hover to magnify · click to pin','Negative','Positive','Row maximum','I2I supervision task',
  'I2T capability','−15 pp','+15 pp','Close'})
-ui.update({'Swipe to explore', 'Swipe to explore · tap a cell', 'Citation', '% BibTeX pending.', 'Module groups', 'RMSNorm layers', 'Full figure ↗', 'Jigsaw', 'Zoom-In'})
+ui.update({'Swipe to explore', 'Swipe to explore · tap a cell', 'Citation', '% BibTeX pending.', 'Module groups', 'RMSNorm layers', 'Full figure ↗', 'Source code ↗', 'Jigsaw', 'Zoom-In'})
 gradient=json.loads((BASE/'content/gradient-bars-v13.json').read_text())
 ui.update(gradient['module_labels'])
 ui.update('Layer '+str(i) for i in range(28))
@@ -67,7 +67,7 @@ with urllib.request.urlopen(url) as response:
  html=response.read().decode()
 audit=Audit();audit.feed(html)
 assert not audit.errors,json.dumps(audit.errors,ensure_ascii=False,indent=2)
-assert audit.description and audit.images==3,(audit.description,audit.images)
+assert audit.description and audit.images==4,(audit.description,audit.images)
 assert len(audit.matched)>=35,audit.matched
 assert {'tldr_question_1','tldr_question_2','tldr_question_3'} <= set(audit.matched)
 assert 'tldr_taxonomy_compact' not in audit.matched

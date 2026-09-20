@@ -101,6 +101,11 @@ h2 { font-size:clamp(1.95rem,3.4vw,2.7rem); line-height:1.13; letter-spacing:-.0
 .section-lead { max-width:850px; margin:0 auto 28px; text-align:left; color:var(--body-copy); font-size:1.075rem; line-height:1.8; }
 .two-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:40px; max-width:920px; margin-inline:auto; }
 .supporting-copy { color:var(--body-copy); font-size:1.04rem; }
+.architecture-figure { max-width:1000px; margin-top:38px; }
+.architecture-frame { padding:16px 18px 6px; }
+.architecture-frame img { display:block; width:100%; height:auto; }
+.architecture-frame .figure-actions { gap:22px; }
+@media(max-width:700px) { .architecture-viewport .figure-link { min-width:780px; } }
 .recipe-note { max-width:1000px; margin:26px auto 22px; scroll-margin-top:90px; }
 .recipe-note-intro { display:flex; justify-content:flex-start; align-items:baseline; gap:5px; margin-bottom:24px; }
 .recipe-note-intro>sup { color:#718a9e; font-size:.7rem; }

@@ -123,6 +123,16 @@
         "file_sha256": "ae2cd90c96e433aec008edda152b9b40745aed382ebfcb62c51eac94d4360141"
       }
     },
+    "bagel_architecture_caption": {
+      "text": "We instantiate this on BAGEL, a unified multimodal model based on a Mixture-of-Transformers (MoT) architecture.",
+      "source": {
+        "file": "iclr2026/sections/3_poc.tex",
+        "start_line": 6,
+        "end_line": 6,
+        "raw_tex": "We instantiate this on BAGEL, a unified multimodal model based on a Mixture-of-Transformers (MoT) architecture.",
+        "file_sha256": "ae2cd90c96e433aec008edda152b9b40745aed382ebfcb62c51eac94d4360141"
+      }
+    },
     "controlled_caption": {
       "text": "(a) Controlled Jigsaw and Zoom-In tasks with image and text outputs.",
       "source": {

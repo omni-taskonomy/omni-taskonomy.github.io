@@ -86,3 +86,9 @@ The user requires manuscript-original wording and forbids GPT summaries or parap
 - Colorization's exact representative images come from the manuscript example manifest. All 42 displayed leaves have image files; verify them and the v13 data before publishing.
 - The gradient bars are readings from the current paper's plotting data and round to two decimals. Preserve the source hash, show the full figure, and do not represent the readings as raw gradient measurements.
 - Use the current teaser and controlled/scaling figures, and keep captions and claims exactly aligned to the current manuscript. The interactive map does not show significance stars, so do not quote the paper's star-caption clause as its on-page caption.
+
+## BAGEL architecture figure
+
+- The author requested a code-grounded BAGEL attention diagram. Treat its concise node labels as code-derived diagram annotations, not a new source of free-form research prose. Its on-page caption and alt text must be an exact active-manuscript excerpt.
+- Pin the official ByteDance-Seed/Bagel source revision and the SVG hash in `content/bagel-architecture-provenance.json`. Draw the understanding and generation Q/K/V projections, output projections, RMSNorm, and MLP as separate parameters. The token streams enter one attention computation with the supplied attention mask; do not draw shared QKV weights or unrestricted attention.
+- Preserve the scalable SVG and a full-resolution link. Mobile readers should be able to pan rather than losing legibility to page-width shrinking.

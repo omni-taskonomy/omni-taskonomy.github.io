@@ -1,0 +1,18 @@
+"""Audit the architecture asset and its pinned source/code provenance."""
+from pathlib import Path
+import hashlib,json,xml.etree.ElementTree as ET
+BASE=Path(__file__).resolve().parents[1]
+m=json.loads((BASE/'content/bagel-architecture-provenance.json').read_text())
+svg=(BASE/m['illustration']).read_bytes()
+assert hashlib.sha256(svg).hexdigest()==m['illustration_sha256']
+assert m['paper_commit']==(BASE/'content/manuscript-revision.txt').read_text().strip()
+book=json.loads((BASE/'content/manuscript-excerpts.json').read_text())
+assert book['excerpts'][m['paper_excerpt_id']]['source']['file']=='iclr2026/sections/3_poc.tex'
+root=ET.fromstring(svg)
+ns='{http://www.w3.org/2000/svg}'
+assert root.get('viewBox') and root.find(ns+'title') is not None and root.find(ns+'desc') is not None
+assert not list(root.iter(ns+'script')) and b'http://www.w3.org/1999/xlink' not in svg
+visible=' '.join((e.text or '') for e in root.iter(ns+'text'))
+for label in ('Q / K / V projections','Shared attention','attention_mask','Output projection','Feed-forward (MLP)','RMSNorm','VAE latent tokens','Text + ViT tokens'):
+    assert label in visible,label
+print('BAGEL architecture SVG and source provenance verified')

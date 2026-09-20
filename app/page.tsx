@@ -132,6 +132,25 @@ function InteractiveFigure({ caption, children }: { caption: ExcerptId; children
   </figure>;
 }
 
+function ArchitectureFigure() {
+  const name = 'bagel-attention-architecture';
+  return <figure className="architecture-figure">
+    <div className="figure-frame architecture-frame">
+      <div className="figure-viewport architecture-viewport" tabIndex={0} role="region" aria-label="Scrollable BAGEL architecture diagram">
+        <a className="figure-link" href={`/figures/${name}.svg`} target="_blank" rel="noreferrer" aria-label="Open full-resolution BAGEL architecture diagram">
+          <img src={`/figures/${name}.svg`} alt={text('bagel_architecture_caption')} loading="lazy" />
+        </a>
+      </div>
+      <div className="figure-actions">
+        <span className="mobile-hint">Swipe to explore</span>
+        <a className="figure-expand" href={`/figures/${name}.svg`} target="_blank" rel="noreferrer">View full size ↗</a>
+        <a className="figure-expand" href="https://github.com/ByteDance-Seed/Bagel/blob/a2fa77dd8caeefc41e6607ae0ec17408d3f4ee9f/modeling/bagel/qwen2_navit.py#L381-L755" target="_blank" rel="noreferrer">Source code ↗</a>
+      </div>
+    </div>
+    <figcaption data-manuscript-excerpt="bagel_architecture_caption" data-source={source('bagel_architecture_caption')}>{formatted(text('bagel_architecture_caption'))}</figcaption>
+  </figure>;
+}
+
 export default function Home() {
   const title = text('title');
   const titleBreak = title.indexOf(': ') + 2;
@@ -173,6 +192,7 @@ export default function Home() {
         <Passage id="controlled_lead" className="section-lead" />
         <Figure name="controlled-tasks" caption="controlled_caption" width={2593} height={405} />
         <div className="two-columns supporting-copy"><Passage id="controlled_inputs" /><Passage id="controlled_output" /></div>
+        <ArchitectureFigure />
       </div></section>
 
       <section id="recipe" className="chapter chapter-tinted"><div className="shell">

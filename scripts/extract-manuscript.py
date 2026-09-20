@@ -42,6 +42,7 @@ take('overview_caption_short',I,r'\textbf{When does generation help understandin
 take('legend_size',I,'Bubble sizes modestly emphasize row maxima among the shown sources.')
 take('controlled_heading',P,r'\section{Does image generation help visual understanding?}')
 take('controlled_lead',P,'To isolate the effect of output modality, we construct paired I2I and I2T tasks','as text.')
+take('bagel_architecture_caption',P,'We instantiate this on BAGEL, a unified multimodal model based on a Mixture-of-Transformers (MoT) architecture.')
 take('controlled_caption',P,'(a) Controlled Jigsaw and Zoom-In tasks with image and text outputs.')
 take('controlled_inputs',P,'in Jigsaw, image patches are shuffled, and in Zoom-In, five views','are shuffled.')
 take('controlled_output',P,'For both tasks, the I2I objective generates the correctly ordered image','in text.')
