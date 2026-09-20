@@ -1,0 +1,32 @@
+{
+  "records": [
+    {
+      "checkpoint": "base",
+      "jigsaw_i2i": 16.9516,
+      "jigsaw_i2t": 8.892,
+      "zoomin_i2i": 14.3596,
+      "zoomin_i2t": 4.5593
+    },
+    {
+      "checkpoint": "3k",
+      "jigsaw_i2i": 0.04409,
+      "jigsaw_i2t": 7.7711,
+      "zoomin_i2i": 0.04648,
+      "zoomin_i2t": 4.4667
+    },
+    {
+      "checkpoint": "10k",
+      "jigsaw_i2i": 0.02563,
+      "jigsaw_i2t": 5.0921,
+      "zoomin_i2i": 0.0276,
+      "zoomin_i2t": 5.9927
+    },
+    {
+      "checkpoint": "30k",
+      "jigsaw_i2i": 0.01442,
+      "jigsaw_i2t": 2.1832,
+      "zoomin_i2i": 0.02047,
+      "zoomin_i2t": 0.7374
+    }
+  ]
+}

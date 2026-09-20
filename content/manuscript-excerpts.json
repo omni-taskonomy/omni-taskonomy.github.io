@@ -393,6 +393,16 @@
         "file_sha256": "2174fb58b0b74b5a5f52ee96998fcc91cf4a7e4d1e0ab3f36088e3f7d929df46"
       }
     },
+    "alignment_norms_caption": {
+      "text": "(c) I2T gradient norms during I2I-only training. Blue denotes Jigsaw and purple Zoom-In. Norms are unnormalized and shown on a linear scale; checkpoints are equally spaced.",
+      "source": {
+        "file": "iclr2026/sections/6_gradient.tex",
+        "start_line": 14,
+        "end_line": 14,
+        "raw_tex": "(c) I2T gradient norms during I2I-only training. Blue denotes Jigsaw and purple Zoom-In. Norms are unnormalized and shown on a linear scale; checkpoints are equally spaced.",
+        "file_sha256": "2174fb58b0b74b5a5f52ee96998fcc91cf4a7e4d1e0ab3f36088e3f7d929df46"
+      }
+    },
     "alignment_scale": {
       "text": "Scores are dimension-scaled, held-out post-PCA cosines.",
       "source": {

@@ -14,7 +14,7 @@ ui.update({'Image Generation · I2I','Image Understanding · I2T',
  'Benchmark',
  'Hover to magnify · click to pin','Negative','Positive','Row maximum','I2I supervision task',
  'I2T capability','−15 pp','+15 pp','Close'})
-ui.update({'Swipe to explore', 'Swipe to explore · tap a cell', 'Citation', '% BibTeX pending.', 'Module groups', 'RMSNorm layers', 'Full figure ↗', 'Source code ↗', 'Jigsaw', 'Zoom-In'})
+ui.update({'Swipe to explore', 'Swipe to explore · tap a cell', 'Citation', '% BibTeX pending.', 'Module groups', 'RMSNorm layers', 'Full figure ↗', 'Source code ↗', 'Jigsaw', 'Zoom-In', 'Minibatch gradient alignment'})
 gradient=json.loads((BASE/'content/gradient-bars-v13.json').read_text())
 ui.update(gradient['module_labels'])
 ui.update('Layer '+str(i) for i in range(28))
@@ -23,10 +23,13 @@ ui.update(format(v,'.1f') for v in (-0.5,-0.1,0,0.2,0.4,0.5,0.6,1))
 credit='This project page’s design and presentation are inspired by Beyond Language Modeling: An Exploration of Multimodal Pretraining. We thank its authors for the inspiration.'
 class Audit(HTMLParser):
  def __init__(self):
-  super().__init__();self.depth=0;self.skip=[];self.active=None;self.matched=[];self.author_matched=[];self.v12_matched=[];self.images=0;self.description=False;self.errors=[];self.selects=[]
+  super().__init__();self.depth=0;self.skip=[];self.visual=[];self.visual_sources=[];self.active=None;self.matched=[];self.author_matched=[];self.v12_matched=[];self.images=0;self.description=False;self.errors=[];self.selects=[]
  def handle_starttag(self,tag,attrs):
   attrs=dict(attrs);self.depth+=1
   if tag in {'head','script','style'}: self.skip.append((tag,self.depth))
+  if attrs.get('data-visual-source'):
+   assert attrs['data-visual-source'] in {'controlled-gradient-json','checkpoint-norm-csv','minibatch-gradient-html'}
+   self.visual.append((tag,self.depth));self.visual_sources.append(attrs['data-visual-source'])
   if tag=='select': self.selects.append(attrs.get('aria-label'))
   if tag=='meta' and attrs.get('name')=='description':
    assert attrs['content']==excerpts['description']['text'];self.description=True
@@ -57,10 +60,12 @@ class Audit(HTMLParser):
    if author_key:self.author_matched.append(author_key)
    self.active=None
   if self.skip and self.skip[-1]==(tag,self.depth):self.skip.pop()
+  if self.visual and self.visual[-1]==(tag,self.depth):self.visual.pop()
   self.depth-=1
  def handle_data(self,data):
   if self.skip:return
   if self.active:self.active['parts'].append(data)
+  elif self.visual:return
   elif clean(data) and clean(data) not in ui:self.errors.append({'unmapped_text':clean(data)})
 url=sys.argv[1]
 with urllib.request.urlopen(url) as response:
@@ -79,7 +84,8 @@ assert 'Original paper figure' not in html and 'class="ut-modalities"' not in ht
 assert 'id="citation"' in html and '<code>% BibTeX pending.</code>' in html
 assert set(audit.author_matched)==set(author_excerpts),audit.author_matched
 assert sum(k=='data-v12-metric' for k,v in audit.v12_matched)==19*17
-assert audit.selects==['Benchmark'],audit.selects
+assert audit.selects==['Benchmark','Gradient metric'],audit.selects
+assert sorted(audit.visual_sources)==sorted(['controlled-gradient-json','checkpoint-norm-csv','minibatch-gradient-html']),audit.visual_sources
 assert all(v.split('|')[3]=='delta' for k,v in audit.v12_matched if k=='data-v12-metric')
 assert len({v for k,v in audit.v12_matched if k=='data-v12-copy' and v.startswith('leaf|') and v.endswith('|name')})==42
 print(json.dumps({'source_commit':book['manuscript_commit'],'rendered_excerpt_instances':len(audit.matched),'unique_rendered_excerpts':len(set(audit.matched)),'author_provided_excerpts':len(audit.author_matched),'manuscript_derived_image_alts':audit.images,'v12_source_and_numeric_records':len(audit.v12_matched),'metadata_verbatim':audit.description,'unmapped_research_text':0},indent=2))

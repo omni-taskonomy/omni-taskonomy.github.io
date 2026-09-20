@@ -34,10 +34,10 @@ export function GradientMatrix() {
   const task = source.tasks[active.column];
   const capability = source.leaves[active.row];
 
-  return <div className="gradient-matrix">
+  return <div className="gradient-matrix" data-visual-source="minibatch-gradient-html">
     <div className="gradient-matrix-controls">
       <label>Metric
-        <select value={metric} onChange={event => { setMetric(event.target.value as Metric); setHovered(null); setPinned(null); }}>
+        <select aria-label="Gradient metric" value={metric} onChange={event => { setMetric(event.target.value as Metric); setHovered(null); setPinned(null); }}>
           {(Object.keys(metricNames) as Metric[]).map(key => <option key={key} value={key}>{metricNames[key]}</option>)}
         </select>
       </label>
