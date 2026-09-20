@@ -1,0 +1,7 @@
+{
+  "source_file": "jigsaw_zoomin_four_charts_minimal_data.json",
+  "source_sha256": "85371173c46a757e2f34234166279da5feb0d716a57fb8967ae627aaa0697fb7",
+  "bundled_file": "content/jigsaw-zoomin-four-charts.json",
+  "scope": "Jigsaw and Zoom-In concatenated parameter groups and per-layer pre-attention RMSNorm values",
+  "note": "Author-supplied numeric data. The current paper figure and manuscript text remain the sources for the visible figure caption; no plotted value was inferred from raster geometry."
+}

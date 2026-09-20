@@ -4,6 +4,7 @@ import manuscriptContent from '@/content/manuscript-excerpts.json';
 import authorContent from '@/content/author-provided-copy.json';
 import { InteractiveTaxonomy, InteractiveTransferMap } from '@/components/interactive-figures';
 import { GradientBars } from '@/components/gradient-bars';
+import { GradientMatrix } from '@/components/gradient-matrix';
 import { coloredTerms } from '@/components/colored-terms';
 
 // The author requested resource buttons with their destinations left blank.
@@ -229,6 +230,10 @@ export default function Home() {
         </div>
         <div className="analysis-copy prose"><Passage id="alignment_results" /><Passage id="alignment_lead" /></div>
         <blockquote className="finding"><Passage id="alignment_finding" /></blockquote>
+        <details className="gradient-matrix-panel">
+          <summary>Minibatch gradient alignment</summary>
+          <GradientMatrix />
+        </details>
       </div></section>
 
       <section className="citation shell" id="citation" aria-labelledby="citation-heading">

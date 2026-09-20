@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import source from '@/content/gradient-bars-v13.json';
+import clean from '@/content/jigsaw-zoomin-four-charts.json';
 import manuscript from '@/content/manuscript-excerpts.json';
 
 type View = 'modules' | 'layers';
@@ -9,9 +10,10 @@ type View = 'modules' | 'layers';
 export function GradientBars() {
   const [view, setView] = useState<View>('modules');
   const [selected, setSelected] = useState(4);
-  const labels = view === 'modules' ? source.module_labels : Array.from({ length: 28 }, (_, i) => String(i));
-  const jigsaw = view === 'modules' ? source.module_values.jigsaw : source.layer_values.jigsaw;
-  const zoomin = view === 'modules' ? source.module_values.zoomin : source.layer_values.zoomin;
+  const labels = view === 'modules' ? source.module_labels : clean.perlayer.layers.map(String);
+  const fullLabels = view === 'modules' ? clean.concat.labels : clean.perlayer.layers.map(i => 'Layer ' + i);
+  const jigsaw = view === 'modules' ? clean.concat.jigsaw : clean.perlayer.jigsaw;
+  const zoomin = view === 'modules' ? clean.concat.zoomin : clean.perlayer.zoomin;
   const low = view === 'modules' ? -0.18 : -0.65;
   const high = view === 'modules' ? 0.62 : 1.1;
   const ticks = view === 'modules' ? [-0.1, 0, 0.2, 0.4, 0.6] : [-0.5, 0, 0.5, 1];
@@ -50,7 +52,7 @@ export function GradientBars() {
             {bars.map(bar => <rect key={bar.kind} className={'gradient-column ' + bar.kind} x={bar.x} y={Math.min(y(bar.value), baseline)} width={barWidth} height={Math.max(2, Math.abs(y(bar.value) - baseline))} />)}
             <text className="gradient-x-label" transform={view === 'modules' ? `translate(${center},${plotTop + plotHeight + 16}) rotate(-48)` : undefined} x={view === 'modules' ? 0 : center} y={view === 'modules' ? 0 : plotTop + plotHeight + 24} textAnchor={view === 'modules' ? 'end' : 'middle'}>{label}</text>
             <rect x={center - step / 2} y={plotTop} width={step} height={height - plotTop} fill="transparent" role="button" tabIndex={0}
-              aria-label={`${view === 'modules' ? label : 'Layer ' + label}: Jigsaw ${jigsaw[index].toFixed(2)}, Zoom-In ${zoomin[index].toFixed(2)}`}
+              aria-label={`${fullLabels[index]}: Jigsaw ${jigsaw[index].toFixed(2)}, Zoom-In ${zoomin[index].toFixed(2)}`}
               aria-pressed={selected === index} onMouseEnter={() => setSelected(index)} onFocus={() => setSelected(index)} onClick={() => setSelected(index)}
               onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelected(index); } }} />
           </g>;
@@ -58,7 +60,7 @@ export function GradientBars() {
       </svg>
     </div>
     <div className="gradient-chart-detail" role="status">
-      <strong>{view === 'modules' ? labels[selected] : 'Layer ' + labels[selected]}</strong>
+      <strong>{fullLabels[selected]}</strong>
       <span><i className="jigsaw" />Jigsaw <b>{jigsaw[selected].toFixed(2)}</b></span>
       <span><i className="zoomin" />Zoom-In <b>{zoomin[selected].toFixed(2)}</b></span>
     </div>
