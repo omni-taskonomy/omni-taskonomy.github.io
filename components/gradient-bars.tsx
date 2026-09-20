@@ -29,7 +29,7 @@ export function GradientBars() {
   return <div className="gradient-chart" aria-label="Interactive gradient alignment bars">
     <div className="gradient-chart-head">
       <div className="gradient-chart-tabs" role="tablist" aria-label="Gradient alignment view">
-        <button type="button" role="tab" aria-selected={view === 'modules'} onClick={() => choose('modules')}>Module groups</button>
+        <button type="button" role="tab" aria-selected={view === 'modules'} onClick={() => choose('modules')}>Model components</button>
         <button type="button" role="tab" aria-selected={view === 'layers'} onClick={() => choose('layers')}>RMSNorm layers</button>
       </div>
       <a href="/figures/gradient-transfer-overview.svg" target="_blank" rel="noreferrer">Full figure ↗</a>
@@ -48,7 +48,7 @@ export function GradientBars() {
           return <g key={label} className={selected === index ? 'gradient-selected' : ''}>
             {selected === index && <rect x={center - step / 2} y={plotTop} width={step} height={plotHeight} className="gradient-selection" />}
             {bars.map(bar => <rect key={bar.kind} className={'gradient-column ' + bar.kind} x={bar.x} y={Math.min(y(bar.value), baseline)} width={barWidth} height={Math.max(2, Math.abs(y(bar.value) - baseline))} />)}
-            <text className="gradient-x-label" transform={view === 'modules' ? `translate(${center},${plotTop + plotHeight + 16}) rotate(-48)` : undefined} x={view === 'modules' ? 0 : center} y={view === 'modules' ? 0 : plotTop + plotHeight + 24} textAnchor={view === 'modules' ? 'end' : 'middle'}>{label}</text>
+            <text className={view === 'modules' && index > 0 ? 'gradient-x-label gradient-parameter-label' : 'gradient-x-label'} transform={view === 'modules' ? `translate(${center},${plotTop + plotHeight + 16}) rotate(-48)` : undefined} x={view === 'modules' ? 0 : center} y={view === 'modules' ? 0 : plotTop + plotHeight + 24} textAnchor={view === 'modules' ? 'end' : 'middle'}>{label}</text>
             <rect x={center - step / 2} y={plotTop} width={step} height={height - plotTop} fill="transparent" role="button" tabIndex={0}
               aria-label={`${view === 'modules' ? label : 'Layer ' + label}: Jigsaw ${jigsaw[index].toFixed(2)}, Zoom-In ${zoomin[index].toFixed(2)}`}
               aria-pressed={selected === index} onMouseEnter={() => setSelected(index)} onFocus={() => setSelected(index)} onClick={() => setSelected(index)}

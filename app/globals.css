@@ -170,6 +170,7 @@ h3 { font-size:1.65rem; line-height:1.2; margin:0 0 17px; color:#365872; }
 .gradient-axis-zero { stroke:#8496a8; stroke-width:1.4; }
 .gradient-axis-tick,.gradient-x-label { fill:#344b5d; font-size:16px; }
 .gradient-x-label { font-weight:600; }
+.gradient-parameter-label { fill:#69737d; }
 .gradient-selection { fill:#edf4fb; }
 .gradient-column.jigsaw { fill:#0064e0; }
 .gradient-column.zoomin { fill:#a18bc6; }

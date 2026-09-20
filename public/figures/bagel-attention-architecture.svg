@@ -21,6 +21,9 @@
       .u-wire { stroke:#47799f; marker-end:url(#arrow-u); }
       .g-box { fill:#fbf0f2; stroke:#ba7d85; stroke-width:1.8; }
       .u-box { fill:#edf4fa; stroke:#7a9fbb; stroke-width:1.8; }
+      .parameter-box { fill:#f0f2f4; stroke:#a0a9b2; stroke-width:1.8; }
+      .parameter-text { fill:#5d6771; }
+      .parameter-heading { fill:#5d6771; font-size:22px; font-weight:700; }
       .g-text { fill:#a45862; }
       .u-text { fill:#47799f; }
     </style>
@@ -39,35 +42,50 @@
   <path d="M730 1050H910V410H746" class="wire u-wire"/>
   <path d="M730 386H890V183H746" class="wire u-wire"/>
   <path d="M290 1118V1022" class="wire g-wire"/>
-  <rect x="170" y="969" width="240" height="53" rx="9" class="g-box"/>
-  <text x="290" y="991" class="submodule">Pre-attn</text>
-  <text x="290" y="1013" class="module">RMSNorm</text>
+  <rect x="170" y="969" width="240" height="53" rx="9" class="parameter-box"/>
+  <text x="290" y="991" class="submodule parameter-text">Pre-attn</text>
+  <text x="290" y="1013" class="module parameter-text">RMSNorm</text>
+  <path d="M290 969V947H206V928" class="wire g-wire"/>
   <path d="M290 969V928" class="wire g-wire"/>
-  <rect x="170" y="875" width="240" height="53" rx="9" class="g-box"/>
-  <text x="290.0" y="908.5" class="module" >Q / K / V projections</text>
-  <path d="M255 875V834" class="wire g-wire"/>
-  <rect x="170" y="794" width="170" height="40" rx="9" class="g-box"/>
-  <text x="255" y="820" class="norm-label">Q norm · K norm</text>
-  <path d="M255 794V754" class="wire g-wire"/>
-  <rect x="170" y="714" width="170" height="40" rx="9" class="g-box"/>
-  <text x="255.0" y="741.0" class="detail" >RoPE (Q, K)</text>
+  <path d="M290 947H374V928" class="wire g-wire"/>
+  <rect x="170" y="875" width="72" height="53" rx="9" class="parameter-box"/>
+  <rect x="254" y="875" width="72" height="53" rx="9" class="parameter-box"/>
+  <rect x="338" y="875" width="72" height="53" rx="9" class="parameter-box"/>
+  <text x="206" y="910" class="module parameter-text">Q</text>
+  <text x="290" y="910" class="module parameter-text">K</text>
+  <text x="374" y="910" class="module parameter-text">V</text>
+  <path d="M206 875V834" class="wire g-wire"/>
+  <path d="M290 875V834" class="wire g-wire"/>
+  <rect x="170" y="794" width="72" height="40" rx="9" class="parameter-box"/>
+  <rect x="254" y="794" width="72" height="40" rx="9" class="parameter-box"/>
+  <text x="206" y="820" class="norm-label parameter-text">Q norm</text>
+  <text x="290" y="820" class="norm-label parameter-text">K norm</text>
+  <path d="M206 794V774H255V754" class="wire g-wire"/>
+  <path d="M290 794V774H255V754" class="wire g-wire"/>
+  <rect x="170" y="714" width="170" height="40" rx="9" class="parameter-box"/>
+  <text x="255" y="741" class="detail parameter-text">RoPE (Q, K)</text>
   <path d="M255 714V658" class="wire g-wire"/>
-  <path d="M395 875V658" class="wire g-wire"/>
-  <text x="226" y="864" class="arrow-label g-text">Q, K</text>
-  <text x="413" y="771" class="arrow-label g-text">V</text>
+  <path d="M374 875V658" class="wire g-wire"/>
   <path d="M290 560V504" class="wire g-wire"/>
-  <rect x="170" y="451" width="240" height="53" rx="9" class="g-box"/>
-  <text x="290.0" y="484.5" class="module" >Output projection</text>
+  <rect x="170" y="451" width="240" height="53" rx="9" class="parameter-box"/>
+  <text x="290" y="484.5" class="module parameter-text">Out</text>
   <path d="M290 451V426" class="wire g-wire"/>
   <path d="M290 394V368" class="wire g-wire"/>
-  <rect x="170" y="315" width="240" height="53" rx="9" class="g-box"/>
-  <text x="290" y="337" class="submodule">Pre-MLP</text>
-  <text x="290" y="359" class="module">RMSNorm</text>
+  <rect x="170" y="315" width="240" height="53" rx="9" class="parameter-box"/>
+  <text x="290" y="337" class="submodule parameter-text">Pre-MLP</text>
+  <text x="290" y="359" class="module parameter-text">RMSNorm</text>
+  <text x="130" y="265" class="parameter-heading">MLP</text>
+  <path d="M290 315V290H206V279" class="wire g-wire"/>
   <path d="M290 315V279" class="wire g-wire"/>
-  <rect x="170" y="217" width="240" height="62" rx="9" class="g-box"/>
-  <text x="290" y="243" class="module">MLP</text>
-  <text x="290" y="267" class="submodule">Gate × Up → Down</text>
-  <path d="M290 217V199" class="wire g-wire"/>
+  <rect x="170" y="237" width="72" height="42" rx="9" class="parameter-box"/>
+  <rect x="254" y="237" width="72" height="42" rx="9" class="parameter-box"/>
+  <rect x="338" y="237" width="72" height="42" rx="9" class="parameter-box"/>
+  <text x="206" y="265" class="submodule parameter-text">Gate</text>
+  <text x="290" y="265" class="submodule parameter-text">Up</text>
+  <text x="374" y="265" class="submodule parameter-text">Down</text>
+  <path d="M206 237V227H374V237" class="wire g-wire"/>
+  <path d="M290 237V227H374" class="wire g-wire"/>
+  <path d="M374 237V199H290" class="wire g-wire"/>
   <path d="M290 167V147" class="wire g-wire"/>
   <circle cx="290" cy="410" r="16" fill="#fff" stroke="#a45862" stroke-width="1.8"/>
   <path d="M283 410H297M290 403V417" fill="none" stroke="#a45862" stroke-width="1.8" stroke-linecap="round"/>
@@ -76,35 +94,50 @@
   <circle cx="290" cy="1050" r="3.4" fill="#a45862"/>
   <circle cx="290" cy="386" r="3.4" fill="#a45862"/>
   <path d="M730 1118V1022" class="wire u-wire"/>
-  <rect x="610" y="969" width="240" height="53" rx="9" class="u-box"/>
-  <text x="730" y="991" class="submodule">Pre-attn</text>
-  <text x="730" y="1013" class="module">RMSNorm</text>
+  <rect x="610" y="969" width="240" height="53" rx="9" class="parameter-box"/>
+  <text x="730" y="991" class="submodule parameter-text">Pre-attn</text>
+  <text x="730" y="1013" class="module parameter-text">RMSNorm</text>
+  <path d="M730 969V947H646V928" class="wire u-wire"/>
   <path d="M730 969V928" class="wire u-wire"/>
-  <rect x="610" y="875" width="240" height="53" rx="9" class="u-box"/>
-  <text x="730.0" y="908.5" class="module" >Q / K / V projections</text>
-  <path d="M695 875V834" class="wire u-wire"/>
-  <rect x="610" y="794" width="170" height="40" rx="9" class="u-box"/>
-  <text x="695" y="820" class="norm-label">Q norm · K norm</text>
-  <path d="M695 794V754" class="wire u-wire"/>
-  <rect x="610" y="714" width="170" height="40" rx="9" class="u-box"/>
-  <text x="695.0" y="741.0" class="detail" >RoPE (Q, K)</text>
+  <path d="M730 947H814V928" class="wire u-wire"/>
+  <rect x="610" y="875" width="72" height="53" rx="9" class="parameter-box"/>
+  <rect x="694" y="875" width="72" height="53" rx="9" class="parameter-box"/>
+  <rect x="778" y="875" width="72" height="53" rx="9" class="parameter-box"/>
+  <text x="646" y="910" class="module parameter-text">Q</text>
+  <text x="730" y="910" class="module parameter-text">K</text>
+  <text x="814" y="910" class="module parameter-text">V</text>
+  <path d="M646 875V834" class="wire u-wire"/>
+  <path d="M730 875V834" class="wire u-wire"/>
+  <rect x="610" y="794" width="72" height="40" rx="9" class="parameter-box"/>
+  <rect x="694" y="794" width="72" height="40" rx="9" class="parameter-box"/>
+  <text x="646" y="820" class="norm-label parameter-text">Q norm</text>
+  <text x="730" y="820" class="norm-label parameter-text">K norm</text>
+  <path d="M646 794V774H695V754" class="wire u-wire"/>
+  <path d="M730 794V774H695V754" class="wire u-wire"/>
+  <rect x="610" y="714" width="170" height="40" rx="9" class="parameter-box"/>
+  <text x="695" y="741" class="detail parameter-text">RoPE (Q, K)</text>
   <path d="M695 714V658" class="wire u-wire"/>
-  <path d="M835 875V658" class="wire u-wire"/>
-  <text x="666" y="864" class="arrow-label u-text">Q, K</text>
-  <text x="853" y="771" class="arrow-label u-text">V</text>
+  <path d="M814 875V658" class="wire u-wire"/>
   <path d="M730 560V504" class="wire u-wire"/>
-  <rect x="610" y="451" width="240" height="53" rx="9" class="u-box"/>
-  <text x="730.0" y="484.5" class="module" >Output projection</text>
+  <rect x="610" y="451" width="240" height="53" rx="9" class="parameter-box"/>
+  <text x="730" y="484.5" class="module parameter-text">Out</text>
   <path d="M730 451V426" class="wire u-wire"/>
   <path d="M730 394V368" class="wire u-wire"/>
-  <rect x="610" y="315" width="240" height="53" rx="9" class="u-box"/>
-  <text x="730" y="337" class="submodule">Pre-MLP</text>
-  <text x="730" y="359" class="module">RMSNorm</text>
+  <rect x="610" y="315" width="240" height="53" rx="9" class="parameter-box"/>
+  <text x="730" y="337" class="submodule parameter-text">Pre-MLP</text>
+  <text x="730" y="359" class="module parameter-text">RMSNorm</text>
+  <text x="570" y="265" class="parameter-heading">MLP</text>
+  <path d="M730 315V290H646V279" class="wire u-wire"/>
   <path d="M730 315V279" class="wire u-wire"/>
-  <rect x="610" y="217" width="240" height="62" rx="9" class="u-box"/>
-  <text x="730" y="243" class="module">MLP</text>
-  <text x="730" y="267" class="submodule">Gate × Up → Down</text>
-  <path d="M730 217V199" class="wire u-wire"/>
+  <rect x="610" y="237" width="72" height="42" rx="9" class="parameter-box"/>
+  <rect x="694" y="237" width="72" height="42" rx="9" class="parameter-box"/>
+  <rect x="778" y="237" width="72" height="42" rx="9" class="parameter-box"/>
+  <text x="646" y="265" class="submodule parameter-text">Gate</text>
+  <text x="730" y="265" class="submodule parameter-text">Up</text>
+  <text x="814" y="265" class="submodule parameter-text">Down</text>
+  <path d="M646 237V227H814V237" class="wire u-wire"/>
+  <path d="M730 237V227H814" class="wire u-wire"/>
+  <path d="M814 237V199H730" class="wire u-wire"/>
   <path d="M730 167V147" class="wire u-wire"/>
   <circle cx="730" cy="410" r="16" fill="#fff" stroke="#47799f" stroke-width="1.8"/>
   <path d="M723 410H737M730 403V417" fill="none" stroke="#47799f" stroke-width="1.8" stroke-linecap="round"/>
@@ -123,12 +156,12 @@
   <text x="730" y="1170" class="detail" >understanding parameters</text>
   <rect x="520" y="1242" width="92" height="50" rx="9" class="u-box"/>
   <text x="566" y="1274" class="input-module">ViT</text>
-  <rect x="627" y="1242" width="98" height="50" rx="9" class="u-box"/>
-  <text x="676" y="1274" class="input-module">Conn. in</text>
-  <rect x="740" y="1242" width="98" height="50" rx="9" class="u-box"/>
-  <text x="789" y="1274" class="input-module">Conn. out</text>
-  <rect x="853" y="1242" width="106" height="50" rx="9" class="u-box"/>
-  <text x="906" y="1274" class="input-module">2D pos.</text>
+  <rect x="627" y="1242" width="98" height="50" rx="9" class="parameter-box"/>
+  <text x="676" y="1274" class="input-module parameter-text">Conn. in</text>
+  <rect x="740" y="1242" width="98" height="50" rx="9" class="parameter-box"/>
+  <text x="789" y="1274" class="input-module parameter-text">Conn. out</text>
+  <rect x="853" y="1242" width="106" height="50" rx="9" class="parameter-box"/>
+  <text x="906" y="1274" class="input-module parameter-text">2D pos.</text>
   <path d="M612 1267H627" class="wire u-wire"/>
   <path d="M725 1267H740" class="wire u-wire"/>
   <path d="M838 1267H853" class="wire u-wire"/>
