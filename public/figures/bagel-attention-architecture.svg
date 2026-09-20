@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 90 1020 1120" width="1020" height="1120" role="img" aria-labelledby="bagel-title bagel-desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 90 1020 1255" width="1020" height="1255" role="img" aria-labelledby="bagel-title bagel-desc">
   <title id="bagel-title">BAGEL Mixture-of-Transformers attention architecture</title>
-  <desc id="bagel-desc">One pre-norm BAGEL decoder layer, repeated N times, shown bottom to top. VAE latent tokens use generation parameters, shown in red. Text and ViT tokens use understanding parameters, shown in blue. Each branch has its own input RMSNorm, query, key, value and output projections, optional query and key normalization, post-attention RMSNorm, and feed-forward MLP. Rotary position embeddings apply to queries and keys; values bypass these operations. Queries, keys and values from both branches are packed for attention, with access controlled by attention_mask. Attention outputs are routed back to the corresponding branch. Each branch has residual additions around attention and around its MLP.</desc>
-  <metadata>Verified against ByteDance-Seed/Bagel commit a2fa77dd8caeefc41e6607ae0ec17408d3f4ee9f: modeling/bagel/qwen2_navit.py lines 381–497 and 687–755; modeling/bagel/bagel.py lines 151–206. Diagram shows the train-time packed computation and parameter partition, without output heads, KV caches or training-freeze options.</metadata>
+  <desc id="bagel-desc">One pre-norm BAGEL decoder layer, repeated N times, shown bottom to top. VAE latent tokens use generation parameters, shown in red. Text and ViT tokens use understanding parameters, shown in blue. The understanding visual path passes through ViT, connector input and output layers, and 2D position embedding before entering the decoder. Each decoder branch has its own pre-attention RMSNorm, query, key, value and output projections, query and key normalization, pre-MLP RMSNorm, and MLP with Gate, Up, and Down projections. Rotary position embeddings apply to queries and keys; values bypass these operations. Queries, keys and values from both branches are packed for attention, with access controlled by attention_mask. Attention outputs are routed back to the corresponding branch. Each branch has residual additions around attention and around its MLP.</desc>
+  <metadata>Verified against ByteDance-Seed/Bagel commit a2fa77dd8caeefc41e6607ae0ec17408d3f4ee9f: modeling/bagel/qwen2_navit.py lines 381–497 and 687–755; modeling/bagel/bagel.py lines 77–87 and 165–185; modeling/bagel/modeling_utils.py lines 113–124; modeling/qwen2/modeling_qwen2.py Qwen2MLP. Diagram shows the train-time packed computation and parameter partition, without output heads, KV caches or training-freeze options.</metadata>
   <defs>
     <marker id="arrow-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1L8 5L1 9" fill="none" stroke="#a45862" stroke-width="1.6" stroke-linejoin="round"/></marker>
     <marker id="arrow-u" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1L8 5L1 9" fill="none" stroke="#47799f" stroke-width="1.6" stroke-linejoin="round"/></marker>
@@ -12,6 +12,9 @@
       .module { font-size:23px; font-weight:700; }
       .detail { font-size:22px; font-weight:600; }
       .arrow-label { font-size:25px; font-weight:700; }
+      .submodule { font-size:22px; font-weight:600; }
+      .norm-label { font-size:20px; font-weight:600; }
+      .input-module { font-size:22px; font-weight:700; }
       .code { font-family:ui-monospace, 'SFMono-Regular', Consolas, monospace; font-size:16px; }
       .wire { fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
       .g-wire { stroke:#a45862; marker-end:url(#arrow-g); }
@@ -22,7 +25,7 @@
       .u-text { fill:#47799f; }
     </style>
   </defs>
-  <rect width="1020" height="1210" fill="#fff"/>
+  <rect width="1020" height="1345" fill="#fff"/>
   <text x="290" y="125" class="heading g-text" font-size="30">Generation</text>
   <text x="730" y="125" class="heading u-text" font-size="30">Understanding</text>
   <rect x="55" y="145" width="910" height="940" rx="20" fill="#fcfcfd" stroke="#d4dce3" stroke-width="1.6"/>
@@ -37,13 +40,14 @@
   <path d="M730 386H890V183H746" class="wire u-wire"/>
   <path d="M290 1118V1022" class="wire g-wire"/>
   <rect x="170" y="969" width="240" height="53" rx="9" class="g-box"/>
-  <text x="290.0" y="1002.5" class="module" >RMSNorm</text>
+  <text x="290" y="991" class="submodule">Pre-attn</text>
+  <text x="290" y="1013" class="module">RMSNorm</text>
   <path d="M290 969V928" class="wire g-wire"/>
   <rect x="170" y="875" width="240" height="53" rx="9" class="g-box"/>
   <text x="290.0" y="908.5" class="module" >Q / K / V projections</text>
   <path d="M255 875V834" class="wire g-wire"/>
   <rect x="170" y="794" width="170" height="40" rx="9" class="g-box"/>
-  <text x="255" y="820" class="detail">QK Norm</text>
+  <text x="255" y="820" class="norm-label">Q norm · K norm</text>
   <path d="M255 794V754" class="wire g-wire"/>
   <rect x="170" y="714" width="170" height="40" rx="9" class="g-box"/>
   <text x="255.0" y="741.0" class="detail" >RoPE (Q, K)</text>
@@ -57,11 +61,13 @@
   <path d="M290 451V426" class="wire g-wire"/>
   <path d="M290 394V368" class="wire g-wire"/>
   <rect x="170" y="315" width="240" height="53" rx="9" class="g-box"/>
-  <text x="290.0" y="348.5" class="module" >RMSNorm</text>
+  <text x="290" y="337" class="submodule">Pre-MLP</text>
+  <text x="290" y="359" class="module">RMSNorm</text>
   <path d="M290 315V279" class="wire g-wire"/>
-  <rect x="170" y="226" width="240" height="53" rx="9" class="g-box"/>
-  <text x="290.0" y="259.5" class="module" >Feed-forward (MLP)</text>
-  <path d="M290 226V199" class="wire g-wire"/>
+  <rect x="170" y="217" width="240" height="62" rx="9" class="g-box"/>
+  <text x="290" y="243" class="module">MLP</text>
+  <text x="290" y="267" class="submodule">Gate × Up → Down</text>
+  <path d="M290 217V199" class="wire g-wire"/>
   <path d="M290 167V147" class="wire g-wire"/>
   <circle cx="290" cy="410" r="16" fill="#fff" stroke="#a45862" stroke-width="1.8"/>
   <path d="M283 410H297M290 403V417" fill="none" stroke="#a45862" stroke-width="1.8" stroke-linecap="round"/>
@@ -71,13 +77,14 @@
   <circle cx="290" cy="386" r="3.4" fill="#a45862"/>
   <path d="M730 1118V1022" class="wire u-wire"/>
   <rect x="610" y="969" width="240" height="53" rx="9" class="u-box"/>
-  <text x="730.0" y="1002.5" class="module" >RMSNorm</text>
+  <text x="730" y="991" class="submodule">Pre-attn</text>
+  <text x="730" y="1013" class="module">RMSNorm</text>
   <path d="M730 969V928" class="wire u-wire"/>
   <rect x="610" y="875" width="240" height="53" rx="9" class="u-box"/>
   <text x="730.0" y="908.5" class="module" >Q / K / V projections</text>
   <path d="M695 875V834" class="wire u-wire"/>
   <rect x="610" y="794" width="170" height="40" rx="9" class="u-box"/>
-  <text x="695" y="820" class="detail">QK Norm</text>
+  <text x="695" y="820" class="norm-label">Q norm · K norm</text>
   <path d="M695 794V754" class="wire u-wire"/>
   <rect x="610" y="714" width="170" height="40" rx="9" class="u-box"/>
   <text x="695.0" y="741.0" class="detail" >RoPE (Q, K)</text>
@@ -91,11 +98,13 @@
   <path d="M730 451V426" class="wire u-wire"/>
   <path d="M730 394V368" class="wire u-wire"/>
   <rect x="610" y="315" width="240" height="53" rx="9" class="u-box"/>
-  <text x="730.0" y="348.5" class="module" >RMSNorm</text>
+  <text x="730" y="337" class="submodule">Pre-MLP</text>
+  <text x="730" y="359" class="module">RMSNorm</text>
   <path d="M730 315V279" class="wire u-wire"/>
-  <rect x="610" y="226" width="240" height="53" rx="9" class="u-box"/>
-  <text x="730.0" y="259.5" class="module" >Feed-forward (MLP)</text>
-  <path d="M730 226V199" class="wire u-wire"/>
+  <rect x="610" y="217" width="240" height="62" rx="9" class="u-box"/>
+  <text x="730" y="243" class="module">MLP</text>
+  <text x="730" y="267" class="submodule">Gate × Up → Down</text>
+  <path d="M730 217V199" class="wire u-wire"/>
   <path d="M730 167V147" class="wire u-wire"/>
   <circle cx="730" cy="410" r="16" fill="#fff" stroke="#47799f" stroke-width="1.8"/>
   <path d="M723 410H737M730 403V417" fill="none" stroke="#47799f" stroke-width="1.8" stroke-linecap="round"/>
@@ -112,4 +121,16 @@
   <rect x="578" y="1118" width="304" height="64" rx="10" fill="#edf4fa"/>
   <text x="730" y="1148" class="module u-text" >Text + ViT tokens</text>
   <text x="730" y="1170" class="detail" >understanding parameters</text>
+  <rect x="520" y="1242" width="92" height="50" rx="9" class="u-box"/>
+  <text x="566" y="1274" class="input-module">ViT</text>
+  <rect x="627" y="1242" width="98" height="50" rx="9" class="u-box"/>
+  <text x="676" y="1274" class="input-module">Conn. in</text>
+  <rect x="740" y="1242" width="98" height="50" rx="9" class="u-box"/>
+  <text x="789" y="1274" class="input-module">Conn. out</text>
+  <rect x="853" y="1242" width="106" height="50" rx="9" class="u-box"/>
+  <text x="906" y="1274" class="input-module">2D pos.</text>
+  <path d="M612 1267H627" class="wire u-wire"/>
+  <path d="M725 1267H740" class="wire u-wire"/>
+  <path d="M838 1267H853" class="wire u-wire"/>
+  <path d="M906 1242V1195H730V1182" class="wire u-wire"/>
 </svg>

@@ -8,10 +8,14 @@
     "Qwen2MoTDecoderLayer": "687-755"
   },
   "packing_code": "modeling/bagel/bagel.py",
+  "connector_code": "modeling/bagel/modeling_utils.py",
+  "connector_code_sha256": "6fe5eed0513a462c28cccd8ec86d5496b774667fa6f04be8f70e6595baf3f323",
+  "mlp_code": "modeling/qwen2/modeling_qwen2.py",
+  "mlp_code_sha256": "c8935e385d15836a7ece216ae9a3414035e085db50f6bc906aeef791119a56ee",
   "paper_commit": "de3aeb1a3158b9785ab8f13efaee8ce5898b81cf",
   "paper_excerpt_id": "bagel_architecture_caption",
   "illustration": "public/figures/bagel-attention-architecture.svg",
-  "illustration_sha256": "2dc63d76395e54f3e395f9c38f55efed5656862849976810b08fb878c1619283",
-  "interpretation": "Modality-specific RMSNorm, QKV, output projection and MLP; packed QKV enter one masked attention computation. No shared projection weights are implied.",
+  "illustration_sha256": "929f10664d48d222c9be6a235e7391fdb953de97bb9e0ab1f071a5deab5ceb42",
+  "interpretation": "Pre-attn and Pre-MLP are the modality-specific RMSNorms. Conn. in and Conn. out are the two visual connector linear layers before 2D position embedding. Gate, Up, and Down are the MLP projections. Packed QKV enter one masked attention computation; no shared projection weights are implied.",
   "packing_code_sha256": "bf92fead4471b61deb73667e79ba077dbdf1cb6ca6e706512836703ab1fb08f7"
 }
