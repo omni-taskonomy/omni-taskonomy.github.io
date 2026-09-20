@@ -15,7 +15,7 @@
   "paper_commit": "de3aeb1a3158b9785ab8f13efaee8ce5898b81cf",
   "paper_excerpt_id": "bagel_architecture_caption",
   "illustration": "public/figures/bagel-attention-architecture.svg",
-  "illustration_sha256": "9a1da617b03908382f3eaee3733a13640cfdedef38f100a74e60fefd79b4b98a",
-  "interpretation": "Colored boxes represent generation or understanding components, including learned RMSNorm and projection parameters. Gray boxes represent intermediate tensors, including projection outputs Q/K/V; white RoPE boxes represent parameter-free operations. Pre-attn and Pre-MLP are modality-specific RMSNorms. Conn. in and Conn. out are the two visual connector linear layers, and the 2D position table is added to the connector output. In the pinned official implementation the 2D position table is fixed, but the manuscript bar figure shows a nonzero 2D-pos value; its experiment-specific gradient configuration is not established by the supplied figure data. Gate, Up, and Down are MLP projections. Packed QKV enter one masked attention computation; no shared projection weights are implied.",
+  "illustration_sha256": "d58f86be065e865d39ab0d2f8e31a5c28b4260c421923e48724425e0fd2892c1",
+  "interpretation": "Pre-attn and Pre-MLP are the modality-specific RMSNorms. Conn. in and Conn. out are the two visual connector linear layers before 2D position embedding. Gate, Up, and Down are the MLP projections. Packed QKV enter one masked attention computation; no shared projection weights are implied.",
   "packing_code_sha256": "bf92fead4471b61deb73667e79ba077dbdf1cb6ca6e706512836703ab1fb08f7"
 }

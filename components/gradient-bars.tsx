@@ -29,7 +29,7 @@ export function GradientBars() {
   return <div className="gradient-chart" aria-label="Interactive gradient alignment bars">
     <div className="gradient-chart-head">
       <div className="gradient-chart-tabs" role="tablist" aria-label="Gradient alignment view">
-        <button type="button" role="tab" aria-selected={view === 'modules'} onClick={() => choose('modules')}>Model components</button>
+        <button type="button" role="tab" aria-selected={view === 'modules'} onClick={() => choose('modules')}>Module groups</button>
         <button type="button" role="tab" aria-selected={view === 'layers'} onClick={() => choose('layers')}>RMSNorm layers</button>
       </div>
       <a href="/figures/gradient-transfer-overview.svg" target="_blank" rel="noreferrer">Full figure ↗</a>

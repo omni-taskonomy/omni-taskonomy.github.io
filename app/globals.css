@@ -104,12 +104,6 @@ h2 { font-size:clamp(1.95rem,3.4vw,2.7rem); line-height:1.13; letter-spacing:-.0
 .architecture-figure { max-width:1000px; margin-top:38px; }
 .architecture-frame { padding:16px 18px 6px; }
 .architecture-frame img { display:block; width:100%; height:auto; }
-.architecture-legend { display:flex; flex-wrap:wrap; gap:12px 25px; padding:2px 8px 9px; color:#4d5a66; font-size:1rem; }
-.architecture-legend span { display:inline-flex; align-items:center; gap:8px; }
-.architecture-legend i { display:inline-block; width:15px; height:15px; border:1.5px solid; border-radius:4px; }
-.architecture-legend .generation { background:#fbf0f2; border-color:#ba7d85; }
-.architecture-legend .understanding { background:#edf4fa; border-color:#7a9fbb; }
-.architecture-legend .intermediate { background:#e9edf0; border-color:#a0a9b2; }
 .architecture-frame .figure-actions { gap:22px; }
 @media(max-width:700px) { .architecture-viewport .figure-link { min-width:780px; } }
 .recipe-note { max-width:1000px; margin:26px auto 22px; scroll-margin-top:90px; }
