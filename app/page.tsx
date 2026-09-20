@@ -141,6 +141,11 @@ function ArchitectureFigure() {
           <img src={`/figures/${name}.svg`} alt={text('bagel_architecture_caption')} loading="lazy" />
         </a>
       </div>
+      <div className="architecture-legend" aria-label="Architecture color key">
+        <span><i className="generation" />Generation components</span>
+        <span><i className="understanding" />Understanding components</span>
+        <span><i className="intermediate" />Intermediate tensors</span>
+      </div>
       <div className="figure-actions">
         <span className="mobile-hint">Swipe to explore</span>
         <a className="figure-expand" href={`/figures/${name}.svg`} target="_blank" rel="noreferrer">View full size ↗</a>
