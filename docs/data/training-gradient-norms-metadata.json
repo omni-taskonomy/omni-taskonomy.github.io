@@ -1,0 +1,11 @@
+{
+  "source": "User-supplied screenshot 44011789600139_.pic.jpg",
+  "status": "Integrated in Figure 5c with user authorization; norm definition, parameter scope, and training-scale unit remain unconfirmed.",
+  "training_regime": "I2I only, per user",
+  "gradient_norm_definition": null,
+  "parameter_scope": null,
+  "training_scale_unit": null,
+  "values": "Transcribed from screenshot; all displayed precision retained",
+  "display": "Panel c shows only raw I2T gradient norms during I2I-only training, on one linear y-axis. Jigsaw blue solid circles; Zoom-In purple dashed open squares. Original I2I measurements remain in the source CSV. Checkpoint spacing categorical; training-scale unit pending.",
+  "layout": "Left a/b/c equal width; right d/e. Columns aligned top and bottom. Plot gap reduced from 0.175 to 0.095 of figure width."
+}

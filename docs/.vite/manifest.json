@@ -1,0 +1,119 @@
+{
+  "_Icon-Ci2Hv__g.js": {
+    "file": "_next/static/chunks/Icon-Ci2Hv__g.js",
+    "name": "Icon",
+    "imports": [
+      "_rolldown-runtime-C60lm6uB.js",
+      "_framework-D_rUT4EX.js"
+    ]
+  },
+  "_framework-D_rUT4EX.js": {
+    "file": "_next/static/chunks/framework-D_rUT4EX.js",
+    "name": "framework",
+    "imports": [
+      "_rolldown-runtime-C60lm6uB.js"
+    ]
+  },
+  "_manuscript-excerpts-C9SjcR9V.js": {
+    "file": "_next/static/chunks/manuscript-excerpts-C9SjcR9V.js",
+    "name": "manuscript-excerpts"
+  },
+  "_rolldown-runtime-C60lm6uB.js": {
+    "file": "_next/static/chunks/rolldown-runtime-C60lm6uB.js",
+    "name": "rolldown-runtime"
+  },
+  "components/gradient-bars.tsx": {
+    "file": "_next/static/chunks/gradient-bars-BjLi_6pF.js",
+    "name": "gradient-bars",
+    "src": "components/gradient-bars.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_rolldown-runtime-C60lm6uB.js",
+      "_manuscript-excerpts-C9SjcR9V.js",
+      "_framework-D_rUT4EX.js"
+    ]
+  },
+  "components/gradient-matrix.tsx": {
+    "file": "_next/static/chunks/gradient-matrix-Bx8C7QOQ.js",
+    "name": "gradient-matrix",
+    "src": "components/gradient-matrix.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_rolldown-runtime-C60lm6uB.js",
+      "_framework-D_rUT4EX.js"
+    ]
+  },
+  "components/gradient-norms.tsx": {
+    "file": "_next/static/chunks/gradient-norms-Dj67juf4.js",
+    "name": "gradient-norms",
+    "src": "components/gradient-norms.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_rolldown-runtime-C60lm6uB.js",
+      "_framework-D_rUT4EX.js"
+    ]
+  },
+  "components/interactive-figures.tsx": {
+    "file": "_next/static/chunks/interactive-figures-tsH6Re-g.js",
+    "name": "interactive-figures",
+    "src": "components/interactive-figures.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_rolldown-runtime-C60lm6uB.js",
+      "_manuscript-excerpts-C9SjcR9V.js",
+      "_Icon-Ci2Hv__g.js",
+      "_framework-D_rUT4EX.js"
+    ]
+  },
+  "node_modules/vinext/dist/shims/internal/app-route-prefetch-policy.js": {
+    "file": "_next/static/chunks/app-route-prefetch-policy-dkh3nNcM.js",
+    "name": "app-route-prefetch-policy",
+    "src": "node_modules/vinext/dist/shims/internal/app-route-prefetch-policy.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "virtual:vinext-app-browser-entry"
+    ]
+  },
+  "node_modules/vinext/dist/shims/layout-segment-context.js": {
+    "file": "_next/static/chunks/layout-segment-context-DOPZRF_6.js",
+    "name": "layout-segment-context",
+    "src": "node_modules/vinext/dist/shims/layout-segment-context.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_rolldown-runtime-C60lm6uB.js",
+      "virtual:vinext-app-browser-entry",
+      "_framework-D_rUT4EX.js"
+    ]
+  },
+  "node_modules/vinext/dist/shims/streamed-icons.js": {
+    "file": "_next/static/chunks/streamed-icons-D-TahkkG.js",
+    "name": "streamed-icons",
+    "src": "node_modules/vinext/dist/shims/streamed-icons.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_rolldown-runtime-C60lm6uB.js",
+      "_framework-D_rUT4EX.js"
+    ]
+  },
+  "virtual:vinext-app-browser-entry": {
+    "file": "_next/static/chunks/index-Dr2r1RZA.js",
+    "name": "index",
+    "src": "virtual:vinext-app-browser-entry",
+    "isEntry": true,
+    "imports": [
+      "_rolldown-runtime-C60lm6uB.js",
+      "_framework-D_rUT4EX.js"
+    ],
+    "dynamicImports": [
+      "node_modules/vinext/dist/shims/internal/app-route-prefetch-policy.js",
+      "virtual:vinext-app-browser-entry",
+      "components/interactive-figures.tsx",
+      "node_modules/vinext/dist/shims/layout-segment-context.js",
+      "components/gradient-norms.tsx",
+      "_Icon-Ci2Hv__g.js",
+      "node_modules/vinext/dist/shims/streamed-icons.js",
+      "components/gradient-bars.tsx",
+      "components/gradient-matrix.tsx"
+    ]
+  }
+}
