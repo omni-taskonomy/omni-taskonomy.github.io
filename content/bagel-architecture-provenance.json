@@ -15,7 +15,9 @@
   "paper_commit": "de3aeb1a3158b9785ab8f13efaee8ce5898b81cf",
   "paper_excerpt_id": "bagel_architecture_caption",
   "illustration": "public/figures/bagel-attention-architecture.svg",
-  "illustration_sha256": "a1f781f1cb81b8b79437757ba238b85f65a96bdd21b8c6e45777286c90a30516",
+  "illustration_sha256": "efe1660f72bf97889d7285d138b6357eff946894f6a264a0cb6edbf88de7d9a4",
+  "author_edited_pptx": "content/source-artifacts/bagel-architecture-author-edited.pptx",
+  "author_edited_pptx_sha256": "2d3a7d1eb269423d496c6b66b6c7a175a5300ab18af1957e3b70513c885afe3b",
   "interpretation": "Pre-attn and Pre-MLP are the modality-specific RMSNorms. Conn. in and Conn. out are the two visual connector linear layers before 2D position embedding. Gate, Up, and Down are the MLP projections. Packed QKV enter one masked attention computation; no shared projection weights are implied.",
   "packing_code_sha256": "bf92fead4471b61deb73667e79ba077dbdf1cb6ca6e706512836703ab1fb08f7"
 }
