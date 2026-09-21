@@ -10,7 +10,7 @@ author_excerpts=json.loads((BASE/'content/author-provided-copy.json').read_text(
 def clean(s): return re.sub(r'\s+',' ',s).strip()
 ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Annotation protocol','01','02','03','04','05','TL;DR','Paper','GitHub','Hugging Face','🤗','1','2','3','Finding 1','Finding 2','Finding 3'}
 ui.update({'Image Generation · I2I','Image Understanding · I2T',
- 'Click a node to explore','OmniTaskonomy','I2I','I2T','Counts: I2T evaluation samples','v13 results',
+ 'Click a node to explore','OmniTaskonomy','I2I','I2T',
  'Benchmark',
  'Hover to magnify · click to pin','Negative','Positive','Row maximum','I2I supervision task',
  'I2T capability','−15 pp','+15 pp','Close'})

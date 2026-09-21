@@ -345,7 +345,7 @@ footer a { color:#718295; }
 @media print { .ut-tree-toolbar,.ut-map-toolbar,.ut-map-guide,.ut-pinned-detail { display:none; }.ut-map-scroll { overflow:visible; }.ut-cell-value { opacity:1; } }
 
 /* All prose uses one face and size, including mobile and expanded sample text. */
-:root { --body-font:'Times New Roman',Times,'Liberation Serif',serif; --body-size:1.075rem; }
+:root { --body-font:'Times New Roman',Times,'Liberation Serif',serif; --body-size:1.15rem; }
 p[data-manuscript-excerpt], p[data-author-copy], .tldr-questions,
 .recipe-description, .recipe-id, .recipe-route,
 figcaption, .teaser figcaption, .site-credit,

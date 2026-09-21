@@ -50,7 +50,6 @@ export function InteractiveTaxonomy() {
         </div>;
       })}
     </div>
-    <div className="ut-tree-note"><span>Counts: I2T evaluation samples</span><span>v13 results</span></div>
     <p className="ut-extension-note" data-manuscript-excerpt="taxonomy_extensions">{manuscriptContent.excerpts.taxonomy_extensions.text}</p>
     <Dialog open={selected !== null} onOpenChange={open => { if (!open) setSelected(null); }}>
       <DialogContent className="ut-leaf-dialog" finalFocus={trigger} showCloseButton={false}>
