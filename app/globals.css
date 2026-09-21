@@ -185,7 +185,7 @@ h3 { font-size:1.65rem; line-height:1.2; margin:0 0 17px; color:#365872; }
 .gradient-chart-detail { display:flex; align-items:center; flex-wrap:wrap; gap:10px 25px; min-height:52px; padding:11px 20px; border-top:1px solid #dde7ef; color:#40576c; font-size:1rem; }
 .gradient-chart-detail strong { min-width:155px; }
 .gradient-chart-detail b { font-variant-numeric:tabular-nums; color:#263e54; }
-.gradient-norm-layout { max-width:650px; margin:8px auto 38px; }
+.gradient-norm-layout { max-width:700px; margin:8px auto 38px; }
 .gradient-norm-layout>figure { max-width:none; }
 .gradient-norm-chart { border:1px solid #dfe7ef; border-radius:12px; overflow:hidden; background:#fff; box-shadow:0 12px 32px #334e6910; color:var(--body-copy); }
 .gradient-norm-plot { display:block; width:100%; height:auto; min-width:650px; max-width:none; font-family:'Times New Roman',Times,serif; }
