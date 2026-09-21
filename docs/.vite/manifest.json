@@ -14,8 +14,8 @@
       "_rolldown-runtime-C60lm6uB.js"
     ]
   },
-  "_manuscript-excerpts-C3f4PwcP.js": {
-    "file": "_next/static/chunks/manuscript-excerpts-C3f4PwcP.js",
+  "_manuscript-excerpts-C-quFsGP.js": {
+    "file": "_next/static/chunks/manuscript-excerpts-C-quFsGP.js",
     "name": "manuscript-excerpts"
   },
   "_rolldown-runtime-C60lm6uB.js": {
@@ -23,20 +23,20 @@
     "name": "rolldown-runtime"
   },
   "components/gradient-bars.tsx": {
-    "file": "_next/static/chunks/gradient-bars-CwPm8o1z.js",
+    "file": "_next/static/chunks/gradient-bars-CcUR31Fs.js",
     "name": "gradient-bars",
     "src": "components/gradient-bars.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-C60lm6uB.js",
-      "_manuscript-excerpts-C3f4PwcP.js",
+      "_manuscript-excerpts-C-quFsGP.js",
       "_framework-D_rUT4EX.js"
     ]
   },
-  "components/gradient-norms.tsx": {
-    "file": "_next/static/chunks/gradient-norms-DXC6__4Y.js",
-    "name": "gradient-norms",
-    "src": "components/gradient-norms.tsx",
+  "components/gradient-transfer-scatter.tsx": {
+    "file": "_next/static/chunks/gradient-transfer-scatter-BX7JNqTk.js",
+    "name": "gradient-transfer-scatter",
+    "src": "components/gradient-transfer-scatter.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-C60lm6uB.js",
@@ -44,19 +44,19 @@
     ]
   },
   "components/interactive-figures.tsx": {
-    "file": "_next/static/chunks/interactive-figures-BoSYHW9-.js",
+    "file": "_next/static/chunks/interactive-figures-DZGC6qCj.js",
     "name": "interactive-figures",
     "src": "components/interactive-figures.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-C60lm6uB.js",
-      "_manuscript-excerpts-C3f4PwcP.js",
+      "_manuscript-excerpts-C-quFsGP.js",
       "_Icon-COpRllaJ.js",
       "_framework-D_rUT4EX.js"
     ]
   },
   "node_modules/vinext/dist/shims/internal/app-route-prefetch-policy.js": {
-    "file": "_next/static/chunks/app-route-prefetch-policy-brj_Ldkn.js",
+    "file": "_next/static/chunks/app-route-prefetch-policy-BWtoP0ig.js",
     "name": "app-route-prefetch-policy",
     "src": "node_modules/vinext/dist/shims/internal/app-route-prefetch-policy.js",
     "isDynamicEntry": true,
@@ -65,7 +65,7 @@
     ]
   },
   "node_modules/vinext/dist/shims/layout-segment-context.js": {
-    "file": "_next/static/chunks/layout-segment-context-DtnYuHXR.js",
+    "file": "_next/static/chunks/layout-segment-context-BW1jHnqJ.js",
     "name": "layout-segment-context",
     "src": "node_modules/vinext/dist/shims/layout-segment-context.js",
     "isDynamicEntry": true,
@@ -86,7 +86,7 @@
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "_next/static/chunks/index-BBz07iol.js",
+    "file": "_next/static/chunks/index-BPMT6MDL.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
@@ -99,8 +99,8 @@
       "virtual:vinext-app-browser-entry",
       "components/interactive-figures.tsx",
       "node_modules/vinext/dist/shims/layout-segment-context.js",
-      "components/gradient-norms.tsx",
       "_Icon-COpRllaJ.js",
+      "components/gradient-transfer-scatter.tsx",
       "node_modules/vinext/dist/shims/streamed-icons.js",
       "components/gradient-bars.tsx"
     ]
