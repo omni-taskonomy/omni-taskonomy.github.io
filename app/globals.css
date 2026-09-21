@@ -90,7 +90,8 @@ figcaption { color:var(--body-secondary); font-size:.95rem; line-height:1.75; te
 .bubble-key i:nth-child(3) { width:15px; height:15px; }
 .section-nav { position:sticky; top:0; z-index:10; border-block:1px solid var(--border); background:rgba(255,255,255,.97); backdrop-filter:blur(12px); overflow-x:auto; }
 .nav-inner { display:flex; justify-content:center; align-items:center; gap:26px; min-height:55px; padding:8px 20px; margin:auto; width:max-content; max-width:100%; }
-.nav-inner a { white-space:nowrap; color:#687583; font-family:'Cormorant Garamond',Georgia,serif; font-size:1.25rem; font-weight:500; line-height:1.35; padding:7px 0; }
+.nav-inner a { display:inline-block; white-space:nowrap; color:#687583; font-family:'Cormorant Garamond',Georgia,serif; font-size:1.25rem; font-weight:500; line-height:1.35; padding:7px 0; }
+.nav-inner a::first-letter { text-transform:uppercase; }
 .nav-inner a:hover { color:#326eb1; text-decoration:none; }
 .chapter { padding:65px 0 60px; border-bottom:1px solid #edf0f3; }
 .chapter-tinted { background:#f8fafc; }
@@ -241,6 +242,7 @@ footer a { color:#718295; }
 /* Native interactive figures inherit the manuscript page's typography. */
 .interactive-figure { max-width:1080px; margin:32px auto; }
 .interactive-figure > figcaption { margin-top:21px; }
+#taxonomy .ut-extension-note,#taxonomy .interactive-figure > figcaption { width:min(900px,100%); margin-left:auto; margin-right:auto; }
 .ut-figure { font-family:var(--body-font); color:#293d4e; font-size:15px; line-height:1.45; text-align:left; }
 .ut-figure button { cursor:pointer; font-family:inherit; }
 .ut-figure button:focus-visible { outline:2px solid #286bbb; outline-offset:3px; }

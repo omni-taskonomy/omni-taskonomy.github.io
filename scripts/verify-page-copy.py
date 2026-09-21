@@ -84,8 +84,9 @@ assert 'Original paper figure' not in html and 'class="ut-modalities"' not in ht
 assert 'id="citation"' in html and '<code>% BibTeX pending.</code>' in html
 assert set(audit.author_matched)==set(author_excerpts),audit.author_matched
 assert sum(k=='data-v12-metric' for k,v in audit.v12_matched)==19*17
-assert audit.selects==['Benchmark','Gradient metric'],audit.selects
-assert sorted(audit.visual_sources)==sorted(['controlled-gradient-json','checkpoint-norm-csv','minibatch-gradient-html']),audit.visual_sources
+assert audit.selects==['Benchmark'],audit.selects
+assert sorted(audit.visual_sources)==sorted(['controlled-gradient-json','checkpoint-norm-csv']),audit.visual_sources
+assert 'Minibatch gradient alignment' not in html
 assert all(v.split('|')[3]=='delta' for k,v in audit.v12_matched if k=='data-v12-metric')
 assert len({v for k,v in audit.v12_matched if k=='data-v12-copy' and v.startswith('leaf|') and v.endswith('|name')})==42
 print(json.dumps({'source_commit':book['manuscript_commit'],'rendered_excerpt_instances':len(audit.matched),'unique_rendered_excerpts':len(set(audit.matched)),'author_provided_excerpts':len(audit.author_matched),'manuscript_derived_image_alts':audit.images,'v12_source_and_numeric_records':len(audit.v12_matched),'metadata_verbatim':audit.description,'unmapped_research_text':0},indent=2))
