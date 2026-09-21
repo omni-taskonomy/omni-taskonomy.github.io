@@ -196,7 +196,6 @@ export default function Home() {
 
       <section id="transfer" className="chapter chapter-tinted"><div className="shell">
         <Heading id="transfer_heading" number="04" />
-        <aside className="method-note experiment-setup"><Passage id="transfer_scope" /></aside>
         <figure className="interactive-figure"><InteractiveTransferMap /></figure>
         <Passage id="transfer_lead" className="section-lead" />
         <div className="two-columns results-notes">

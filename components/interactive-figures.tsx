@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { NativeSelect } from '@/components/ui/native-select';
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import manuscriptContent from '@/content/manuscript-excerpts.json';
 import { data, leaves, familyColors, metric, number, fill, rowsFor, modelsFor, sourceCopy, treeLeavesFor, viewLabel, type Leaf } from '@/lib/unitaskonomy';
 
 function V({ id }: { id: string }) { return <span data-v12-copy={id}>{sourceCopy(id)}</span>; }
@@ -50,7 +49,6 @@ export function InteractiveTaxonomy() {
         </div>;
       })}
     </div>
-    <p className="ut-extension-note" data-manuscript-excerpt="taxonomy_extensions">{manuscriptContent.excerpts.taxonomy_extensions.text}</p>
     <Dialog open={selected !== null} onOpenChange={open => { if (!open) setSelected(null); }}>
       <DialogContent className="ut-leaf-dialog" finalFocus={trigger} showCloseButton={false}>
         <div className="ut-dialog-close-bar"><DialogClose render={<Button variant="ghost" size="icon" aria-label="Close" />}><X size={20} /></DialogClose></div>
