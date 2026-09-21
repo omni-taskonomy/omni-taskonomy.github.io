@@ -122,7 +122,7 @@ function Figure({ name, caption, captionOverride, width, height, eager = false, 
         </a>
       </div>
     </div>
-    {showCaption && <figcaption>{captionOverride
+    {showCaption && <figcaption className="figure-caption">{captionOverride
       ? <span data-author-copy={captionOverride}>{formatted(captionValue)}</span>
       : <span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(captionValue, emphasis[caption])}</span>}
       {note && <a href={`#${note}`} className="footnote-ref" aria-label="Training recipe definitions"><sup>1</sup></a>}</figcaption>}
@@ -132,7 +132,7 @@ function Figure({ name, caption, captionOverride, width, height, eager = false, 
 function InteractiveFigure({ caption, children }: { caption: ExcerptId; children: ReactNode }) {
   return <figure className="interactive-figure">
     {children}
-    <figcaption><span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(text(caption), emphasis[caption])}</span></figcaption>
+    <figcaption className="figure-caption"><span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(text(caption), emphasis[caption])}</span></figcaption>
   </figure>;
 }
 
@@ -175,7 +175,7 @@ export default function Home() {
       <section id="controlled" className="chapter"><div className="shell">
         <Heading id="controlled_heading" number="01" />
         <Passage id="controlled_lead" className="section-lead" />
-        <Figure name="controlled-tasks" caption="controlled_caption" width={2593} height={405} />
+        <Figure name="controlled-tasks" caption="controlled_caption" captionOverride="controlled_caption_web" width={2593} height={405} />
         <div className="two-columns supporting-copy"><Passage id="controlled_inputs" /><Passage id="controlled_output" /></div>
       </div></section>
 
@@ -212,7 +212,7 @@ export default function Home() {
           <div className="alignment-visuals">
             <GradientBars />
           </div>
-          <figcaption><span data-manuscript-excerpt="alignment_caption" data-source={source('alignment_caption')}>{formatted(text('alignment_caption'), emphasis.alignment_caption)}</span></figcaption>
+          <figcaption className="figure-caption"><span data-author-copy="alignment_bars_caption_web">{formatted(authorExcerpts.alignment_bars_caption_web.text)}</span></figcaption>
         </figure>
         <figure className="interactive-figure"><GradientTransferScatter /></figure>
         <div className="analysis-copy prose"><Passage id="alignment_results" /><Passage id="alignment_lead" /></div>
