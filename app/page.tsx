@@ -121,7 +121,6 @@ function Figure({ name, caption, width, height, eager = false, className = '', n
           <img src={`/figures/${name}.png`} alt={text(caption)} width={width} height={height} loading={eager ? 'eager' : 'lazy'} />
         </a>
       </div>
-      <div className="figure-actions"><span className="mobile-hint">Swipe to explore</span><a className="figure-expand" href={`/figures/${name}.png`} target="_blank" rel="noreferrer">View full size ↗</a></div>
     </div>
     {showCaption && <figcaption><span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(text(caption), emphasis[caption])}</span>{note && <a href={`#${note}`} className="footnote-ref" aria-label="Training recipe definitions"><sup>1</sup></a>}</figcaption>}
   </figure>;
@@ -143,13 +142,7 @@ function ArchitectureFigure() {
           <img src={`/figures/${name}.svg`} alt={text('bagel_architecture_caption')} loading="lazy" />
         </a>
       </div>
-      <div className="figure-actions">
-        <span className="mobile-hint">Swipe to explore</span>
-        <a className="figure-expand" href={`/figures/${name}.svg`} target="_blank" rel="noreferrer">View full size ↗</a>
-        <a className="figure-expand" href="https://github.com/ByteDance-Seed/Bagel/blob/a2fa77dd8caeefc41e6607ae0ec17408d3f4ee9f/modeling/bagel/qwen2_navit.py#L381-L755" target="_blank" rel="noreferrer">Source code ↗</a>
-      </div>
     </div>
-    <figcaption data-manuscript-excerpt="bagel_architecture_caption" data-source={source('bagel_architecture_caption')}>{formatted(text('bagel_architecture_caption'))}</figcaption>
   </figure>;
 }
 
@@ -226,8 +219,8 @@ export default function Home() {
         <Heading id="alignment_heading" number="05" />
         <aside className="method-note experiment-setup"><Passage id="alignment_setup" /></aside>
         <div className="alignment-visuals">
-          <InteractiveFigure caption="alignment_caption"><GradientBars /></InteractiveFigure>
           <ArchitectureFigure />
+          <InteractiveFigure caption="alignment_caption"><GradientBars /></InteractiveFigure>
         </div>
         <div className="gradient-norm-layout"><InteractiveFigure caption="alignment_norms_caption"><GradientNorms /></InteractiveFigure></div>
         <div className="analysis-copy prose"><Passage id="alignment_results" /><Passage id="alignment_lead" /></div>

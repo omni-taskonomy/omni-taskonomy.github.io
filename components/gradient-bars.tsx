@@ -34,10 +34,6 @@ export function GradientBars() {
         <button type="button" role="tab" aria-selected={view === 'modules'} onClick={() => choose('modules')}>Module groups</button>
         <button type="button" role="tab" aria-selected={view === 'layers'} onClick={() => choose('layers')}>RMSNorm layers</button>
       </div>
-      <div className="gradient-data-links">
-        <a href="/data/jigsaw-zoomin-four-charts.json" target="_blank" rel="noreferrer">Data JSON ↗</a>
-        <a href="/figures/gradient-transfer-overview.svg" target="_blank" rel="noreferrer">Full figure ↗</a>
-      </div>
     </div>
     <div className="gradient-chart-legend"><span><i className="jigsaw" />Jigsaw</span><span><i className="zoomin" />Zoom-In</span><span data-manuscript-excerpt="alignment_scale">{manuscript.excerpts.alignment_scale.text}</span></div>
     <div className="gradient-chart-scroll" role="region" aria-label={view === 'modules' ? 'Module alignment bars' : 'RMSNorm layer alignment bars'} tabIndex={0}>

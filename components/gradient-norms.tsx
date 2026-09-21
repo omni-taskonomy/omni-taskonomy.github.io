@@ -19,10 +19,6 @@ export function GradientNorms() {
   return <div className="gradient-norm-chart" data-visual-source="checkpoint-norm-csv">
     <div className="gradient-chart-head">
       <strong>I2T gradient norms</strong>
-      <div className="gradient-data-links">
-        <a href="/data/training-gradient-norms.csv" target="_blank" rel="noreferrer">Data CSV ↗</a>
-        <a href="/data/training-gradient-norms-metadata.json" target="_blank" rel="noreferrer">Metadata ↗</a>
-      </div>
     </div>
     <div className="gradient-chart-legend"><span><i className="jigsaw" />Jigsaw</span><span><i className="zoomin" />Zoom-In</span></div>
     <div className="gradient-chart-scroll" role="region" aria-label="Checkpoint gradient norms" tabIndex={0}>
