@@ -15,6 +15,7 @@ ui.update({'Image Generation · I2I','Image Understanding · I2T',
  'Hover to magnify · click to pin','Negative','Positive','p < 0.05','I2I supervision task',
  'I2T capability','−15 pp','+15 pp','Close'})
 ui.update({'Swipe to explore', 'Swipe to explore · tap a cell', 'Citation', '% BibTeX pending.', 'Module groups', 'RMSNorm layers', 'Full figure ↗', 'Source code ↗', 'Jigsaw', 'Zoom-In', 'Minibatch gradient alignment'})
+ui.add('Outlined: p < 0.05 (two-sided paired permutation test vs. I2T-only)')
 gradient=json.loads((BASE/'content/gradient-bars-v13.json').read_text())
 ui.update(gradient['module_labels'])
 ui.update('Layer '+str(i) for i in range(28))
@@ -34,7 +35,7 @@ class Audit(HTMLParser):
   if tag=='meta' and attrs.get('name')=='description':
    assert attrs['content']==excerpts['description']['text'];self.description=True
   if tag=='img':
-   assert attrs.get('alt') in {v['text'] for v in excerpts.values()},'Unmapped image alt text';self.images+=1
+   assert attrs.get('alt') in ({v['text'] for v in excerpts.values()} | {v['text'] for v in author_excerpts.values()}),'Unmapped image alt text';self.images+=1
   key=attrs.get('data-manuscript-excerpt')
   author_key=attrs.get('data-author-copy')
   v12_key=next(((kind,attrs[kind]) for kind in ('data-v12-copy','data-v12-metric','data-v12-view') if kind in attrs),None)

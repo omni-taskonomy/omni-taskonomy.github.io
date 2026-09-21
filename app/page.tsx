@@ -104,7 +104,7 @@ function RecipeNote() {
       const stop = value.indexOf('. ');
       return <li key={id} className={`recipe-item recipe-${index + 1}`} data-author-copy={id}>
         <div className="recipe-item-header"><span className="recipe-id">{value.slice(0, colon + 1)}</span>{' '}<RecipeRoute value={value.slice(colon + 2, stop + 1)} /></div>{' '}
-        <p className="recipe-description">{formatted(value.slice(stop + 2), ['updating', 'frozen'])}</p>
+        <p className="recipe-description">{formatted(value.slice(stop + 2), ['updating the shared understanding weights', 'shared understanding weights frozen'])}</p>
       </li>;
     })}</ol>
   </aside>;
@@ -112,16 +112,20 @@ function RecipeNote() {
 function Heading({ id, number }: { id: ExcerptId; number: string }) {
   return <div className="section-heading"><span className="section-index" aria-hidden="true">{number}</span><h2 data-manuscript-excerpt={id} data-source={source(id)}>{formatted(text(id))}</h2></div>;
 }
-function Figure({ name, caption, width, height, eager = false, className = '', note, showCaption = true }: { name: string; caption: ExcerptId; width: number; height: number; eager?: boolean; className?: string; note?: string; showCaption?: boolean }) {
+function Figure({ name, caption, captionOverride, width, height, eager = false, className = '', note, showCaption = true }: { name: string; caption: ExcerptId; captionOverride?: AuthorId; width: number; height: number; eager?: boolean; className?: string; note?: string; showCaption?: boolean }) {
+  const captionValue = captionOverride ? authorExcerpts[captionOverride].text : text(caption);
   return <figure className={className}>
     <div className="figure-frame" style={{ '--figure-mobile-width': width > 1500 ? '820px' : '740px' } as CSSProperties}>
       <div className="figure-viewport" tabIndex={0} role="region" aria-label="Scrollable figure">
         <a className="figure-link" href={`/figures/${name}.png`} target="_blank" rel="noreferrer" aria-label="Open full-resolution figure">
-          <img src={`/figures/${name}.png`} alt={text(caption)} width={width} height={height} loading={eager ? 'eager' : 'lazy'} />
+          <img src={`/figures/${name}.png`} alt={captionValue} width={width} height={height} loading={eager ? 'eager' : 'lazy'} />
         </a>
       </div>
     </div>
-    {showCaption && <figcaption><span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(text(caption), emphasis[caption])}</span>{note && <a href={`#${note}`} className="footnote-ref" aria-label="Training recipe definitions"><sup>1</sup></a>}</figcaption>}
+    {showCaption && <figcaption>{captionOverride
+      ? <span data-author-copy={captionOverride}>{formatted(captionValue)}</span>
+      : <span data-manuscript-excerpt={caption} data-source={source(caption)}>{formatted(captionValue, emphasis[caption])}</span>}
+      {note && <a href={`#${note}`} className="footnote-ref" aria-label="Training recipe definitions"><sup>1</sup></a>}</figcaption>}
   </figure>;
 }
 
@@ -178,7 +182,7 @@ export default function Home() {
       <section id="recipe" className="chapter chapter-tinted"><div className="shell">
         <Heading id="recipe_heading" number="02" />
         <RecipeNote />
-        <Figure name="scaling" caption="scaling_caption" width={2593} height={875} note="training-recipes" />
+        <Figure name="scaling" caption="scaling_caption" captionOverride="scaling_caption_web" width={2593} height={875} note="training-recipes" />
         <Passage id="recipe_result" className="section-lead" />
         <blockquote className="finding"><Passage id="recipe_finding" /></blockquote>
       </div></section>
@@ -193,7 +197,7 @@ export default function Home() {
       <section id="transfer" className="chapter chapter-tinted"><div className="shell">
         <Heading id="transfer_heading" number="04" />
         <aside className="method-note experiment-setup"><Passage id="transfer_scope" /></aside>
-        <InteractiveFigure caption="transfer_caption"><InteractiveTransferMap /></InteractiveFigure>
+        <figure className="interactive-figure"><InteractiveTransferMap /></figure>
         <Passage id="transfer_lead" className="section-lead" />
         <div className="two-columns results-notes">
           <div><h3 data-manuscript-excerpt="related_heading">{formatted(text('related_heading'))}</h3><Passage id="related_example" /><Passage id="depth_example" /></div>
@@ -210,7 +214,7 @@ export default function Home() {
           </div>
           <figcaption><span data-manuscript-excerpt="alignment_caption" data-source={source('alignment_caption')}>{formatted(text('alignment_caption'), emphasis.alignment_caption)}</span></figcaption>
         </figure>
-        <InteractiveFigure caption="alignment_transfer_caption"><GradientTransferScatter /></InteractiveFigure>
+        <figure className="interactive-figure"><GradientTransferScatter /></figure>
         <div className="analysis-copy prose"><Passage id="alignment_results" /><Passage id="alignment_lead" /></div>
         <blockquote className="finding"><Passage id="alignment_finding" /></blockquote>
       </div></section>

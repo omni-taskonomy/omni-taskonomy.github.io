@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import source from '@/content/gradient-transfer-scatter.json';
+import authorCopy from '@/content/author-provided-copy.json';
 
 type Family = keyof typeof source.families;
 type CapabilityPoint = (typeof source.capability.points)[number];
@@ -9,6 +10,7 @@ type PairPoint = (typeof source.pairs.points)[number];
 
 const familyColors: Record<Family, string> = { REC: '#0064e0', RCN: '#76aae7', RORG: '#ac97cc' };
 const familyNames = source.families as Record<Family, string>;
+const captions = authorCopy.excerpts;
 const capabilityLabels: Record<string, string> = {
   'i2t:CATEGORY_INSTANCE': 'Category',
   'i2t:COLOR_MATERIAL': 'Appearance',
@@ -49,7 +51,7 @@ function ScatterFrame({ kind, children }: { kind: 'capability' | 'pairs'; childr
 function CapabilityScatter() {
   const [selected, setSelected] = useState<CapabilityPoint>(source.capability.points[0]);
   return <article className="association-card">
-    <div className="association-title"><strong>(c) Transfer by capability</strong><span>r = {source.capability.correlation.toFixed(3)}</span></div>
+    <div className="association-title"><strong>Transfer by capability</strong><span>r = {source.capability.correlation.toFixed(3)}</span></div>
     <ScatterFrame kind="capability">{({ x, y, domain }) => <>
       <Regression domain={domain} line={source.capability.regression} x={x} y={y} />
       {source.capability.points.map(point => {
@@ -60,6 +62,7 @@ function CapabilityScatter() {
         </g>;
       })}
     </>}</ScatterFrame>
+    <p className="association-card-caption" data-author-copy="alignment_capability_caption_web">{captions.alignment_capability_caption_web.text}</p>
     <div className="association-detail" role="status"><strong>{selected.name}</strong><span>{familyNames[selected.family as Family]}</span><span>Mean alignment <b>{selected.alignment.toFixed(3)}</b></span><span>Mean transfer <b>{selected.transfer >= 0 ? '+' : ''}{selected.transfer.toFixed(2)} pp</b></span></div>
   </article>;
 }
@@ -67,7 +70,7 @@ function CapabilityScatter() {
 function PairScatter() {
   const [selected, setSelected] = useState<PairPoint>(source.pairs.points[0]);
   return <article className="association-card">
-    <div className="association-title"><strong>(d) Transfer by task pair</strong><span>105 pairs · r = {source.pairs.correlation.toFixed(3)}</span></div>
+    <div className="association-title"><strong>Transfer by task pair</strong><span>105 pairs · r = {source.pairs.correlation.toFixed(3)}</span></div>
     <ScatterFrame kind="pairs">{({ x, y, domain }) => {
       const ellipse = source.pairs.ellipse;
       return <>
@@ -89,6 +92,7 @@ function PairScatter() {
         })}
       </>;
     }}</ScatterFrame>
+    <p className="association-card-caption" data-author-copy="alignment_pair_caption_web">{captions.alignment_pair_caption_web.text}</p>
     <div className="association-detail" role="status"><strong>{selected.source} → {selected.target}</strong><span>{familyNames[selected.target_family as Family]} target</span><span>Alignment <b>{selected.alignment.toFixed(3)}</b></span><span>Transfer <b>{selected.transfer >= 0 ? '+' : ''}{selected.transfer.toFixed(2)} pp</b></span></div>
   </article>;
 }

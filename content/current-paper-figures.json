@@ -16,8 +16,8 @@
     "scaling.png": {
       "source_pdf": "iclr2026/figures/combined_3subfigures_refined_v14.pdf",
       "source_sha256": "f176807069f228885e145a0e0937adc7ca11c8ffce588a1c407e1fdc361ed0cc",
-      "render": "pdftoppm -r 180 -x 0 -y 430 -W 2593 -H 875",
-      "output_sha256": "ef4a298f0bca6a2611686d577e133486ff1b821f82c7c458b6e5c63130d97201"
+      "render": "pdftoppm -r 180 -x 0 -y 430 -W 2593 -H 875; website panels relabeled from (b,c) to (a,b)",
+      "output_sha256": "c9332ea12d597947cedb04131cba600bc230c5a52127d1e517acac54dda34834"
     }
   }
 }
