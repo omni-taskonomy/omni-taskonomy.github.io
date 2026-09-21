@@ -133,9 +133,9 @@ function InteractiveFigure({ caption, children }: { caption: ExcerptId; children
   </figure>;
 }
 
-function ArchitectureFigure() {
+function ArchitecturePanel() {
   const name = 'bagel-attention-architecture';
-  return <figure className="architecture-figure">
+  return <div className="architecture-figure">
     <div className="figure-frame architecture-frame">
       <div className="figure-viewport architecture-viewport" tabIndex={0} role="region" aria-label="Scrollable BAGEL architecture diagram">
         <a className="figure-link" href={`/figures/${name}.svg`} target="_blank" rel="noreferrer" aria-label="Open full-resolution BAGEL architecture diagram">
@@ -143,7 +143,7 @@ function ArchitectureFigure() {
         </a>
       </div>
     </div>
-  </figure>;
+  </div>;
 }
 
 export default function Home() {
@@ -218,10 +218,13 @@ export default function Home() {
       <section id="alignment" className="chapter"><div className="shell">
         <Heading id="alignment_heading" number="05" />
         <aside className="method-note experiment-setup"><Passage id="alignment_setup" /></aside>
-        <div className="alignment-visuals">
-          <ArchitectureFigure />
-          <InteractiveFigure caption="alignment_caption"><GradientBars /></InteractiveFigure>
-        </div>
+        <figure className="interactive-figure alignment-composite">
+          <div className="alignment-visuals">
+            <ArchitecturePanel />
+            <GradientBars />
+          </div>
+          <figcaption><span data-manuscript-excerpt="alignment_caption" data-source={source('alignment_caption')}>{formatted(text('alignment_caption'), emphasis.alignment_caption)}</span></figcaption>
+        </figure>
         <div className="gradient-norm-layout"><InteractiveFigure caption="alignment_norms_caption"><GradientNorms /></InteractiveFigure></div>
         <div className="analysis-copy prose"><Passage id="alignment_results" /><Passage id="alignment_lead" /></div>
         <blockquote className="finding"><Passage id="alignment_finding" /></blockquote>

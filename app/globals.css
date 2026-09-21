@@ -146,10 +146,12 @@ h3 { font-size:1.65rem; line-height:1.2; margin:0 0 17px; color:#365872; }
 .experiment-setup { margin:28px auto; padding-top:0; border-top:0; }
 .analysis-copy { margin-top:24px; color:var(--body-copy); font-size:1.075rem; line-height:1.85; text-align:left; }
 .analysis-copy p:last-child { margin-bottom:0; }
-.alignment-visuals { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.4fr); align-items:start; gap:20px; width:min(1450px,calc(100vw - 64px)); position:relative; left:50%; transform:translateX(-50%); }
-.alignment-visuals > figure { min-width:0; max-width:none; margin:25px 0; }
+.alignment-composite { width:min(1160px,calc(100vw - 64px)); max-width:none; position:relative; left:50%; transform:translateX(-50%); margin:28px 0 36px; }
+.alignment-visuals { display:grid; grid-template-columns:minmax(0,.78fr) minmax(0,1.47fr); align-items:start; gap:20px; width:100%; }
+.alignment-visuals > * { min-width:0; }
 .alignment-visuals .architecture-frame { padding:10px 10px 5px; }
 .alignment-visuals .architecture-frame img { width:100%; }
+.alignment-composite > figcaption { max-width:100%; margin-top:16px; }
 .gradient-chart { width:100%; margin:0; border:1px solid #dfe7ef; border-radius:12px; overflow:hidden; background:#fff; color:var(--body-copy); box-shadow:0 12px 32px #334e6910; }
 .gradient-chart-head { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:16px 20px; border-bottom:1px solid #e6edf3; }
 .gradient-chart-head strong { color:#263e54; font-family:'Cormorant Garamond',Georgia,serif; font-size:1.55rem; }
@@ -222,7 +224,7 @@ h3 { font-size:1.65rem; line-height:1.2; margin:0 0 17px; color:#365872; }
 .gradient-matrix-group-start>* { border-top:5px solid #fff; }
 .gradient-matrix-detail { display:flex; flex-wrap:wrap; gap:6px 20px; align-items:center; min-height:70px; padding:13px 20px; border-top:1px solid #dce6ef; font-variant-numeric:tabular-nums; }
 .gradient-matrix-detail strong { min-width:100%; }
-@media(max-width:1050px) { .alignment-visuals { display:block; width:100%; position:static; transform:none; } .alignment-visuals .architecture-figure { max-width:680px; margin-inline:auto; } }
+@media(max-width:1050px) { .alignment-composite { width:100%; position:static; transform:none; margin-block:24px 34px; } .alignment-visuals { display:block; width:100%; } .alignment-visuals .architecture-figure { max-width:680px; margin:0 auto 20px; } }
 @media(max-width:600px) { .gradient-chart-head { align-items:flex-start; flex-direction:column; padding:14px; gap:9px; } .gradient-chart-legend { padding:11px 14px; } .gradient-chart-scroll { padding:5px 8px; } .gradient-chart-detail { padding:10px 14px; font-size:.94rem; } .gradient-chart-detail strong { flex-basis:100%; } .gradient-matrix-panel>summary { font-size:1.55rem; } .gradient-matrix-controls { padding:12px; } .gradient-matrix-scroll { padding-inline:6px; } .gradient-matrix-detail { padding:12px; } }
 .acknowledgments { max-width:780px; padding:60px 0 48px; text-align:left; }
 .acknowledgments h2 { font-size:2rem; margin-bottom:19px; text-align:center; }
