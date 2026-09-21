@@ -121,7 +121,7 @@ export function InteractiveTransferMap() {
         <label><span>Benchmark</span><NativeSelect className="ut-select" aria-label="Benchmark" value={scope} onChange={e => { setScope(e.target.value); resetSelection(); }}>{data.heatmap.scopes.map(s => <option key={s.id} value={s.id} data-v12-copy={'scope|' + s.id}>{s.label}</option>)}</NativeSelect></label>
       </div>
     </div>
-    <div className="ut-map-guide"><span className="pointer-hint">Hover to magnify · click to pin</span><span className="touch-hint">Swipe to explore · tap a cell</span><span className="ut-color-key"><span><i className="ut-swatch negative" />Negative</span><span><i className="ut-swatch positive" />Positive</span><span><i className="ut-swatch best" />Row maximum</span></span></div>
+    <div className="ut-map-guide"><span className="pointer-hint">Hover to magnify · click to pin</span><span className="touch-hint">Swipe to explore · tap a cell</span><span className="ut-color-key"><span><i className="ut-swatch negative" />Negative</span><span><i className="ut-swatch positive" />Positive</span><span><i className="ut-swatch significant" />p &lt; 0.05</span></span></div>
     <TooltipProvider delay={70}>
       <div className="ut-map-scroll" ref={grid} tabIndex={0} role="region" aria-label="Transfer matrix; use arrow keys to move between cells">
         <table className="ut-map">
@@ -132,24 +132,22 @@ export function InteractiveTransferMap() {
           </thead>
           <tbody>{rows.map((row, ri) => {
             const values = columns.map(m => metric(scope, row.id, m.id).delta);
-            const valid = values.filter((v): v is number => v !== null);
-            const maximum = valid.length ? Math.max(...valid) : null;
             const family = leaves.get(row.id)!.family;
             const start = ri === 0 || leaves.get(rows[ri - 1].id)!.family !== family;
             return <tr key={row.id} className={(start ? 'ut-family-start ' : '') + (active?.row === row.id ? 'ut-row-active' : '')} style={{ '--ut-family': familyColors[family] } as CSSProperties}>
               <th scope="row"><V id={'leaf|' + row.id + '|name'} /></th>
               {columns.map((model, ci) => {
-                const value = values[ci], best = value !== null && maximum !== null && Math.abs(value - maximum) < 1e-9;
+                const value = values[ci], significant = metric(scope, row.id, model.id).pValue !== null && metric(scope, row.id, model.id).pValue! < 0.05;
                 const isPinned = pinned?.row === row.id && pinned.model === model.id;
                 return <td key={model.id}><Tooltip disabled={!!pinned}>
-                  <TooltipTrigger render={<button type="button" className={'ut-cell' + (best ? ' ut-best' : '') + (isPinned ? ' ut-pinned' : '') + (value === null ? ' ut-missing' : '')}
+                  <TooltipTrigger render={<button type="button" className={'ut-cell' + (significant ? ' ut-significant' : '') + (isPinned ? ' ut-pinned' : '') + (value === null ? ' ut-missing' : '')}
                     data-cell={ri + '-' + ci} tabIndex={focus[0] === ri && focus[1] === ci ? 0 : -1}
-                    aria-label={row.name + ', ' + model.name + ', ' + (value === null ? 'No evaluation samples' : number(value, 2, true) + ' percentage points') + (best ? ', row maximum' : '')}
+                    aria-label={row.name + ', ' + model.name + ', ' + (value === null ? 'No evaluation samples' : number(value, 2, true) + ' percentage points') + (significant ? ', p less than 0.05' : '')}
                     aria-pressed={isPinned}
                     onPointerEnter={() => setActive({ row: row.id, model: model.id })} onPointerLeave={() => setActive(null)}
                     onFocus={() => { setFocus([ri, ci]); setActive({ row: row.id, model: model.id }); }} onBlur={() => setActive(null)}
                     onKeyDown={e => navigate(e, ri, ci)} onClick={() => setPinned(isPinned ? null : { row: row.id, model: model.id })}>
-                    <span className="ut-tile" style={{ background: fill(value, 'delta'), color: value !== null && Math.abs(value) >= 11 ? '#fff' : '#22384c' }}><span className="ut-cell-value"><Value scope={scope} row={row.id} model={model.id} /></span></span>
+                    <span className="ut-tile" style={{ background: fill(value, 'delta'), color: value !== null && Math.abs(value) >= 11 ? '#fff' : '#22384c' }}><span className="ut-cell-value"><Value scope={scope} row={row.id} model={model.id} />{significant && <sup>*</sup>}</span></span>
                   </button>} />
                   <TooltipContent className="ut-cell-tooltip" side="top" sideOffset={12}><CellDetail scope={scope} cell={{ row: row.id, model: model.id }} /></TooltipContent>
                 </Tooltip></td>;

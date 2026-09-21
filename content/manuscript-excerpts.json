@@ -1,6 +1,6 @@
 {
   "manuscript_project": "https://www.overleaf.com/project/69d99c42c6f3e61ae13f54f1",
-  "manuscript_commit": "de3aeb1a3158b9785ab8f13efaee8ce5898b81cf",
+  "manuscript_commit": "5bc4f423bd22acd2505d62135f1aa9ffd0140a61",
   "rendering": "Contiguous source excerpts with only LaTeX typography and method macro expanded.",
   "excerpts": {
     "title": {
@@ -70,7 +70,7 @@
         "start_line": 37,
         "end_line": 37,
         "raw_tex": "Image-generation supervision benefits complementary visual capabilities: useful transfer can follow shared visual requirements and cross task-family boundaries.",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "alignment_finding": {
@@ -210,77 +210,77 @@
         "start_line": 1,
         "end_line": 1,
         "raw_tex": "\\section{\\methodname: A Unified Taxonomy of Visual Capabilities}",
-        "file_sha256": "10a8f6808e4dcb3293c243919561328084497648cee6813b4294fee27a2c149c"
+        "file_sha256": "20e481c1c954675237f1da5d401b8d694a9bd99a0b64e6496f15d2c871e52682"
       }
     },
     "taxonomy_lead": {
-      "text": "We introduce OmniTaskonomy, a shared hierarchy that organizes I2I supervision objectives and I2T evaluation capabilities according to the visual information they target, rather than their output modality.",
+      "text": "We introduce OmniTaskonomy, a shared hierarchy that relates I2I tasks to understanding capabilities based on the visual information they require, rather than their output modality.",
       "source": {
         "file": "iclr2026/sections/4_taxonomy.tex",
         "start_line": 8,
         "end_line": 8,
-        "raw_tex": "We introduce \\methodname, a shared hierarchy that organizes I2I supervision objectives and I2T evaluation capabilities according to the visual information they target, rather than their output modality.",
-        "file_sha256": "10a8f6808e4dcb3293c243919561328084497648cee6813b4294fee27a2c149c"
+        "raw_tex": "We introduce \\methodname, a shared hierarchy that relates I2I tasks to understanding capabilities based on the visual information they require, rather than their output modality.",
+        "file_sha256": "20e481c1c954675237f1da5d401b8d694a9bd99a0b64e6496f15d2c871e52682"
       }
     },
     "taxonomy_caption": {
-      "text": "A unified taxonomy of visual tasks organized into three broad families: Recognition, Reconstruction, and Reorganization. Each leaf is explicitly typed as either an I2I supervision objective or an I2T evaluation capability, allowing the two modalities to share the same visual hierarchy without conflating their task identities.",
+      "text": "A unified taxonomy of visual tasks organized into three broad families: Recognition, Reconstruction, and Reorganization. Each leaf is explicitly typed as either an I2I task or an understanding capability, allowing the two modalities to share the same visual hierarchy without conflating their task identities.",
       "source": {
         "file": "iclr2026/sections/4_taxonomy.tex",
         "start_line": 20,
         "end_line": 20,
-        "raw_tex": "A unified taxonomy of visual tasks organized into three broad families: \\textit{Recognition}, \\textit{Reconstruction}, and \\textit{Reorganization}. Each leaf is explicitly typed as either an I2I supervision objective or an I2T evaluation capability, allowing the two modalities to share the same visual hierarchy without conflating their task identities.",
-        "file_sha256": "10a8f6808e4dcb3293c243919561328084497648cee6813b4294fee27a2c149c"
+        "raw_tex": "A unified taxonomy of visual tasks organized into three broad families: \\textit{Recognition}, \\textit{Reconstruction}, and \\textit{Reorganization}. Each leaf is explicitly typed as either an I2I task or an understanding capability, allowing the two modalities to share the same visual hierarchy without conflating their task identities.",
+        "file_sha256": "20e481c1c954675237f1da5d401b8d694a9bd99a0b64e6496f15d2c871e52682"
       }
     },
     "taxonomy_annotation": {
-      "text": "Once the capability vocabulary is finalized, we separately assign each I2T benchmark sample to its primary capability leaf. To scale this annotation, three independent LLM judges label each sample according to the finalized taxonomy and annotation guidelines, and the final label is determined by majority vote. A sample is retained when at least two of the three judges agree on its label, and samples without a two-of-three consensus are excluded.",
+      "text": "Once the capability is finalized, we assign each I2T benchmark sample to a capability leaf. To scale this annotation, we use three independent LLM judges to label each sample using the finalized taxonomy definitions and annotation guidelines. We keep a sample when at least two of the three judges agree on the same capability and use the majority label as its final assignment, and samples without a two-of-three consensus are excluded.",
       "source": {
         "file": "iclr2026/sections/4_taxonomy.tex",
-        "start_line": 71,
-        "end_line": 73,
-        "raw_tex": "Once the capability vocabulary is finalized, we separately assign each I2T benchmark sample to its primary capability leaf.\nTo scale this annotation, three independent LLM judges label each sample according to the finalized taxonomy and annotation guidelines, and the final label is determined by majority vote.\nA sample is retained when at least two of the three judges agree on its label, and samples without a two-of-three consensus are excluded.",
-        "file_sha256": "10a8f6808e4dcb3293c243919561328084497648cee6813b4294fee27a2c149c"
+        "start_line": 63,
+        "end_line": 65,
+        "raw_tex": "Once the capability is finalized, we assign each I2T benchmark sample to a capability leaf.\nTo scale this annotation, we use three independent LLM judges to label each sample using the finalized taxonomy definitions and annotation guidelines.\nWe keep a sample when at least two of the three judges agree on the same capability and use the majority label as its final assignment, and samples without a two-of-three consensus are excluded.",
+        "file_sha256": "20e481c1c954675237f1da5d401b8d694a9bd99a0b64e6496f15d2c871e52682"
       }
     },
     "transfer_heading": {
-      "text": "Which generation data help which visual capabilities?",
+      "text": "Which generation tasks help which understanding capabilities?",
       "source": {
         "file": "iclr2026/sections/5_analysis.tex",
-        "start_line": 14,
-        "end_line": 14,
-        "raw_tex": "\\section{Which generation data help which visual capabilities?}",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "start_line": 13,
+        "end_line": 13,
+        "raw_tex": "\\section{Which generation tasks help which understanding capabilities?}",
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "transfer_scope": {
-      "text": "We now evaluate the 15 I2I task types in OmniTaskonomy and two additional objectives, inpainting and localization, across its 25 I2T capabilities.",
+      "text": "We now evaluate the 19 I2I tasks in OmniTaskonomy across its 25 understanding capabilities.",
       "source": {
         "file": "iclr2026/sections/5_analysis.tex",
         "start_line": 16,
         "end_line": 16,
-        "raw_tex": "We now evaluate the 15 I2I task types in \\methodname and two additional objectives, inpainting and localization, across its 25 I2T capabilities.",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "raw_tex": "We now evaluate the 19 I2I tasks in \\methodname across its 25 understanding capabilities.",
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "taxonomy_extensions": {
-      "text": "We now evaluate the 15 I2I task types in OmniTaskonomy and two additional objectives, inpainting and localization, across its 25 I2T capabilities.",
+      "text": "We now evaluate the 19 I2I tasks in OmniTaskonomy across its 25 understanding capabilities.",
       "source": {
         "file": "iclr2026/sections/5_analysis.tex",
         "start_line": 16,
         "end_line": 16,
-        "raw_tex": "We now evaluate the 15 I2I task types in \\methodname and two additional objectives, inpainting and localization, across its 25 I2T capabilities.",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "raw_tex": "We now evaluate the 19 I2I tasks in \\methodname across its 25 understanding capabilities.",
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "transfer_caption": {
-      "text": "Each column corresponds to an I2I supervision task and each row to an I2T capability in OmniTaskonomy. Cells report the change in accuracy, in percentage points, relative to the I2T-only baseline. Blue indicates positive transfer and red indicates negative transfer. Outlined values mark each capability's largest observed gain, including ties.",
+      "text": "Each column corresponds to an I2I task and each row to an understanding capability in OmniTaskonomy. Cells report the change in accuracy, in percentage points, relative to the I2T-only baseline. Blue indicates positive transfer and red indicates negative transfer. Cells with p<0.05 from paired permutation tests against the I2T-only baseline are outlined and labeled with their gains and a star.",
       "source": {
         "file": "iclr2026/sections/5_analysis.tex",
         "start_line": 5,
         "end_line": 8,
-        "raw_tex": "Each column corresponds to an I2I supervision task and each row to an I2T capability in \\methodname.\n    Cells report the change in accuracy, in percentage points, relative to the I2T-only baseline.\n    Blue indicates positive transfer and red indicates negative transfer.\n    Outlined values mark each capability's largest observed gain, including ties.",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "raw_tex": "Each column corresponds to an I2I task and each row to an understanding capability in \\methodname.\n    Cells report the change in accuracy, in percentage points, relative to the I2T-only baseline.\n    Blue indicates positive transfer and red indicates negative transfer.\n    Cells with $p<0.05$ from paired permutation tests against the I2T-only baseline are outlined and labeled with their gains and a star.",
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "transfer_lead": {
@@ -290,7 +290,7 @@
         "start_line": 32,
         "end_line": 32,
         "raw_tex": "Useful generation supervision thus extends across recognition, geometry, and spatial reasoning, with different sources benefiting different capabilities.",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "related_heading": {
@@ -300,17 +300,17 @@
         "start_line": 28,
         "end_line": 28,
         "raw_tex": "\\paragraph{Useful source-target pairs can share visual requirements.}",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "related_example": {
-      "text": "Counting improves with all 17 sources, with 12 gains reaching p<0.05. Object pointing produces the largest observed gain (+3.57 pp, p<0.001): both tasks require identifying the objects to be counted.",
+      "text": "Counting improves with all 19 sources, with 14 gains reaching p<0.05. Localization and object pointing yield the largest observed gains (+3.70 and +3.57 pp, respectively; both p<0.001): both objectives require identifying and locating objects.",
       "source": {
         "file": "iclr2026/sections/5_analysis.tex",
         "start_line": 29,
         "end_line": 29,
-        "raw_tex": "Counting improves with all 17 sources, with 12 gains reaching $p<0.05$. Object pointing produces the largest observed gain ($+3.57$ pp, $p<0.001$): both tasks require identifying the objects to be counted.",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "raw_tex": "Counting improves with all 19 sources, with 14 gains reaching $p<0.05$. Localization and object pointing yield the largest observed gains ($+3.70$ and $+3.57$ pp, respectively; both $p<0.001$): both objectives require identifying and locating objects.",
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "depth_example": {
@@ -320,7 +320,7 @@
         "start_line": 29,
         "end_line": 29,
         "raw_tex": "Geometry supervision also benefits metric 3D relation: Z-depth, Euclidean depth, and surface normals improve accuracy by $2.90$, $2.77$, and $2.49$ pp, respectively (all $p<0.03$).",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "cross_heading": {
@@ -330,17 +330,17 @@
         "start_line": 31,
         "end_line": 31,
         "raw_tex": "\\paragraph{Different sources benefit complementary capabilities.}",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "cross_results": {
-      "text": "Inpainting improves category recognition (+3.22 pp) and 2D ordering (+11.05 pp), while 2.5D segmentation produces the largest observed ordering gain (+11.58 pp). Colorization gives the largest observed gain on visual correspondence (+5.71 pp), crossing the taxonomy's Reconstruction–Reorganization boundary. All four gains have p<0.01.",
+      "text": "Attribute editing improves category recognition (+2.81 pp, p<0.01), and object editing improves 2D ordering (+8.42 pp, p<0.03). Inpainting and 2.5D segmentation also improve ordering (+9.47 and +11.58 pp), while colorization gives the largest observed gain on visual correspondence (+5.71 pp; all three p<0.01).",
       "source": {
         "file": "iclr2026/sections/5_analysis.tex",
         "start_line": 32,
         "end_line": 32,
-        "raw_tex": "Inpainting improves category recognition ($+3.22$ pp) and 2D ordering ($+11.05$ pp), while 2.5D segmentation produces the largest observed ordering gain ($+11.58$ pp). Colorization gives the largest observed gain on visual correspondence ($+5.71$ pp), crossing the taxonomy's Reconstruction--Reorganization boundary. All four gains have $p<0.01$.",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "raw_tex": "Attribute editing improves category recognition ($+2.81$ pp, $p<0.01$), and object editing improves 2D ordering ($+8.42$ pp, $p<0.03$). Inpainting and 2.5D segmentation also improve ordering ($+9.47$ and $+11.58$ pp), while colorization gives the largest observed gain on visual correspondence ($+5.71$ pp; all three $p<0.01$).",
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "alignment_heading": {
@@ -440,17 +440,17 @@
         "start_line": 1,
         "end_line": 1,
         "raw_tex": "\\methodname",
-        "file_sha256": "10a8f6808e4dcb3293c243919561328084497648cee6813b4294fee27a2c149c"
+        "file_sha256": "20e481c1c954675237f1da5d401b8d694a9bd99a0b64e6496f15d2c871e52682"
       }
     },
     "nav_transfer": {
-      "text": "generation data help which visual capabilities?",
+      "text": "generation tasks help which understanding capabilities?",
       "source": {
         "file": "iclr2026/sections/5_analysis.tex",
-        "start_line": 14,
-        "end_line": 14,
-        "raw_tex": "generation data help which visual capabilities?",
-        "file_sha256": "ef70e0a1181f10ffea530326100da87d61baf99d9edbaa208f777404ca22d337"
+        "start_line": 13,
+        "end_line": 13,
+        "raw_tex": "generation tasks help which understanding capabilities?",
+        "file_sha256": "68029c79801715e302098b38ce0dc1fac1059b3c20f8cd0a14eee7df7a214317"
       }
     },
     "nav_alignment": {

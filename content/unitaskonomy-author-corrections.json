@@ -1,13 +1,14 @@
 {
   "source": {
-    "type": "author-provided-figure",
-    "file": "codex-clipboard-b9c7e198-0050-4591-a9c6-2b1f15bb0ff4.png",
-    "sha256": "ba2b43bbc7fcf5e0e6c902aed3ca29f9364b8465412922e6a6e9759bd2198dba"
+    "type": "current-paper-inventory",
+    "file": "analysis/transfer_v13/data/i2i_inventory.json",
+    "sha256": "5ff1aa1e8bb3963fc664583ecf68e85826ee2d3451019fbd817a830d4a5054a5",
+    "paper_commit": "5bc4f423bd22acd2505d62135f1aa9ffd0140a61"
   },
-  "leaf_families": {
-    "i2i:semantic_segmentation": "RORG"
-  },
+  "leaf_families": {},
   "i2i_column_order": [
+    "i2i:object_replacement",
+    "i2i:attribute_editing",
     "i2i:colorization",
     "i2i:z_depth",
     "i2i:euclidean_depth",
@@ -27,8 +28,9 @@
     "i2i:localization"
   ],
   "i2i_tree_order": [
+    "i2i:object_replacement",
+    "i2i:attribute_editing",
     "i2i:colorization",
-    "i2i:inpainting",
     "i2i:z_depth",
     "i2i:euclidean_depth",
     "i2i:surface_normals",
@@ -36,13 +38,14 @@
     "i2i:occlusion_edges",
     "i2i:keypoints_3d",
     "i2i:reshading",
-    "i2i:segmentation_2d",
-    "i2i:object_pointing",
-    "i2i:localization",
+    "i2i:inpainting",
     "i2i:semantic_segmentation",
     "i2i:edges_2d",
     "i2i:keypoints_2d",
+    "i2i:segmentation_2d",
     "i2i:segmentation_25d",
-    "i2i:jigsaw"
+    "i2i:object_pointing",
+    "i2i:jigsaw",
+    "i2i:localization"
   ]
 }

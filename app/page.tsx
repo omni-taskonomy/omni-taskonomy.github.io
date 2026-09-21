@@ -132,19 +132,6 @@ function InteractiveFigure({ caption, children }: { caption: ExcerptId; children
   </figure>;
 }
 
-function ArchitecturePanel() {
-  const name = 'bagel-attention-architecture';
-  return <div className="architecture-figure">
-    <div className="figure-frame architecture-frame">
-      <div className="figure-viewport architecture-viewport" tabIndex={0} role="region" aria-label="Scrollable BAGEL architecture diagram">
-        <a className="figure-link" href={`/figures/${name}.svg`} target="_blank" rel="noreferrer" aria-label="Open full-resolution BAGEL architecture diagram">
-          <img src={`/figures/${name}.svg`} alt={text('bagel_architecture_caption')} loading="lazy" />
-        </a>
-      </div>
-    </div>
-  </div>;
-}
-
 export default function Home() {
   const title = text('title');
   const titleBreak = title.indexOf(': ') + 2;
@@ -219,7 +206,6 @@ export default function Home() {
         <aside className="method-note experiment-setup"><Passage id="alignment_setup" /></aside>
         <figure className="interactive-figure alignment-composite">
           <div className="alignment-visuals">
-            <ArchitecturePanel />
             <GradientBars />
           </div>
           <figcaption><span data-manuscript-excerpt="alignment_caption" data-source={source('alignment_caption')}>{formatted(text('alignment_caption'), emphasis.alignment_caption)}</span></figcaption>

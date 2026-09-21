@@ -13,6 +13,7 @@ const original = payload as unknown as {
     scopes: { id: string; label: string; n: number }[];
     baseline: string; expected: Record<string, Record<string, number>>;
     metrics: Record<string, Record<string, Record<string, Pair>>>;
+    pvalues: Record<string, Record<string, Record<string, number | null>>>;
   };
   tree: { families: { id: string; name: string; definition: string; n: number }[]; leaves: Leaf[] };
   source: { heatmap: string; viewer: string; samples: string; hash: string; exported: string };
@@ -51,7 +52,8 @@ export function metric(scope: string, row: string, model: string) {
   const pair = data.heatmap.metrics[scope]?.[row]?.[model];
   const base = data.heatmap.metrics[scope]?.[row]?.[data.heatmap.baseline];
   const acc = accuracy(pair), baseline = accuracy(base);
-  return { pair, base, accuracy: acc, baseline, delta: acc === null || baseline === null ? null : acc - baseline };
+  const pValue = data.heatmap.pvalues[scope]?.[row]?.[model] ?? null;
+  return { pair, base, accuracy: acc, baseline, delta: acc === null || baseline === null ? null : acc - baseline, pValue };
 }
 export function number(value: number | null, precision = 2, signed = false) {
   if (value === null || !Number.isFinite(value)) return '—';

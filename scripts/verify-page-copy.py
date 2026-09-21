@@ -8,11 +8,11 @@ book=json.loads((BASE/'content/manuscript-excerpts.json').read_text())
 excerpts=book['excerpts']
 author_excerpts=json.loads((BASE/'content/author-provided-copy.json').read_text())['excerpts']
 def clean(s): return re.sub(r'\s+',' ',s).strip()
-ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Annotation protocol','01','02','03','04','05','TL;DR','Paper','GitHub','Hugging Face','🤗','1','2','3','Finding 1','Finding 2','Finding 3'}
+ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Annotation protocol','01','02','03','04','05','TL;DR','Paper','GitHub','Hugging Face','🤗','1','2','3','Finding 1','Finding 2','Finding 3','*'}
 ui.update({'Image Generation · I2I','Image Understanding · I2T',
  'Click a node to explore','OmniTaskonomy','I2I','I2T',
  'Benchmark',
- 'Hover to magnify · click to pin','Negative','Positive','Row maximum','I2I supervision task',
+ 'Hover to magnify · click to pin','Negative','Positive','p < 0.05','I2I supervision task',
  'I2T capability','−15 pp','+15 pp','Close'})
 ui.update({'Swipe to explore', 'Swipe to explore · tap a cell', 'Citation', '% BibTeX pending.', 'Module groups', 'RMSNorm layers', 'Full figure ↗', 'Source code ↗', 'Jigsaw', 'Zoom-In', 'Minibatch gradient alignment'})
 gradient=json.loads((BASE/'content/gradient-bars-v13.json').read_text())
@@ -73,7 +73,7 @@ with urllib.request.urlopen(url) as response:
  html=response.read().decode()
 audit=Audit();audit.feed(html)
 assert not audit.errors,json.dumps(audit.errors,ensure_ascii=False,indent=2)
-assert audit.description and audit.images==4,(audit.description,audit.images)
+assert audit.description and audit.images==3,(audit.description,audit.images)
 assert len(audit.matched)>=35,audit.matched
 assert {'tldr_question_1','tldr_question_2','tldr_question_3'} <= set(audit.matched)
 assert 'tldr_taxonomy_compact' not in audit.matched
@@ -83,10 +83,10 @@ assert 'class="task-pair"' not in html
 assert 'Original paper figure' not in html and 'class="ut-modalities"' not in html
 assert 'id="citation"' in html and '<code>% BibTeX pending.</code>' in html
 assert set(audit.author_matched)==set(author_excerpts),audit.author_matched
-assert sum(k=='data-v12-metric' for k,v in audit.v12_matched)==19*17
+assert sum(k=='data-v12-metric' for k,v in audit.v12_matched)==19*19
 assert audit.selects==['Benchmark'],audit.selects
 assert sorted(audit.visual_sources)==sorted(['controlled-gradient-json','checkpoint-norm-csv']),audit.visual_sources
 assert 'Minibatch gradient alignment' not in html
 assert all(v.split('|')[3]=='delta' for k,v in audit.v12_matched if k=='data-v12-metric')
-assert len({v for k,v in audit.v12_matched if k=='data-v12-copy' and v.startswith('leaf|') and v.endswith('|name')})==42
+assert len({v for k,v in audit.v12_matched if k=='data-v12-copy' and v.startswith('leaf|') and v.endswith('|name')})==44
 print(json.dumps({'source_commit':book['manuscript_commit'],'rendered_excerpt_instances':len(audit.matched),'unique_rendered_excerpts':len(set(audit.matched)),'author_provided_excerpts':len(audit.author_matched),'manuscript_derived_image_alts':audit.images,'v12_source_and_numeric_records':len(audit.v12_matched),'metadata_verbatim':audit.description,'unmapped_research_text':0},indent=2))

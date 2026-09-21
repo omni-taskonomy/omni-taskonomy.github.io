@@ -1,0 +1,21 @@
+{
+  "paper_commit": "5bc4f423bd22acd2505d62135f1aa9ffd0140a61",
+  "paired_results": {
+    "path": "analysis/transfer_v13/data/paired_results.json",
+    "sha256": "f49c52293f7682569f20cb55a0aeb8dd4a063f73cf1148515256482de6188f7e"
+  },
+  "i2i_inventory": {
+    "path": "analysis/transfer_v13/data/i2i_inventory.json",
+    "sha256": "5ff1aa1e8bb3963fc664583ecf68e85826ee2d3451019fbd817a830d4a5054a5"
+  },
+  "new_example_images": {
+    "i2i_object_replacement-input.jpg": "c32c1f4f4b9aa145a2a35aa4d7231a12a2a7d41ed1e34c194169d288fde1c73e",
+    "i2i_object_replacement-target.jpg": "405128668029836f77c42a62b41c5b20f2b846887574fdfb59024cab6a361182",
+    "i2i_attribute_editing-input.jpg": "e4269d0380b3e534d4dbe498a102c818c2424d753cd8f3d57a0ba3e359cb23a2",
+    "i2i_attribute_editing-target.jpg": "5aa73607c840d83b6fa29b29af9fb9e778ba956d0e2dccc280beec5a524e3715"
+  },
+  "models_including_baseline": 20,
+  "i2i_tasks": 19,
+  "understanding_capabilities": 25,
+  "main_map_capabilities": 19
+}
