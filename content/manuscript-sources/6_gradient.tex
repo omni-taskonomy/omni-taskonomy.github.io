@@ -2,7 +2,7 @@
 \label{sec:gradient}
 Our transfer map shows that generation supervision helps some understanding capabilities but not others.
 We next ask whether these differences can be explained by the compatibility of their optimization signals.
-An I2I objective should transfer more strongly to an I2T capability when the two objectives favor similar parameter updates.
+An I2I objective should transfer more strongly to an understanding capability when the two objectives favor similar parameter updates.
 We test this using gradient alignment.
 We first use controlled paired tasks to understand where and how I2I and I2T gradients align across the model. 
 We then examine whether alignment tracks transfer across tasks in \methodname.
@@ -11,9 +11,8 @@ We then examine whether alignment tracks transfer across tasks in \methodname.
 \includegraphics[width=\linewidth]{iclr2026/figures/section6/gradient_transfer_overview.pdf}
 \caption{\textbf{Gradient alignment and transfer.}
 (a,b) Jigsaw and Zoom-In gradients at the pretrained BAGEL checkpoint, shown as grouped bars across module groups (ViT, connector, and LLM) and individual pre-attention RMSNorm layers (500 matched pairs per task). Scores are dimension-scaled, held-out post-PCA cosines.
-(c) I2T gradient norms during I2I-only training. Blue denotes Jigsaw and purple Zoom-In. Norms are unnormalized and shown on a linear scale; checkpoints are equally spaced.
-(d) Mean alignment and transfer across 15 sources for seven capabilities with more than 500 evaluation examples; the line is a least-squares fit.
-(e) Alignment and transfer for all 105 source--target pairs, with illustrative pairs labeled. Both panels use uncentered alignment and accuracy gains over the I2T-only baseline; colors identify target families. The ellipse is a descriptive covariance contour, not a confidence region. Methods and sampling details are in Appendix~\ref{app:gradient_alignment}.}
+(c) Mean alignment and transfer across 15 sources for seven capabilities with more than 500 evaluation examples; the line is a least-squares fit.
+(d) Alignment and transfer for all 105 source--target pairs, with illustrative pairs labeled. Both panels use uncentered alignment and accuracy gains over the I2T-only baseline; colors identify target families. The ellipse is a descriptive covariance contour, not a confidence region. Methods and sampling details are in Appendix~\ref{app:gradient_alignment}.}
 \label{fig:grad_analysis}
 \end{figure}
 
@@ -55,21 +54,21 @@ where \(\mathbf{P}_b\) contains the retained PCA directions and
 Larger positive scores indicate stronger directional alignment, while negative scores indicate opposing directions.
 Full details are provided in Appendix~\ref{app:gradient-method}. 
 \subsection{Gradient Structure in the Controlled Setting}
+\todo{emphasize this is on normalization layers with understanding branch}
 We first characterize gradient alignment using the controlled I2I-I2T task pairs (Jigsaw, Zoom-In) in Sec.~\ref{sec:controlled_settings}.
 We sample 500 matched source pairs and compute the corresponding I2I and I2T gradients at the pretrained checkpoint. 
 This controlled correspondence lets us ask where two objectives that operate on the same underlying visual problem induce compatible parameter updates.
 Figure~\ref{fig:grad_analysis}(a,b) shows the resulting alignment across model components for Jigsaw and Zoom-In. 
 In both cases, alignment is particularly strong in the pre-attention RMSNorm parameters. 
 Examining these parameters layer by layer further shows that the strongest alignment is concentrated in the earlier transformer layers.
-We also track the magnitude of the I2T gradients as the model undergoes I2I-only training. As shown in Fig.~\ref{fig:grad_analysis}(c), the I2T gradient norms are lower at the end of I2I training, indicating that generation supervision also alters the gradient magnitude of I2T tasks.
 \begin{findingbox}
-In controlled I2I-I2T pairs, gradient alignment is strongest in early pre-attention normalization layers, and the I2T gradient magnitudes decrease overall during I2I training.
+In controlled I2I-I2T pairs, gradient alignment is strongest in early pre-attention normalization layers.
 \end{findingbox}
 \subsection{Does Gradient Alignment Track Transfer Across Tasks?}
 The controlled analysis reveals that corresponding I2I and I2T objectives produce compatible gradient updates at pre-attention normalization layers.
-We use the original 15 source checkpoints with gradient measurements and all seven I2T capabilities with more than 500 evaluation examples (Appendix~\ref{app:gradient-minibatch}).
+We use the original 15 source checkpoints with gradient measurements and all seven understanding capabilities with more than 500 evaluation examples (Appendix~\ref{app:gradient-minibatch}).
 For each capability, we sample 500 examples and compute gradients using minibatches of size 64.
-For an I2I source $s$ and I2T target $t$, we compute the mean post-PCA gradient cosine ($G_{s,t}$) at the pretrained checkpoint using the pre-attention RMSNorm parameters concatenated across layers.
+For an I2I source task $s$ and target understanding capability $t$, we compute the mean post-PCA gradient cosine ($G_{s,t}$) at the pretrained checkpoint using the pre-attention RMSNorm parameters concatenated across layers.
 We compare this quantity with the downstream transfer gain
 ($\Delta_{s,t}$), defined as the target accuracy improvement over the I2T-only baseline after I2I training followed by I2T finetuning.
 \paragraph{Which capabilities benefit more from generation?}
@@ -80,11 +79,11 @@ $$
 \qquad
 \bar{\Delta}_t=\frac{1}{15}\sum_{s=1}^{15}\Delta_{s,t}.
 $$
-Figure~\ref{fig:grad_analysis}(d) plots \((\bar{G}_t,\bar{\Delta}_t)\) for each of the seven capabilities.
-We observe a strong positive correlation (\(r=0.953\)): capabilities whose gradients are more aligned with generation objectives on average also receive larger average gains from I2I training.
+Figure~\ref{fig:grad_analysis}(c) plots \((\bar{G}_t,\bar{\Delta}_t)\) for each of the seven capabilities.
+We observe a strong positive correlation (\(r=0.953\)): capabilities whose gradients are more aligned with I2I objectives on average also receive larger average gains from I2I training.
 \paragraph{Does alignment track transfer across task pairs?}
 We next examine all $(15\times7=105)$ source-target pairs individually.
-Figure~\ref{fig:grad_analysis}(e) plots each pair according to its gradient alignment ($G_{s,t}$) and downstream transfer gain ($\Delta_{s,t}$).
+Figure~\ref{fig:grad_analysis}(d) plots each pair according to its gradient alignment ($G_{s,t}$) and downstream transfer gain ($\Delta_{s,t}$).
 Alignment and transfer are positively correlated across these 105 pairs ($r=0.496$).
 
 

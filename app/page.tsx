@@ -4,7 +4,7 @@ import manuscriptContent from '@/content/manuscript-excerpts.json';
 import authorContent from '@/content/author-provided-copy.json';
 import { InteractiveTaxonomy, InteractiveTransferMap } from '@/components/interactive-figures';
 import { GradientBars } from '@/components/gradient-bars';
-import { GradientNorms } from '@/components/gradient-norms';
+import { GradientTransferScatter } from '@/components/gradient-transfer-scatter';
 import { coloredTerms } from '@/components/colored-terms';
 
 // The author requested resource buttons with their destinations left blank.
@@ -210,7 +210,7 @@ export default function Home() {
           </div>
           <figcaption><span data-manuscript-excerpt="alignment_caption" data-source={source('alignment_caption')}>{formatted(text('alignment_caption'), emphasis.alignment_caption)}</span></figcaption>
         </figure>
-        <div className="gradient-norm-layout"><InteractiveFigure caption="alignment_norms_caption"><GradientNorms /></InteractiveFigure></div>
+        <InteractiveFigure caption="alignment_transfer_caption"><GradientTransferScatter /></InteractiveFigure>
         <div className="analysis-copy prose"><Passage id="alignment_results" /><Passage id="alignment_lead" /></div>
         <blockquote className="finding"><Passage id="alignment_finding" /></blockquote>
       </div></section>

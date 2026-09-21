@@ -77,10 +77,10 @@
       "text": "I2I and I2T gradients align most strongly in early pre-attention normalization layers. Across these seven capabilities, higher average alignment is associated with larger average transfer gains.",
       "source": {
         "file": "iclr2026/sections/6_gradient.tex",
-        "start_line": 92,
-        "end_line": 93,
+        "start_line": 91,
+        "end_line": 92,
         "raw_tex": "I2I and I2T gradients align most strongly in early pre-attention normalization layers.\nAcross these seven capabilities, higher average alignment is associated with larger average transfer gains.",
-        "file_sha256": "2174fb58b0b74b5a5f52ee96998fcc91cf4a7e4d1e0ab3f36088e3f7d929df46"
+        "file_sha256": "a2ea56761d2ec1f825a238fcbe441dd48e68343310547a5ffa08041d7fad2a5c"
       }
     },
     "overview_caption_short": {
@@ -350,7 +350,7 @@
         "start_line": 1,
         "end_line": 1,
         "raw_tex": "\\section{What Explains Generation-to-Understanding Transfer?}",
-        "file_sha256": "2174fb58b0b74b5a5f52ee96998fcc91cf4a7e4d1e0ab3f36088e3f7d929df46"
+        "file_sha256": "a2ea56761d2ec1f825a238fcbe441dd48e68343310547a5ffa08041d7fad2a5c"
       }
     },
     "alignment_setup": {
@@ -360,27 +360,27 @@
         "start_line": 59,
         "end_line": 59,
         "raw_tex": "We sample 500 matched source pairs and compute the corresponding I2I and I2T gradients at the pretrained checkpoint.",
-        "file_sha256": "2174fb58b0b74b5a5f52ee96998fcc91cf4a7e4d1e0ab3f36088e3f7d929df46"
+        "file_sha256": "a2ea56761d2ec1f825a238fcbe441dd48e68343310547a5ffa08041d7fad2a5c"
       }
     },
     "alignment_results": {
-      "text": "We observe a strong positive correlation (r=0.953): capabilities whose gradients are more aligned with generation objectives on average also receive larger average gains from I2I training.",
+      "text": "We observe a strong positive correlation (r=0.953): capabilities whose gradients are more aligned with I2I objectives on average also receive larger average gains from I2I training.",
       "source": {
         "file": "iclr2026/sections/6_gradient.tex",
-        "start_line": 84,
-        "end_line": 84,
-        "raw_tex": "We observe a strong positive correlation (\\(r=0.953\\)): capabilities whose gradients are more aligned with generation objectives on average also receive larger average gains from I2I training.",
-        "file_sha256": "2174fb58b0b74b5a5f52ee96998fcc91cf4a7e4d1e0ab3f36088e3f7d929df46"
+        "start_line": 83,
+        "end_line": 83,
+        "raw_tex": "We observe a strong positive correlation (\\(r=0.953\\)): capabilities whose gradients are more aligned with I2I objectives on average also receive larger average gains from I2I training.",
+        "file_sha256": "a2ea56761d2ec1f825a238fcbe441dd48e68343310547a5ffa08041d7fad2a5c"
       }
     },
     "alignment_lead": {
       "text": "Alignment and transfer are positively correlated across these 105 pairs (r=0.496).",
       "source": {
         "file": "iclr2026/sections/6_gradient.tex",
-        "start_line": 88,
-        "end_line": 88,
+        "start_line": 87,
+        "end_line": 87,
         "raw_tex": "Alignment and transfer are positively correlated across these 105 pairs ($r=0.496$).",
-        "file_sha256": "2174fb58b0b74b5a5f52ee96998fcc91cf4a7e4d1e0ab3f36088e3f7d929df46"
+        "file_sha256": "a2ea56761d2ec1f825a238fcbe441dd48e68343310547a5ffa08041d7fad2a5c"
       }
     },
     "alignment_caption": {
@@ -390,17 +390,17 @@
         "start_line": 13,
         "end_line": 13,
         "raw_tex": "(a,b) Jigsaw and Zoom-In gradients at the pretrained BAGEL checkpoint, shown as grouped bars across module groups (ViT, connector, and LLM) and individual pre-attention RMSNorm layers (500 matched pairs per task). Scores are dimension-scaled, held-out post-PCA cosines.",
-        "file_sha256": "2174fb58b0b74b5a5f52ee96998fcc91cf4a7e4d1e0ab3f36088e3f7d929df46"
+        "file_sha256": "a2ea56761d2ec1f825a238fcbe441dd48e68343310547a5ffa08041d7fad2a5c"
       }
     },
-    "alignment_norms_caption": {
-      "text": "(c) I2T gradient norms during I2I-only training. Blue denotes Jigsaw and purple Zoom-In. Norms are unnormalized and shown on a linear scale; checkpoints are equally spaced.",
+    "alignment_transfer_caption": {
+      "text": "(c) Mean alignment and transfer across 15 sources for seven capabilities with more than 500 evaluation examples; the line is a least-squares fit. (d) Alignment and transfer for all 105 source–target pairs, with illustrative pairs labeled. Both panels use uncentered alignment and accuracy gains over the I2T-only baseline; colors identify target families. The ellipse is a descriptive covariance contour, not a confidence region.",
       "source": {
         "file": "iclr2026/sections/6_gradient.tex",
         "start_line": 14,
-        "end_line": 14,
-        "raw_tex": "(c) I2T gradient norms during I2I-only training. Blue denotes Jigsaw and purple Zoom-In. Norms are unnormalized and shown on a linear scale; checkpoints are equally spaced.",
-        "file_sha256": "2174fb58b0b74b5a5f52ee96998fcc91cf4a7e4d1e0ab3f36088e3f7d929df46"
+        "end_line": 15,
+        "raw_tex": "(c) Mean alignment and transfer across 15 sources for seven capabilities with more than 500 evaluation examples; the line is a least-squares fit.\n(d) Alignment and transfer for all 105 source--target pairs, with illustrative pairs labeled. Both panels use uncentered alignment and accuracy gains over the I2T-only baseline; colors identify target families. The ellipse is a descriptive covariance contour, not a confidence region.",
+        "file_sha256": "a2ea56761d2ec1f825a238fcbe441dd48e68343310547a5ffa08041d7fad2a5c"
       }
     },
     "alignment_scale": {
@@ -410,7 +410,7 @@
         "start_line": 13,
         "end_line": 13,
         "raw_tex": "Scores are dimension-scaled, held-out post-PCA cosines.",
-        "file_sha256": "2174fb58b0b74b5a5f52ee96998fcc91cf4a7e4d1e0ab3f36088e3f7d929df46"
+        "file_sha256": "a2ea56761d2ec1f825a238fcbe441dd48e68343310547a5ffa08041d7fad2a5c"
       }
     },
     "nav_controlled": {
@@ -460,7 +460,7 @@
         "start_line": 1,
         "end_line": 1,
         "raw_tex": "Generation-to-Understanding Transfer?",
-        "file_sha256": "2174fb58b0b74b5a5f52ee96998fcc91cf4a7e4d1e0ab3f36088e3f7d929df46"
+        "file_sha256": "a2ea56761d2ec1f825a238fcbe441dd48e68343310547a5ffa08041d7fad2a5c"
       }
     }
   }

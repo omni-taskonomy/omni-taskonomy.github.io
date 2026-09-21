@@ -65,6 +65,16 @@ if len(sys.argv) > 1:
         actual = H["pvalues"][row["scope"]][row["node_id"]][row["model"]]
         assert actual == row["p_value"]
 
+    scatter = json.loads((ROOT / "content/gradient-transfer-scatter.json").read_text())
+    gradient_file = paper / "analysis/section6/data/gradient_records.csv"
+    transfer_file = paper / "analysis/section6/data/transfer_full.csv"
+    summary_file = paper / "analysis/section6/data/analysis_summary.json"
+    assert scatter["source"]["gradient_records_sha256"] == sha256(gradient_file.read_bytes()).hexdigest()
+    assert scatter["source"]["transfer_full_sha256"] == sha256(transfer_file.read_bytes()).hexdigest()
+    assert scatter["source"]["analysis_summary_sha256"] == sha256(summary_file.read_bytes()).hexdigest()
+    assert len(scatter["capability"]["points"]) == 7
+    assert len(scatter["pairs"]["points"]) == 105
+
 print(json.dumps({
     "paper_commit": provenance["paper_commit"],
     "models_including_baseline": len(H["models"]),

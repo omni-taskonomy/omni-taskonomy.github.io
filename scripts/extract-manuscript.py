@@ -69,7 +69,7 @@ take('alignment_setup',G,'We sample 500 matched source pairs','at the pretrained
 take('alignment_results',G,'We observe a strong positive correlation','larger average gains from I2I training.')
 take('alignment_lead',G,'Alignment and transfer are positively correlated across these 105 pairs ($r=0.496$).')
 take('alignment_caption',G,'(a,b) Jigsaw and Zoom-In gradients','held-out post-PCA cosines.')
-take('alignment_norms_caption',G,'(c) I2T gradient norms during I2I-only training.','checkpoints are equally spaced.')
+take('alignment_transfer_caption',G,'(c) Mean alignment and transfer','confidence region.')
 take('alignment_scale',G,'Scores are dimension-scaled, held-out post-PCA cosines.')
 take('nav_controlled',P,'image generation help visual understanding?')
 take('nav_training',P,'Training Recipe')
