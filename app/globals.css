@@ -190,9 +190,9 @@ h3 { font-size:1.65rem; line-height:1.2; margin:0 0 17px; color:#365872; }
 .association-legend { display:flex; flex-wrap:wrap; gap:9px 18px; }
 .association-legend span { display:inline-flex; align-items:center; gap:7px; }
 .association-legend i { display:inline-block; width:10px; height:10px; border-radius:50%; }
-.association-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+.association-grid { display:grid; grid-template-columns:minmax(0,1fr); }
 .association-card { min-width:0; }
-.association-card + .association-card { border-left:1px solid #e5edf3; }
+.association-card + .association-card { border-top:1px solid #e5edf3; }
 .association-title { display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:15px 18px 0; font-size:1rem; }
 .association-title strong { font-family:'Cormorant Garamond',Georgia,serif; font-size:1.35rem; color:#263e54; }
 .association-title span { color:#627789; white-space:nowrap; }
@@ -238,7 +238,7 @@ h3 { font-size:1.65rem; line-height:1.2; margin:0 0 17px; color:#365872; }
 .gradient-matrix-group-start>* { border-top:5px solid #fff; }
 .gradient-matrix-detail { display:flex; flex-wrap:wrap; gap:6px 20px; align-items:center; min-height:70px; padding:13px 20px; border-top:1px solid #dce6ef; font-variant-numeric:tabular-nums; }
 .gradient-matrix-detail strong { min-width:100%; }
-@media(max-width:1050px) { .alignment-composite { width:min(780px,100%); margin:24px auto 30px; } .alignment-visuals { display:block; width:100%; } .association-grid { grid-template-columns:1fr; } .association-card + .association-card { border-left:0; border-top:1px solid #e5edf3; } }
+@media(max-width:1050px) { .alignment-composite { width:min(780px,100%); margin:24px auto 30px; } .alignment-visuals { display:block; width:100%; } }
 @media(max-width:600px) { .gradient-chart-head { align-items:flex-start; flex-direction:column; padding:14px; gap:9px; } .gradient-chart-legend { padding:11px 14px; } .gradient-chart-scroll { padding:5px 8px; } .gradient-chart-detail { padding:10px 14px; font-size:.94rem; } .gradient-chart-detail strong { flex-basis:100%; } .association-guide,.association-title,.association-detail { padding-inline:12px; } .association-title { align-items:flex-start; flex-direction:column; gap:2px; } .association-plot { min-width:440px; } .association-card { overflow-x:auto; scrollbar-width:thin; } .gradient-matrix-panel>summary { font-size:1.55rem; } .gradient-matrix-controls { padding:12px; } .gradient-matrix-scroll { padding-inline:6px; } .gradient-matrix-detail { padding:12px; } }
 .acknowledgments { max-width:780px; padding:60px 0 48px; text-align:left; }
 .acknowledgments h2 { font-size:2rem; margin-bottom:19px; text-align:center; }
