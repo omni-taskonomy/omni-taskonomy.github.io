@@ -91,8 +91,7 @@ figcaption { color:var(--body-secondary); font-size:.95rem; line-height:1.75; te
 .bubble-key i:nth-child(3) { width:15px; height:15px; }
 .section-nav { position:sticky; top:0; z-index:10; border-block:1px solid var(--border); background:rgba(255,255,255,.97); backdrop-filter:blur(12px); overflow-x:auto; }
 .nav-inner { display:flex; justify-content:center; align-items:center; gap:14px; min-height:46px; padding:5px 14px; margin:auto; width:max-content; max-width:100%; }
-.nav-inner a { display:inline-block; white-space:nowrap; color:#687583; font-family:'Cormorant Garamond',Georgia,serif; font-size:1rem; font-weight:500; line-height:1.25; padding:5px 0; }
-.nav-inner a::first-letter { text-transform:uppercase; }
+.nav-inner a { display:inline-block; white-space:nowrap; color:#687583; font-family:'Cormorant Garamond',Georgia,serif; font-size:1rem; font-weight:500; line-height:1.25; padding:5px 0; text-transform:capitalize; }
 .nav-inner a:hover { color:#326eb1; text-decoration:none; }
 .chapter { padding:65px 0 60px; border-bottom:1px solid #edf0f3; }
 .chapter-tinted { background:#f8fafc; }
