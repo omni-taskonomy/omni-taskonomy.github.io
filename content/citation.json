@@ -1,5 +1,5 @@
 {
   "manuscript_commit": "84ba6b43b3ee04804daeec5e8fbf064571202b22",
-  "source": "Final manuscript title and author order; project URL. arXiv identifier not yet assigned.",
-  "bibtex": "@misc{ge2026omnitaskonomy,\n  title = {{OmniTaskonomy}: When Does Visual Generation Improve Visual Understanding},\n  author = {Ge, Jiaxin and\n            Qin, Yiming and\n            Xie, Ji and\n            Jiang, Haozhe and\n            Han, Xiaochuang and\n            Zhang, Junyi and\n            Dai, Andrew and\n            Yang, Yinfei and\n            Malik, Jitendra and\n            Krishna, Ranjay and\n            Min, Sewon and\n            Feng, Haiwen and\n            Xue, Le and\n            Shi, Baifeng and\n            Darrell, Trevor and\n            Wang, XuDong},\n  year = {2026},\n  url = {https://omni-taskonomy.github.io/}\n}"
+  "source": "Official arXiv BibTeX export: https://arxiv.org/bibtex/2609.38079 (retrieved 2026-09-29); reformatted as @article with surname-first authors at author request (2026-09-30), not a Google Scholar export",
+  "bibtex": "@article{ge2026omnitaskonomy,\n  title={OmniTaskonomy: When Does Visual Generation Improve Visual Understanding?},\n  author={Ge, Jiaxin and Qin, Yiming and Xie, Ji and Jiang, Haozhe and Han, Xiaochuang and Zhang, Junyi and Dai, Andrew and Yang, Yinfei and Malik, Jitendra and Krishna, Ranjay and Min, Sewon and Feng, Haiwen and Xue, Le and Shi, Baifeng and Darrell, Trevor and Wang, XuDong},\n  journal={arXiv preprint arXiv:2609.38079},\n  year={2026}\n}"
 }

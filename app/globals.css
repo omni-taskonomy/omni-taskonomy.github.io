@@ -677,3 +677,18 @@ main p[data-manuscript-excerpt], main p[data-author-copy],
 #alignment .alignment-panel .association-card-caption,
 #alignment .association-card .association-card-caption { font-size:1rem; }
 @media(max-width:600px) { #alignment .association-plot { min-width:0; width:100%; } }
+
+/* Resource links: consistent styling and clear interactive states. */
+.resource-buttons { gap:12px; margin-top:24px; }
+.resource-button { min-height:48px; padding:10px 21px; gap:10px; border-radius:999px; font-size:16px; font-weight:600; cursor:pointer; box-shadow:0 2px 4px #18232f18; transition:transform 150ms ease,box-shadow 150ms ease,background-color 150ms ease,border-color 150ms ease; }
+.resource-arxiv, .resource-github, .resource-huggingface { background:#292d32; border-color:#292d32; color:#fff; }
+.resource-button .hf-logo-frame { display:inline-flex; align-items:center; justify-content:center; width:27px; height:27px; flex-shrink:0; border-radius:7px; background:#fff; }
+.resource-button .hf-logo-frame img { display:block; width:23px; height:23px; }
+@media(hover:hover) {
+ .resource-button:hover { transform:translateY(-2px); box-shadow:0 7px 14px #18232f2b; text-decoration:none; }
+ .resource-arxiv:hover, .resource-github:hover, .resource-huggingface:hover { background:#41474e; border-color:#41474e; }
+}
+.resource-button:focus-visible { outline:3px solid #76a9dc; outline-offset:4px; }
+.resource-button:active { transform:translateY(1px) scale(.98); box-shadow:0 1px 2px #18232f25; }
+@media(prefers-reduced-motion:reduce) { .resource-button { transition:none; } .resource-button:hover,.resource-button:active { transform:none; } }
+@media(max-width:420px) { .resource-buttons { gap:8px; } .resource-button { padding:9px 13px; font-size:15px; } }

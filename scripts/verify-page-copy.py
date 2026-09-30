@@ -11,7 +11,7 @@ paper_metadata=json.loads((BASE/'content/paper-metadata.json').read_text())
 citation=json.loads((BASE/'content/citation.json').read_text())
 teaser_labels=json.loads((BASE/'content/tldr-teaser.json').read_text())['labels']
 def clean(s): return re.sub(r'\s+',' ',s).strip()
-ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Annotation protocol','01','02','03','04','05','TL;DR','Paper','GitHub','Hugging Face','🤗','1','2','3','Finding 1','Finding 2','Finding 3','*'}
+ui={'Skip to content','Read the manuscript','↗','Top ↑','View full size ↗','→','Manuscript ↗','Back to top ↑','Abstract','Training recipes','Annotation protocol','01','02','03','04','05','TL;DR','arXiv','Paper','GitHub','Hugging Face','🤗','1','2','3','Finding 1','Finding 2','Finding 3','*'}
 ui.update({'Visual Generation · I2I','Visual Understanding · I2T',
  'Click a node to explore','OmniTaskonomy','I2I','I2T',
  'Hover to magnify · click to pin','Negative','Positive','p < 0.05','I2I supervision task',
@@ -39,7 +39,9 @@ class Audit(HTMLParser):
   if tag=='select': self.selects.append(attrs.get('aria-label'))
   if tag=='meta' and attrs.get('name')=='description':
    assert attrs['content']==excerpts['description']['text'];self.description=True
-  if tag=='img':
+  if tag=='img' and attrs.get('src')=='/icons/huggingface.svg':
+   assert attrs.get('alt')=='', 'Brand icon must be decorative'
+  elif tag=='img':
    assert attrs.get('alt') in ({v['text'] for v in excerpts.values()} | {v['text'] for v in author_excerpts.values()}),'Unmapped image alt text';self.images+=1
   key=attrs.get('data-manuscript-excerpt')
   author_key=attrs.get('data-author-copy')
@@ -102,7 +104,7 @@ assert paper_metadata['manuscript_commit']==book['manuscript_commit']
 assert len(paper_metadata['authors'])==16
 assert all(author.get('homepage','').startswith('https://') for author in paper_metadata['authors'])
 assert all(f'href="{author["homepage"]}"' in html for author in paper_metadata['authors'])
-assert 'href="/paper.pdf"' in html
+assert 'href="https://arxiv.org/abs/2609.38079"' in html
 assert 'href="https://github.com/para-lost/OmniTaskonomy/tree/main"' in html
 assert 'href="https://huggingface.co/collections/Wakals/omnitaskonomy"' in html
 assert set(audit.author_matched)==set(author_excerpts),audit.author_matched
